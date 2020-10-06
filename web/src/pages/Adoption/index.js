@@ -1,10 +1,13 @@
 import React from 'react';
 
+import { Container } from './styles';
+
 function Adoption() {
   return (
-    <div style={{  width: '100%' }}>
+    <Container>
       <h1>Adoption</h1>
-    </div>
+      <p>{'Teste Teste Teste '.repeat(1000)}</p>
+    </Container>
   );
 }
 

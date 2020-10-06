@@ -17,9 +17,11 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
   position: sticky;
   top: 0;
   left: 0;
+
   max-height: 100vh;
   overflow-y: auto;
 `;
@@ -41,7 +43,7 @@ export const Menu = styled.nav`
   display: flex;
   flex-direction: column;
 
-  height: 100%;
+  height: 100vh;
   background: var(--menubar-body);
 `;
 
@@ -139,4 +141,3 @@ export const HelpIconActive = styled(Help)`
 export const UserIcon = styled(User)`
   ${iconCSS}
 `;
-
