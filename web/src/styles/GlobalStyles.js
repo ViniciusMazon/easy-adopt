@@ -23,6 +23,8 @@ export default createGlobalStyle`
     background: var(--white);
   }
   :root {
+
+    font-size: 60%;
     --white: #FFF;
     --link : #FF72A8;
     --menubar-topside: #F9F9F9;
@@ -36,5 +38,12 @@ export default createGlobalStyle`
     --status-available: #09ffb5;
     --status-unavailable:#FF385C ;
     --status-adopted: #9969FF;
+    --header-background: #2F95A3;
+    --header-top-background: #118696;
+  }
+  @media (min-width: 700px) {
+    :root {
+      font-size: 62.5%;
+    }
   }
 `;

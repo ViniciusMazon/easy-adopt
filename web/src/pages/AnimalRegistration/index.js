@@ -3,15 +3,15 @@ import React from 'react';
 import { Container, Wrapper } from './styles';
 import Header from '../../components/Header';
 
-function Adoption() {
+function AnimalRegistration() {
   return (
     <Container>
-      <Header title={'Informações da'} animalName={'Mikka'} />
+      <Header title={'Cadastro de animal'} />
       <Wrapper>
-        <h1>Adoption</h1>
+        <h1>Animal Registration</h1>
       </Wrapper>
     </Container>
   );
 }
 
-export default Adoption;
+export default AnimalRegistration;

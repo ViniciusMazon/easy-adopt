@@ -10,27 +10,27 @@ export const Container = styled.div`
 `;
 
 export const Header = styled.div`
-  margin-top: 63px;
+  margin-top: 6.3rem;
   display: flex;
   justify-content: space-between;
 
   > a {
-    margin-left: 90px;
+    margin-left: 9.0rem;
     display: flex;
     align-items: center;
     text-decoration: none;
 
     > p {
-      font-size: 16px;
+      font-size: 1.6rem;
       font-weight: 500;
       color: var(--link);
-      margin-left: 4px;
+      margin-left: .4rem;
     }
   }
 `;
 
 export const SearchBox = styled.form`
-  margin-right: 90px;
+  margin-right: 9.0rem;
   display: flex;
   align-items: center;
 
@@ -38,34 +38,34 @@ export const SearchBox = styled.form`
     outline: 0;
   }
 
-  border: 1px solid var(--border);
-  border-radius: 6px;
+  border: .1rem solid var(--border);
+  border-radius: .6rem;
   background: var(--input-background);
-  padding: 20px 30px;
+  padding: 2.0rem 3.0rem;
 `;
 
 export const AnimalsCards = styled.main`
-  padding: 50px 50px 0 50px;
+  padding: 5.0rem 5.0rem 0 5.0rem;
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
 
   > div {
-    margin-bottom: 35px;
-    margin-left: 45px;
+    margin-bottom: 3.5rem;
+    margin-left: 4.5rem;
   }
 `;
 
 export const PlusIcon = styled(Plus)`
-  width: 28px;
-  height: 28px;
+  width: 2.8rem;
+  height: 2.8rem;
   flex-shrink: 0;
   fill: var(--link);
 `;
 
 export const SearchIcon = styled(Search)`
-  width: 20px;
-  height: 20px;
+  width: 2.0rem;
+  height: 2.0rem;
   flex-shrink: 0;
   fill: var(--subtext);
 `;

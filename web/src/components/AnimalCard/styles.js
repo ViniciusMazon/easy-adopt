@@ -2,23 +2,23 @@ import styled from 'styled-components';
 import { OpenInNew } from '../../styles/Icons';
 
 export const Container = styled.div`
-  width: 340px;
-  height: 140px;
+  width: 34rem;
+  height: 14rem;
   display: flex;
   align-items: center;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 6px 12px 6px 0;
+  border: 0.1rem solid var(--border);
+  border-radius: 0.8rem;
+  padding: 0.6rem 1.2rem 0.6rem 0;
 `;
 
 export const Avatar = styled.image`
-  height: 140px;
-  width: 140px;
+  height: 14.0rem;
+  width: 14.0rem;
   background: url(${(props) => props.avatarURL}) no-repeat center;
   background-size: cover;
   flex-shrink: 0;
-  margin-right: 18px;
-  border-radius: 8px 0 0 8px;
+  margin-right: 1.8rem;
+  border-radius: .8rem 0 0 .8rem;
 `;
 
 export const DataInfo = styled.div`
@@ -31,15 +31,15 @@ export const DataInfo = styled.div`
 
   > span {
     > strong {
-      font-size: 24px;
+      font-size: 2.4rem;
       font-weight: 600;
       color: var(--text);
     }
     > p {
-      font-size: 16px;
+      font-size: 1.6rem;
       font-weight: 400;
       color: var(--subtext);
-      line-height: 18px;
+      line-height: 1.8rem;
     }
   }
 `;
@@ -50,15 +50,15 @@ export const Status = styled.div`
   align-items: center;
 
   > p {
-    font-size: 15px;
+    font-size: 1.5rem;
     font-weight: 500;
     color: var(--subtext);
   }
 `;
 
 export const StatusIndicator = styled.div`
-  width: 14px;
-  height: 14px;
+  width: 1.4rem;
+  height: 1.4rem;
   border-radius: 50%;
   background: ${(props) => {
     switch (props.status) {
@@ -75,7 +75,7 @@ export const StatusIndicator = styled.div`
     }
   }};
 
-  margin-right: 8px;
+  margin-right: .8rem;
 `;
 
 export const DetailButton = styled.button`
@@ -83,7 +83,7 @@ export const DetailButton = styled.button`
   display: flex;
   align-items: center;
 
-  font-size: 16px;
+  font-size: 1.6rem;
   font-weight: 500;
   color: var(--subtext);
 
@@ -92,10 +92,10 @@ export const DetailButton = styled.button`
 `;
 
 export const DetailIcon = styled(OpenInNew)`
-  width: 20px;
-  height: 20px;
+  width: 2.0rem;
+  height: 2.0rem;
   flex-shrink: 0;
   fill: var(--subtext);
 
-  margin-right: 8px;
+  margin-right: .8rem;
 `;

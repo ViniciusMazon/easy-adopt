@@ -43,7 +43,7 @@ function Animals() {
   return (
     <Container>
       <Header>
-        <Link to="/">
+        <Link to="/add-animal">
           <PlusIcon />
           <p>Cadastrar novo animal</p>
         </Link>
