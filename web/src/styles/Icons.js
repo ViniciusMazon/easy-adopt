@@ -7,4 +7,6 @@ export {
 export { DonateHeart } from 'styled-icons/boxicons-solid';
 export { DonateHeart as DonateHeartOutline } from 'styled-icons/boxicons-regular';
 export { Help, HelpOutline } from 'styled-icons/material-rounded';
-export { User } from 'styled-icons/evil';
+export { User, Search } from 'styled-icons/evil';
+export { Plus } from 'styled-icons/boxicons-regular';
+export { OpenInNew } from 'styled-icons/material';
