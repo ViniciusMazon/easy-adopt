@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { useMenuBar } from '../../context/MenuBar';
+import { useUser } from '../../context/User';
 
 import {
   Container,
@@ -25,8 +26,11 @@ import {
 import logo from '../../assets/logo.svg';
 import logoSimplified from '../../assets/simplifiedLogo.svg';
 
+import data from '../../tempData/user';
+
 function MenuBar() {
   const history = useHistory();
+  const { user, setUser } = useUser();
 
   const {
     activeSection,
@@ -34,6 +38,14 @@ function MenuBar() {
     setActiveSection,
     setIsCompacted,
   } = useMenuBar();
+
+  function getUser() {
+    setUser(data);
+  }
+
+  useEffect(() => {
+    getUser();
+  }, [getUser]);
 
   function toggleMenu() {
     setIsCompacted(!isCompacted);
@@ -98,7 +110,7 @@ function MenuBar() {
 
       <BotSide isCompacted={isCompacted}>
         <UserIcon />
-        <p>Vera Luna da Rosa</p>
+        <p>{user.name}</p>
       </BotSide>
     </Container>
   );
