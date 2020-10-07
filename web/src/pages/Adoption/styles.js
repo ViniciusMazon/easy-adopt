@@ -2,7 +2,10 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
-  max-width: 1500px;
   height: 100%;
+`;
+
+export const Wrapper = styled.div`
+  max-width: 1500px;
   margin: 0 auto;
 `;

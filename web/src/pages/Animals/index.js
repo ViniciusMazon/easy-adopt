@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import data from '../../tempData/animals';
+import { useMenuBar } from '../../context/MenuBar';
+import { useAnimals } from '../../context/Animals';
 
 import {
   Container,
@@ -13,18 +14,22 @@ import {
 } from './styles';
 
 import AnimalCard from '../../components/AnimalCard';
+import fakeData from '../../tempData/animals';
 
 function Animals() {
-  const [animals, setAnimals] = useState([]);
+  const { setIsCompacted } = useMenuBar();
+  const { animals, setAnimals } = useAnimals();
+
   const [searchFor, setSearchFor] = useState('');
 
   function getAnimals() {
-    setAnimals(data);
+    setAnimals(fakeData);
   }
 
   useEffect(() => {
     getAnimals();
-  }, []);
+    setIsCompacted(false);
+  }, [getAnimals, setIsCompacted]);
 
   function handleSearchAnimalByName(e) {
     e.preventDefault();
@@ -43,7 +48,7 @@ function Animals() {
   return (
     <Container>
       <Header>
-        <Link to="/">
+        <Link to="/add-animal">
           <PlusIcon />
           <p>Cadastrar novo animal</p>
         </Link>
@@ -58,16 +63,17 @@ function Animals() {
       </Header>
 
       <AnimalsCards>
-        {animals.map((item) => (
-          <AnimalCard
-            key={item.id}
-            id={item.id}
-            name={item.name}
-            gender={item.gender}
-            avatarURL={item.avatarURL}
-            status={item.status}
-          />
-        ))}
+        {animals &&
+          animals.map((item) => (
+            <AnimalCard
+              key={item.id}
+              id={item.id}
+              name={item.name}
+              gender={item.gender}
+              avatarURL={item.image1}
+              status={item.status}
+            />
+          ))}
       </AnimalsCards>
     </Container>
   );

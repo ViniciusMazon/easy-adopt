@@ -1,12 +1,15 @@
 import React from 'react';
 
-import { Container } from './styles';
+import { Container, Wrapper } from './styles';
+import Header from '../../components/Header';
 
 function Adoption() {
   return (
     <Container>
-      <h1>Adoption</h1>
-      <p>{'Teste Teste Teste '.repeat(1000)}</p>
+      <Header title={'Informações da'} animalName={'Mikka'} />
+      <Wrapper>
+        <h1>Adoption</h1>
+      </Wrapper>
     </Container>
   );
 }

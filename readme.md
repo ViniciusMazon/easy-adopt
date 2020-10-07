@@ -1,10 +1,18 @@
 # 💡 Sobre o projeto
 
+
+
+![Logo](C:\Users\vnpma\Documents\www\easy-adopt\docs\logo.svg)
+
+
+
+Criado como Trabalho de Conclusão do Curso de Engenharia de Software.
+
 O Easy Adopt é um sistema de adoção e gerenciamento de animais para ONGs. Atuando em duas frentes, uma por meio do aplicativo destinado aos usuários que desejam adotar um animal, possibilitando a divulgação dos animais disponíveis e que pedidos de adoção, agendamentos de visitas e doações sejam otimizados. A outra frente é por meio da SPA destinada a ONG que passará a administrar seus animais por meio de registros online, que eliminará a necessidade de manter registros físicos e permitirá que a geração de relatórios para decisão estratégica como compra de rações e de insumos para o tratamento dos animais seja feito mais facilmente. 
 
 
 
-# 🛸 Tecnologias
+# 🔬 Tecnologias
 
 * NodeJs
 * ReactJs
@@ -46,6 +54,6 @@ Depois que o merge da sua pull request for feito, você pode deletar a sua branc
 
 
 
-# 📝 Licença
+# 📃 Licença
 
 Esse projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.

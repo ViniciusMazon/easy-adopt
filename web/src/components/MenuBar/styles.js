@@ -23,7 +23,6 @@ export const Container = styled.div`
   left: 0;
 
   max-height: 100vh;
-  overflow-y: auto;
 `;
 
 export const TopSide = styled.div`
@@ -31,7 +30,7 @@ export const TopSide = styled.div`
   justify-content: center;
   align-items: center;
   background: var(--menubar-topside);
-  padding: ${(props) => (props.isCompacted ? '10px' : '26px 52px')};
+  padding: ${(props) => (props.isCompacted ? '1.0rem' : '2.6rem 5.2rem')};
 
   > img {
     flex-shrink: 0;
@@ -39,7 +38,7 @@ export const TopSide = styled.div`
 `;
 
 export const Menu = styled.nav`
-  padding-top: 30px;
+  padding-top: 3.0rem;
   display: flex;
   flex-direction: column;
 
@@ -52,14 +51,14 @@ export const MenuButton = styled.button`
   display: flex;
   justify-content: ${(props) => (props.isCompacted ? 'center' : 'flex-start')};
   flex-shrink: 0;
-  padding: ${(props) => (props.isCompacted ? '20px 0' : '20px 0px 20px 30px')};
+  padding: ${(props) => (props.isCompacted ? '2.0rem 0' : '2.0rem 0 2.0rem 3.0rem')};
 
   > span {
     display: ${(props) => (props.isCompacted ? 'none' : 'inherit')};
-    margin-left: 8px;
-    font-size: 16px;
+    margin-left: .8rem;
+    font-size: 1.6rem;
     color: var(--text-menu);
-    margin-top: 3px;
+    margin-top: .3rem;
   }
 
   cursor: pointer;
@@ -78,12 +77,12 @@ export const BotSide = styled.button`
   align-items: center;
   justify-content: center;
   background: var(--menubar-botside);
-  padding: ${(props) => (props.isCompacted ? '20px 0' : '20px 30px 20px 30px')};
+  padding: ${(props) => (props.isCompacted ? '2.0rem 0' : '2.0rem 3.0rem 2.0rem 3.0rem')};
 
   > p {
     display: ${(props) => (props.isCompacted ? 'none' : 'inherit')};
-    margin-left: 8px;
-    font-size: 12px;
+    margin-left: .8rem;
+    font-size: 1.2rem;
     color: var(--text-menu);
   }
 
@@ -92,8 +91,8 @@ export const BotSide = styled.button`
 `;
 
 const iconCSS = css`
-  width: 24px;
-  height: 24px;
+  width: 2.4rem;
+  height: 2.4rem;
   flex-shrink: 0;
   color: var(--text-menu);
 `;
