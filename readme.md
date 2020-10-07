@@ -2,7 +2,7 @@
 
 
 
-![Logo](C:\Users\vnpma\Documents\www\easy-adopt\docs\logo.svg)
+![Logo](docs/logo.svg)
 
 
 
