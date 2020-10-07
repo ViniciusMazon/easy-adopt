@@ -7,6 +7,8 @@ export const Container = styled.div`
 `;
 
 export const Topside = styled.div`
+  position: sticky;
+  top: 0;
   display: flex;
   align-items: center;
 
@@ -35,7 +37,7 @@ export const Body = styled.div`
   display: flex;
 
   > h2 {
-    margin: 6rem 0 0 .8rem;
+    margin: 6rem 0 0 0.8rem;
     color: var(--white);
     font-size: 3.6rem;
     font-family: 'Varela Round';
@@ -43,7 +45,9 @@ export const Body = styled.div`
 `;
 
 export const Title = styled.h1`
-  margin: 6rem 0 0 30rem;
+  margin: 6rem auto;
+  max-width: 76rem;
+  width: 100%;
   color: var(--white);
   font-size: 3.6rem;
   font-family: 'Varela Round';

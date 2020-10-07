@@ -23,7 +23,6 @@ export const Container = styled.div`
   left: 0;
 
   max-height: 100vh;
-  overflow-y: auto;
 `;
 
 export const TopSide = styled.div`

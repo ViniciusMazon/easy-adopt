@@ -11,6 +11,20 @@ import {
 } from './styles';
 
 function Header({ title, animalName }) {
+  return (
+    <>
+      <HeaderBack />
+      <Container>
+        <Body>
+          <Title>{title}</Title>
+          <h2>{animalName}</h2>
+        </Body>
+      </Container>
+    </>
+  );
+}
+
+const HeaderBack = () => {
   const history = useHistory();
 
   function handlerGoBack() {
@@ -18,19 +32,13 @@ function Header({ title, animalName }) {
   }
 
   return (
-    <Container>
-      <Topside>
-        <BackButton onClick={handlerGoBack}>
-          <BackIcon />
-          Voltar
-        </BackButton>
-      </Topside>
-      <Body>
-        <Title>{title}</Title>
-        <h2>{animalName}</h2>
-      </Body>
-    </Container>
+    <Topside>
+      <BackButton onClick={handlerGoBack}>
+        <BackIcon />
+        Voltar
+      </BackButton>
+    </Topside>
   );
-}
+};
 
 export default Header;

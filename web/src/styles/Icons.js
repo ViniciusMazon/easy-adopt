@@ -10,3 +10,4 @@ export { Help, HelpOutline, ArrowBack } from 'styled-icons/material-rounded';
 export { User, Search } from 'styled-icons/evil';
 export { Plus } from 'styled-icons/boxicons-regular';
 export { OpenInNew } from 'styled-icons/material';
+export { Save } from 'styled-icons/feather';
