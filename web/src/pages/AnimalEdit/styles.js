@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Save } from '../../styles/Icons';
+import { Close, Save } from '../../styles/Icons';
 
 export const Container = styled.div`
   width: 100%;
@@ -35,6 +35,18 @@ export const Container = styled.div`
       width: 100%;
       padding-bottom: 1.6rem;
       border-bottom: 0.1rem solid var(--title);
+
+      > button {
+        font: 500 1.6rem 'Montserrat';
+        color: var(--link);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        cursor: pointer;
+        outline: 0;
+      }
     }
 
     fieldset + fieldset {
@@ -53,6 +65,38 @@ export const Container = styled.div`
     }
   }
 `;
+
+export const Profile = styled.div`
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const AvatarContainer = styled.div`
+  width: 18rem;
+  height: 30rem;
+
+  display: flex;
+  align-items: center;
+`;
+
+export const Avatar = styled.img`
+  height: 18rem;
+  width: 18rem;
+  background: url(${(props) => props.avatarURL}) no-repeat center;
+  background-size: cover;
+  flex-shrink: 0;
+  margin-right: 1.8rem;
+  border-radius: 50%;
+`;
+
+export const AnimalInfo = styled.div`
+  margin-left: 3.4rem;
+  width: 100%;
+`;
+
+
 
 export const Gallery = styled.div`
   display: flex;
@@ -82,6 +126,15 @@ export const ButtonSave = styled.button`
   &:hover {
     background: var(--dark-green);
   }
+`;
+
+export const DeleteIcon = styled(Close)`
+  width: 2rem;
+  height: 2rem;
+  fill: var(--link);
+  flex-shrink: 0;
+
+  margin-right: 0.8rem;
 `;
 
 export const SaveIcon = styled(Save)`

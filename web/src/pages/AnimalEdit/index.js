@@ -1,29 +1,57 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Form } from '@unform/web';
-import { Scope } from '@unform/core';
-import * as Yup from 'yup';
-import { useMenuBar } from '../../context/MenuBar';
 import { useHistory } from 'react-router-dom';
-
-import { Container, Gallery, ButtonSave, SaveIcon } from './styles';
+import { Form } from '@unform/web';
+import * as Yup from 'yup';
 
 import Header from '../../components/Header';
-import { Input, Select } from '../../components/Form';
-import Dropzone from '../../components/Dropzone';
+import { Input, Select, ImageInput } from '../../components/Form';
+import { useMenuBar } from '../../context/MenuBar';
+
+import {
+  Container,
+  Profile,
+  AvatarContainer,
+  DeleteIcon,
+  Avatar,
+  AnimalInfo,
+  Gallery,
+  ButtonSave,
+  SaveIcon,
+} from './styles';
 
 import fakeDB from '../../tempData/animals';
 
-function AnimalRegistration() {
+export default function AnimalEdit() {
   const formRef = useRef(null);
   const history = useHistory();
   const { setIsCompacted } = useMenuBar();
 
-  const [image1, setImage1] = useState();
-  const [image2, setImage2] = useState();
-  const [image3, setImage3] = useState();
+  const [animal, setAnimal] = useState({});
 
   useEffect(() => {
     setIsCompacted(true);
+    setTimeout(() => {
+      const data = fakeDB[0];
+      setAnimal(data);
+
+      const formattedStatus =
+        data.status === 'disponível'
+          ? 'Disponível para adoção'
+          : 'Indisponível para adoção';
+
+      formRef.current.setData({
+        id: data.id,
+        name: data.name,
+        gender: data.gender,
+        size: data.size,
+        specie: data.specie,
+        age: data.age,
+        status: formattedStatus,
+        image1: data.image1,
+        image2: data.image2,
+        image3: data.image3,
+      });
+    }, 2000);
   }, [setIsCompacted]);
 
   async function handleSubmit(data) {
@@ -61,6 +89,7 @@ function AnimalRegistration() {
       // formData.append('status', formattedStatusName);
 
       const tempData = {
+        id: data.id,
         image1:
           'https://imagens.brasil.elpais.com/resizer/emY0sddaFt0rRsVdyjNGpIW6VHg=/768x0/arc-anglerfish-eu-central-1-prod-prisa.s3.amazonaws.com/public/POGGID5U7HB5OEVIB32OGG7ZWY.jpg',
         image2:
@@ -74,7 +103,6 @@ function AnimalRegistration() {
         age: data.age,
         status: formattedStatusName,
       };
-      fakeDB.push(tempData);
 
       formRef.current.setErrors({});
       history.push('/');
@@ -94,42 +122,62 @@ function AnimalRegistration() {
 
   return (
     <Container>
-      <Header title={'Cadastro de animal'} />
+      <Header title={'Informações da '} animalName={animal.name} />
+
       <Form ref={formRef} onSubmit={handleSubmit}>
         <fieldset>
-          <legend>Fotos</legend>
-          <Gallery>
-            <Dropzone onFileUploaded={setImage1} />
-            <Dropzone onFileUploaded={setImage2} />
-            <Dropzone onFileUploaded={setImage3} />
-          </Gallery>
+          <legend>
+            Sobre o animal
+            <button>
+              <DeleteIcon />
+              Excluir animal permanentemente
+            </button>
+          </legend>
+
+          <Profile>
+            <AvatarContainer>
+              <Avatar avatarURL={animal.image1} />
+            </AvatarContainer>
+
+            <AnimalInfo>
+              <Input name="name" label="Nome" />
+
+              <div className="input-block">
+                <Select
+                  name="specie"
+                  label="Espécie"
+                  options={['Cachorro', 'Gato']}
+                />
+                <Select
+                  name="gender"
+                  label="Gênero"
+                  options={['Macho', 'Fêmea']}
+                />
+              </div>
+
+              <div className="input-block">
+                <Select
+                  name="size"
+                  label="Porte"
+                  options={['Pequeno', 'Médio', 'Grande']}
+                />
+                <Select
+                  name="age"
+                  label="Idade"
+                  options={['Filhote', 'Adulto', 'Sênior']}
+                />
+              </div>
+            </AnimalInfo>
+          </Profile>
         </fieldset>
 
         <fieldset>
-          <legend>Sobre o animal</legend>
-          <Input name="name" label="Nome" />
-
-          <div className="input-block">
-            <Select
-              name="specie"
-              label="Espécie"
-              options={['Cachorro', 'Gato']}
-            />
-            <Select name="gender" label="Gênero" options={['Macho', 'Fêmea']} />
-          </div>
-
-          <div className="input-block">
-            <Select
-              name="size"
-              label="Porte"
-              options={['Pequeno', 'Médio', 'Grande']}
-            />
-            <Select
-              name="age"
-              label="Idade"
-              options={['Filhote', 'Adulto', 'Sênior']}
-            />
-          </div>
+          <legend>Fotos</legend>
+          <Gallery>
+            <ImageInput name="image1" previewURL={animal.image1} />
+            <ImageInput name="image2" previewURL={animal.image2} />
+            <ImageInput name="image3" previewURL={animal.image3} />
+          </Gallery>
         </fieldset>
 
         <fieldset>
@@ -151,5 +199,3 @@ function AnimalRegistration() {
     </Container>
   );
 }
-
-export default AnimalRegistration;

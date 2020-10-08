@@ -9,6 +9,7 @@ import AnimalsProvider from './context/Animals';
 import Animals from './pages/Animals';
 import Adoption from './pages/Adoption';
 import AnimalRegistration from './pages/AnimalRegistration';
+import AnimalEdit from './pages/AnimalEdit';
 
 const css = {
   display: 'flex',
@@ -24,6 +25,7 @@ function PrivateRoutes() {
               <MenuBar />
               <Route exact path="/" component={Animals} />
               <Route path="/add-animal" component={AnimalRegistration} />
+              <Route path="/edit-animal/:id" component={AnimalEdit} />
               <Route path="/adoption" component={Adoption} />
             </div>
           </BrowserRouter>
