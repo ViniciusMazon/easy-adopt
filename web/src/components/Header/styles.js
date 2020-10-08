@@ -3,7 +3,7 @@ import { ArrowBack } from '../../styles/Icons';
 import backgroundImage from '../../assets/pawBackground.svg';
 
 export const Container = styled.div`
-  background: var(--header-background);
+  background: var(--green);
 `;
 
 export const Topside = styled.div`
@@ -13,7 +13,7 @@ export const Topside = styled.div`
   align-items: center;
 
   height: 6rem;
-  background: var(--header-top-background);
+  background: var(--dark-green);
 `;
 
 export const BackButton = styled.button`
@@ -35,22 +35,24 @@ export const Body = styled.div`
   background-size: cover;
 
   display: flex;
-
-  > h2 {
-    margin: 6rem 0 0 0.8rem;
-    color: var(--white);
-    font-size: 3.6rem;
-    font-family: 'Varela Round';
-  }
 `;
 
 export const Title = styled.h1`
+  display: inline-flex;
   margin: 6rem auto;
   max-width: 76rem;
   width: 100%;
-  color: var(--white);
+
   font-size: 3.6rem;
   font-family: 'Varela Round';
+  color: var(--white);
+
+  > h2 {
+    color: var(--white);
+    font-size: 3.6rem;
+    font-family: 'Varela Round';
+    margin-left: .8rem;
+  }
 `;
 
 export const BackIcon = styled(ArrowBack)`

@@ -29,7 +29,7 @@ export const TopSide = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: var(--menubar-topside);
+  background: var(--menu-topside);
   padding: ${(props) => (props.isCompacted ? '1.0rem' : '2.6rem 5.2rem')};
 
   > img {
@@ -43,7 +43,7 @@ export const Menu = styled.nav`
   flex-direction: column;
 
   height: 100vh;
-  background: var(--menubar-body);
+  background: var(--menu-body);
 `;
 
 export const MenuButton = styled.button`
@@ -57,7 +57,7 @@ export const MenuButton = styled.button`
     display: ${(props) => (props.isCompacted ? 'none' : 'inherit')};
     margin-left: .8rem;
     font-size: 1.6rem;
-    color: var(--text-menu);
+    color: var(--menu-text);
     margin-top: .3rem;
   }
 
@@ -66,7 +66,7 @@ export const MenuButton = styled.button`
 
   &:nth-child(${(props) => props.activeSection}) {
     span {
-      color: var(--text);
+      color: var(--title);
       font-weight: 600;
     }
   }
@@ -76,14 +76,14 @@ export const BotSide = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--menubar-botside);
+  background: var(--menu-botside);
   padding: ${(props) => (props.isCompacted ? '2.0rem 0' : '2.0rem 3.0rem 2.0rem 3.0rem')};
 
   > p {
     display: ${(props) => (props.isCompacted ? 'none' : 'inherit')};
     margin-left: .8rem;
     font-size: 1.2rem;
-    color: var(--text-menu);
+    color: var(--menu-text);
   }
 
   cursor: pointer;
@@ -94,7 +94,7 @@ const iconCSS = css`
   width: 2.4rem;
   height: 2.4rem;
   flex-shrink: 0;
-  color: var(--text-menu);
+  color: var(--menu-text);
 `;
 
 export const PawIcon = styled(PawOutline)`

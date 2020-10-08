@@ -69,6 +69,7 @@ function AnimalRegistration() {
 
     fakeDB.push(tempData);
     history.push('/');
+    setIsCompacted(false);
   }
 
   return (

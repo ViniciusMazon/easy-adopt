@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import { useMenuBar } from '../../context/MenuBar';
 import { useAnimals } from '../../context/Animals';
 
 import {
@@ -17,7 +16,6 @@ import AnimalCard from '../../components/AnimalCard';
 import fakeData from '../../tempData/animals';
 
 function Animals() {
-  const { setIsCompacted } = useMenuBar();
   const { animals, setAnimals } = useAnimals();
 
   const [searchFor, setSearchFor] = useState('');
@@ -28,8 +26,7 @@ function Animals() {
 
   useEffect(() => {
     getAnimals();
-    setIsCompacted(false);
-  }, [getAnimals, setIsCompacted]);
+  }, [getAnimals]);
 
   function handleSearchAnimalByName(e) {
     e.preventDefault();

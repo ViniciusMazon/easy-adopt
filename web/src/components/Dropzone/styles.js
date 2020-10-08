@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   width: 18rem;
   height: 18rem;
-  border: 0.1rem dashed var(--header-top-background);
+  border: 0.1rem dashed var(--dark-green);
   border-radius: 2rem;
 
   display: flex;

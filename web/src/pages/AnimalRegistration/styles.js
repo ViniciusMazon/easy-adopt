@@ -28,14 +28,14 @@ export const Main = styled.form`
 
   > fieldset legend {
     font: 2.4rem 'Varela Round';
-    color: var(--text);
+    color: var(--title);
     margin-bottom: 2.4rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
     padding-bottom: 1.6rem;
-    border-bottom: 0.1rem solid var(--text);
+    border-bottom: 0.1rem solid var(--title);
   }
 
   fieldset + fieldset {
@@ -78,7 +78,7 @@ export const Input = styled.span`
     outline: 0;
 
     &:focus {
-      border-color: var(--header-background);
+      border-color: var(--green);
     }
   }
 `;
@@ -102,7 +102,7 @@ export const Select = styled.span`
     outline: 0;
 
     &:focus {
-      border-color: var(--header-background);
+      border-color: var(--green);
     }
   }
 `;
@@ -117,7 +117,7 @@ export const ButtonSave = styled.button`
   justify-content: center;
 
   border-radius: 0.8rem;
-  background: var(--header-background);
+  background: var(--green);
 
   font: 500 1.6rem 'Montserrat';
   color: var(--white);
@@ -128,7 +128,7 @@ export const ButtonSave = styled.button`
   transition: background 0.2s;
 
   &:hover {
-    background: var(--header-top-background);
+    background: var(--dark-green);
   }
 `;
 

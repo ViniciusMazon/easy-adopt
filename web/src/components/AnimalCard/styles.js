@@ -33,7 +33,7 @@ export const DataInfo = styled.div`
     > strong {
       font-size: 2.4rem;
       font-weight: 600;
-      color: var(--text);
+      color: var(--title);
     }
     > p {
       font-size: 1.6rem;
@@ -71,7 +71,7 @@ export const StatusIndicator = styled.div`
       case 'adotado':
         return 'var(--status-adopted)';
       default:
-        return 'var(--text)';
+        return 'var(--title)';
     }
   }};
 
