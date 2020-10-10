@@ -5,7 +5,7 @@ export default createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    color: var(--text);
+    color: var(--title);
   }
   html, body, #root {
     max-height: 100vh;
@@ -23,23 +23,27 @@ export default createGlobalStyle`
     background: var(--white);
   }
   :root {
-
     font-size: 60%;
-    --white: #FFF;
-    --link : #FF72A8;
-    --menubar-topside: #F9F9F9;
-    --menubar-body: #D4D4D4;
-    --menubar-botside: #C4C4C4;
-    --text: #484848;
-    --subtext: #9C98A6;
-    --text-menu: #767676;
-    --border: #E6E6F0;
+
+    --menu-topside: #F9F9F9;
+    --menu-botside: #C4C4C4;
+    --menu-body: #D4D4D4;
+    --menu-text: #767676;
+
     --input-background: #F9FDFE;
+    --border: #E6E6F0;
+
+    --text: #9C98A6;
+    --title: #484848;
+    --link : #FF72A8;
+
+    --white: #FFF;
+    --green: #2F95A3;
+    --dark-green: #118696;
+
     --status-available: #09ffb5;
-    --status-unavailable:#FF385C ;
+    --status-unavailable: #FF385C;
     --status-adopted: #9969FF;
-    --header-background: #2F95A3;
-    --header-top-background: #118696;
   }
   @media (min-width: 700px) {
     :root {

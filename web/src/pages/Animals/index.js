@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import { useMenuBar } from '../../context/MenuBar';
 import { useAnimals } from '../../context/Animals';
 
 import {
@@ -14,35 +13,22 @@ import {
 } from './styles';
 
 import AnimalCard from '../../components/AnimalCard';
-import fakeData from '../../tempData/animals';
 
 function Animals() {
-  const { setIsCompacted } = useMenuBar();
   const { animals, setAnimals } = useAnimals();
-
+  const [filteredAnimals, setFilteredAnimals] = useState([]);
   const [searchFor, setSearchFor] = useState('');
-
-  function getAnimals() {
-    setAnimals(fakeData);
-  }
-
-  useEffect(() => {
-    getAnimals();
-    setIsCompacted(false);
-  }, [getAnimals, setIsCompacted]);
 
   function handleSearchAnimalByName(e) {
     e.preventDefault();
 
     if (!searchFor) {
-      getAnimals();
-      return;
+      setFilteredAnimals([]);
     }
 
-    const filteredAnimals = animals.filter(
-      (animal) => animal.name === searchFor
-    );
-    setAnimals(filteredAnimals);
+    const filter = animals.filter((animal) => animal.name === searchFor);
+
+    setFilteredAnimals(filter);
   }
 
   return (
@@ -63,17 +49,27 @@ function Animals() {
       </Header>
 
       <AnimalsCards>
-        {animals &&
-          animals.map((item) => (
-            <AnimalCard
-              key={item.id}
-              id={item.id}
-              name={item.name}
-              gender={item.gender}
-              avatarURL={item.image1}
-              status={item.status}
-            />
-          ))}
+        {filteredAnimals.length > 0
+          ? filteredAnimals.map((item) => (
+              <AnimalCard
+                key={item.id}
+                id={item.id}
+                name={item.name}
+                gender={item.gender}
+                avatarURL={item.image1}
+                status={item.status}
+              />
+            ))
+          : animals.map((item) => (
+              <AnimalCard
+                key={item.id}
+                id={item.id}
+                name={item.name}
+                gender={item.gender}
+                avatarURL={item.image1}
+                status={item.status}
+              />
+            ))}
       </AnimalsCards>
     </Container>
   );

@@ -1,6 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
+import { useMenuBar } from '../../context/MenuBar';
+
 import {
   Container,
   Topside,
@@ -16,8 +18,10 @@ function Header({ title, animalName }) {
       <HeaderBack />
       <Container>
         <Body>
-          <Title>{title}</Title>
-          <h2>{animalName}</h2>
+          <Title>
+            {title}
+            <h2>{animalName}</h2>
+          </Title>
         </Body>
       </Container>
     </>
@@ -26,9 +30,11 @@ function Header({ title, animalName }) {
 
 const HeaderBack = () => {
   const history = useHistory();
+  const { setIsCompacted } = useMenuBar();
 
   function handlerGoBack() {
     history.goBack();
+    setIsCompacted(false);
   }
 
   return (

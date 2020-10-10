@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import {
   Container,
@@ -6,7 +7,6 @@ import {
   DataInfo,
   Status,
   StatusIndicator,
-  DetailButton,
   DetailIcon,
 } from './styles';
 
@@ -26,10 +26,10 @@ function AnimalCard({ id, name, gender, avatarURL, status }) {
           <p>{gender}</p>
         </span>
 
-        <DetailButton>
+        <Link to={`/edit-animal/${id}`}>
           <DetailIcon />
           detalhes
-        </DetailButton>
+        </Link>
       </DataInfo>
     </Container>
   );

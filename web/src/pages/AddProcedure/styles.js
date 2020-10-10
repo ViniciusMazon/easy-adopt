@@ -35,6 +35,18 @@ export const Container = styled.div`
       width: 100%;
       padding-bottom: 1.6rem;
       border-bottom: 0.1rem solid var(--title);
+
+      > button {
+        font: 500 1.6rem 'Montserrat';
+        color: var(--link);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        cursor: pointer;
+        outline: 0;
+      }
     }
 
     fieldset + fieldset {
@@ -52,11 +64,6 @@ export const Container = styled.div`
       }
     }
   }
-`;
-
-export const Gallery = styled.div`
-  display: flex;
-  justify-content: space-between;
 `;
 
 export const ButtonSave = styled.button`
@@ -92,3 +99,4 @@ export const SaveIcon = styled(Save)`
 
   margin-right: 0.8rem;
 `;
+

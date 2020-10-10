@@ -12,13 +12,13 @@ export const Container = styled.div`
 `;
 
 export const Avatar = styled.image`
-  height: 14.0rem;
-  width: 14.0rem;
+  height: 14rem;
+  width: 14rem;
   background: url(${(props) => props.avatarURL}) no-repeat center;
   background-size: cover;
   flex-shrink: 0;
   margin-right: 1.8rem;
-  border-radius: .8rem 0 0 .8rem;
+  border-radius: 0.8rem 0 0 0.8rem;
 `;
 
 export const DataInfo = styled.div`
@@ -33,7 +33,7 @@ export const DataInfo = styled.div`
     > strong {
       font-size: 2.4rem;
       font-weight: 600;
-      color: var(--text);
+      color: var(--title);
     }
     > p {
       font-size: 1.6rem;
@@ -41,6 +41,19 @@ export const DataInfo = styled.div`
       color: var(--subtext);
       line-height: 1.8rem;
     }
+  }
+  > a {
+    align-self: flex-end;
+    display: flex;
+    align-items: center;
+
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: var(--text);
+
+    cursor: pointer;
+    text-decoration: none;
+    outline: 0;
   }
 `;
 
@@ -52,7 +65,7 @@ export const Status = styled.div`
   > p {
     font-size: 1.5rem;
     font-weight: 500;
-    color: var(--subtext);
+    color: var(--text);
   }
 `;
 
@@ -71,31 +84,18 @@ export const StatusIndicator = styled.div`
       case 'adotado':
         return 'var(--status-adopted)';
       default:
-        return 'var(--text)';
+        return 'var(--title)';
     }
   }};
 
-  margin-right: .8rem;
-`;
-
-export const DetailButton = styled.button`
-  align-self: flex-end;
-  display: flex;
-  align-items: center;
-
-  font-size: 1.6rem;
-  font-weight: 500;
-  color: var(--subtext);
-
-  cursor: pointer;
-  outline: 0;
+  margin-right: 0.8rem;
 `;
 
 export const DetailIcon = styled(OpenInNew)`
-  width: 2.0rem;
-  height: 2.0rem;
+  width: 2rem;
+  height: 2rem;
   flex-shrink: 0;
-  fill: var(--subtext);
+  fill: var(--text);
 
-  margin-right: .8rem;
+  margin-right: 0.8rem;
 `;
