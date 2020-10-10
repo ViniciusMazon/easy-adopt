@@ -18,15 +18,16 @@ export default function Select({ name, label, options, ...rest }) {
   return (
     <Container>
       <label>{label}</label>
-
-      <select ref={selectRef} defaultValue={defaultValue} {...rest}>
-        <option hidden>{rest.placeholder}</option>
-        {options.map((option) => (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ))}
-      </select>
+      <div className="select-box">
+        <select ref={selectRef} defaultValue={defaultValue} {...rest}>
+          <option hidden>{rest.placeholder}</option>
+          {options.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+      </div>
 
       {error && <span>{error}</span>}
     </Container>
