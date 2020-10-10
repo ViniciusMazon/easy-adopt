@@ -10,13 +10,13 @@ import { Container, Gallery, ButtonSave, SaveIcon } from './styles';
 import Header from '../../components/Header';
 import { Input, Select } from '../../components/Form';
 import Dropzone from '../../components/Dropzone';
-
-import fakeDB from '../../tempData/animals';
+import { useAnimals } from '../../context/Animals';
 
 function AnimalRegistration() {
   const formRef = useRef(null);
   const history = useHistory();
   const { setIsCompacted } = useMenuBar();
+  const { animals, setAnimals } = useAnimals();
 
   const [image1, setImage1] = useState();
   const [image2, setImage2] = useState();
@@ -24,7 +24,7 @@ function AnimalRegistration() {
 
   useEffect(() => {
     setIsCompacted(true);
-  }, [setIsCompacted]);
+  }, [animals, setIsCompacted]);
 
   async function handleSubmit(data) {
     try {
@@ -61,6 +61,7 @@ function AnimalRegistration() {
       // formData.append('status', formattedStatusName);
 
       const tempData = {
+        id: 3,
         image1:
           'https://imagens.brasil.elpais.com/resizer/emY0sddaFt0rRsVdyjNGpIW6VHg=/768x0/arc-anglerfish-eu-central-1-prod-prisa.s3.amazonaws.com/public/POGGID5U7HB5OEVIB32OGG7ZWY.jpg',
         image2:
@@ -74,7 +75,8 @@ function AnimalRegistration() {
         age: data.age,
         status: formattedStatusName,
       };
-      fakeDB.push(tempData);
+
+      setAnimals([...animals, tempData]);
 
       formRef.current.setErrors({});
       history.push('/');

@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Close, Save } from '../../styles/Icons';
+import styled, { css } from 'styled-components';
+import { Close, Save, Plus } from '../../styles/Icons';
 
 export const Container = styled.div`
   width: 100%;
@@ -96,8 +96,6 @@ export const AnimalInfo = styled.div`
   width: 100%;
 `;
 
-
-
 export const Gallery = styled.div`
   display: flex;
   justify-content: space-between;
@@ -128,13 +126,23 @@ export const ButtonSave = styled.button`
   }
 `;
 
-export const DeleteIcon = styled(Close)`
+export const ProcedureList = styled.ul``;
+
+const iconCSS = css`
   width: 2rem;
   height: 2rem;
   fill: var(--link);
   flex-shrink: 0;
 
   margin-right: 0.8rem;
+`;
+
+export const DeleteIcon = styled(Close)`
+  ${iconCSS}
+`;
+
+export const AddIcon = styled(Plus)`
+  ${iconCSS}
 `;
 
 export const SaveIcon = styled(Save)`

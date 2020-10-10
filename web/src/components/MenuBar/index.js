@@ -26,11 +26,9 @@ import {
 import logo from '../../assets/logo.svg';
 import logoSimplified from '../../assets/simplifiedLogo.svg';
 
-import data from '../../tempData/user';
-
 function MenuBar() {
   const history = useHistory();
-  const { user, setUser } = useUser();
+  const { user } = useUser();
 
   const {
     activeSection,
@@ -38,14 +36,6 @@ function MenuBar() {
     setActiveSection,
     setIsCompacted,
   } = useMenuBar();
-
-  function getUser() {
-    setUser(data);
-  }
-
-  useEffect(() => {
-    getUser();
-  }, [getUser]);
 
   function toggleMenu() {
     setIsCompacted(!isCompacted);

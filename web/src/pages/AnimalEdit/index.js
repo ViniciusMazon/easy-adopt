@@ -4,8 +4,12 @@ import { Form } from '@unform/web';
 import * as Yup from 'yup';
 
 import Header from '../../components/Header';
+import Procedure from '../../components/Procedure';
+
 import { Input, Select, ImageInput } from '../../components/Form';
 import { useMenuBar } from '../../context/MenuBar';
+import { useAnimals } from '../../context/Animals';
+import { useProcedures } from '../../context/Procedures';
 
 import {
   Container,
@@ -17,42 +21,83 @@ import {
   Gallery,
   ButtonSave,
   SaveIcon,
+  ProcedureList,
+  AddIcon,
 } from './styles';
 
-import fakeDB from '../../tempData/animals';
-
-export default function AnimalEdit() {
-  const formRef = useRef(null);
+export default function AnimalEdit({ match }) {
   const history = useHistory();
+  const formRef = useRef(null);
   const { setIsCompacted } = useMenuBar();
+  const { animals, setAnimals } = useAnimals();
+  const { procedures } = useProcedures();
 
-  const [animal, setAnimal] = useState({});
+  const [animalData, setAnimalData] = useState({});
+  const [proceduresData, setProceduresData] = useState([]);
 
   useEffect(() => {
     setIsCompacted(true);
+
     setTimeout(() => {
-      const data = fakeDB[0];
-      setAnimal(data);
+      const [animalSelected] = animals.filter((item) => {
+        if (item.id === Number(match.params.id)) {
+          return item;
+        }
+      });
+      setAnimalData(animalSelected);
+
+      // const proceduresOfThisAnimal = procedures.filter((item) => {
+      //   if (item.animal_id === Number(match.params.id)) {
+      //     return item;
+      //   }
+      // });
+      // setProceduresData(proceduresOfThisAnimal);
 
       const formattedStatus =
-        data.status === 'disponível'
+        animalSelected.status === 'disponível'
           ? 'Disponível para adoção'
           : 'Indisponível para adoção';
 
-      formRef.current.setData({
-        id: data.id,
-        name: data.name,
-        gender: data.gender,
-        size: data.size,
-        specie: data.specie,
-        age: data.age,
-        status: formattedStatus,
-        image1: data.image1,
-        image2: data.image2,
-        image3: data.image3,
-      });
+      if (formRef.current !== null) {
+        formRef.current.setData({
+          name: animalSelected.name,
+          gender: animalSelected.gender,
+          size: animalSelected.size,
+          specie: animalSelected.specie,
+          age: animalSelected.age,
+          status: formattedStatus,
+          image1: animalSelected.image1,
+          image2: animalSelected.image2,
+          image3: animalSelected.image3,
+        });
+      }
     }, 2000);
-  }, [setIsCompacted]);
+  }, [animals, match.params.id, procedures, setIsCompacted]);
+
+  useEffect(() => {
+    const proceduresOfThisAnimal = procedures.filter((item) => {
+      if (item.animal_id === Number(match.params.id)) {
+        return item;
+      }
+    });
+    setProceduresData(proceduresOfThisAnimal);
+  }, [match.params.id, procedures]);
+
+  function handleDeleteAnimal() {
+    const newAnimalsArray = animals.filter((item) => {
+      if (item.id !== Number(match.params.id)) {
+        return item;
+      }
+    });
+    setAnimals(newAnimalsArray);
+    history.push('/');
+  }
+
+  function handleAddProcedure() {
+    history.push(`/edit-animal/${animalData.id}/add-procedure`, {
+      animalName: animalData.name,
+    });
+  }
 
   async function handleSubmit(data) {
     try {
@@ -77,19 +122,8 @@ export default function AnimalEdit() {
           ? 'disponível'
           : 'indisponível';
 
-      // const formData = new FormData();
-      // data.append('image1', image1);
-      // data.append('image2', image2);
-      // data.append('image3', image3);
-      // formData.append('name', data.name);
-      // formData.append('specie', data.specie);
-      // formData.append('gender', data.gender);
-      // formData.append('size', data.size);
-      // formData.append('age', data.age);
-      // formData.append('status', formattedStatusName);
-
-      const tempData = {
-        id: data.id,
+      const newAnimalData = {
+        id: Number(match.params.id),
         image1:
           'https://imagens.brasil.elpais.com/resizer/emY0sddaFt0rRsVdyjNGpIW6VHg=/768x0/arc-anglerfish-eu-central-1-prod-prisa.s3.amazonaws.com/public/POGGID5U7HB5OEVIB32OGG7ZWY.jpg',
         image2:
@@ -103,6 +137,15 @@ export default function AnimalEdit() {
         age: data.age,
         status: formattedStatusName,
       };
+
+      const newArrayAnimals = animals.map((item) => {
+        if (item.id === Number(match.params.id)) {
+          return newAnimalData;
+        } else {
+          return item;
+        }
+      });
+      setAnimals(newArrayAnimals);
 
       formRef.current.setErrors({});
       history.push('/');
@@ -122,13 +165,12 @@ export default function AnimalEdit() {
 
   return (
     <Container>
-      <Header title={'Informações da '} animalName={animal.name} />
-
+      <Header title={'Informações da '} animalName={animalData.name} />
       <Form ref={formRef} onSubmit={handleSubmit}>
         <fieldset>
           <legend>
             Sobre o animal
-            <button>
+            <button type="button" onClick={handleDeleteAnimal}>
               <DeleteIcon />
               Excluir animal permanentemente
             </button>
@@ -136,7 +178,7 @@ export default function AnimalEdit() {
 
           <Profile>
             <AvatarContainer>
-              <Avatar avatarURL={animal.image1} />
+              <Avatar avatarURL={animalData.image1} />
             </AvatarContainer>
 
             <AnimalInfo>
@@ -174,9 +216,9 @@ export default function AnimalEdit() {
         <fieldset>
           <legend>Fotos</legend>
           <Gallery>
-            <ImageInput name="image1" previewURL={animal.image1} />
-            <ImageInput name="image2" previewURL={animal.image2} />
-            <ImageInput name="image3" previewURL={animal.image3} />
+            <ImageInput name="image1" previewURL={animalData.image1} />
+            <ImageInput name="image2" previewURL={animalData.image2} />
+            <ImageInput name="image3" previewURL={animalData.image3} />
           </Gallery>
         </fieldset>
 
@@ -189,6 +231,28 @@ export default function AnimalEdit() {
               options={['Disponível para adoção', 'Indisponível para adoção']}
             />
           </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>
+            Procedimentos realizados
+            <button type="button" onClick={handleAddProcedure}>
+              <AddIcon />
+              Adicionar procedimento
+            </button>
+          </legend>
+
+          <ProcedureList>
+            {proceduresData.map((item, index) => (
+              <Procedure
+                key={index}
+                userName={item.user_name}
+                procedureName={item.name}
+                date={item.date}
+                comments={item.comments}
+              />
+            ))}
+          </ProcedureList>
         </fieldset>
 
         <ButtonSave>
