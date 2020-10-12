@@ -66,36 +66,6 @@ export const Container = styled.div`
   }
 `;
 
-export const Profile = styled.div`
-  width: 100%;
-
-  display: flex;
-  justify-content: space-between;
-`;
-
-export const AvatarContainer = styled.div`
-  width: 18rem;
-  height: 30rem;
-
-  display: flex;
-  align-items: center;
-`;
-
-export const Avatar = styled.img`
-  height: 18rem;
-  width: 18rem;
-  background: url(${(props) => props.avatarURL}) no-repeat center;
-  background-size: cover;
-  flex-shrink: 0;
-  margin-right: 1.8rem;
-  border-radius: 50%;
-`;
-
-export const AnimalInfo = styled.div`
-  margin-left: 3.4rem;
-  width: 100%;
-`;
-
 export const Gallery = styled.div`
   display: flex;
   justify-content: space-between;

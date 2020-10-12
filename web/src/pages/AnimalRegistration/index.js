@@ -8,19 +8,14 @@ import { useHistory } from 'react-router-dom';
 import { Container, Gallery, ButtonSave, SaveIcon } from './styles';
 
 import Header from '../../components/Header';
-import { Input, Select } from '../../components/Form';
-import Dropzone from '../../components/Dropzone';
+import { Input, Select, ImageInput } from '../../components/Form';
 import { useAnimals } from '../../context/Animals';
 
 function AnimalRegistration() {
-  const formRef = useRef(null);
+  const registrationRef = useRef(null);
   const history = useHistory();
   const { setIsCompacted } = useMenuBar();
   const { animals, setAnimals } = useAnimals();
-
-  const [image1, setImage1] = useState();
-  const [image2, setImage2] = useState();
-  const [image3, setImage3] = useState();
 
   useEffect(() => {
     setIsCompacted(true);
@@ -29,9 +24,9 @@ function AnimalRegistration() {
   async function handleSubmit(data) {
     try {
       const schema = Yup.object().shape({
-        // image1: Yup.mixed().required('A imagem é obrigatória'),
-        // image2: Yup.mixed().required('A imagem é obrigatória'),
-        // image3: Yup.mixed().required('A imagem é obrigatória'),
+        image1: Yup.mixed().required('A imagem é obrigatória'),
+        image2: Yup.mixed().required('A imagem é obrigatória'),
+        image3: Yup.mixed().required('A imagem é obrigatória'),
         name: Yup.string().required('O nome é obrigatório'),
         specie: Yup.string().required('A espécie é obrigatória'),
         gender: Yup.string().required('O gênero é obrigatório'),
@@ -78,7 +73,7 @@ function AnimalRegistration() {
 
       setAnimals([...animals, tempData]);
 
-      formRef.current.setErrors({});
+      registrationRef.current.setErrors({});
       history.push('/');
       setIsCompacted(false);
     } catch (err) {
@@ -89,7 +84,7 @@ function AnimalRegistration() {
           errorMessages[error.path] = error.message;
         });
 
-        formRef.current.setErrors(errorMessages);
+        registrationRef.current.setErrors(errorMessages);
       }
     }
   }
@@ -97,13 +92,13 @@ function AnimalRegistration() {
   return (
     <Container>
       <Header title={'Cadastro de animal'} />
-      <Form ref={formRef} onSubmit={handleSubmit}>
+      <Form ref={registrationRef} onSubmit={handleSubmit}>
         <fieldset>
           <legend>Fotos</legend>
           <Gallery>
-            <Dropzone onFileUploaded={setImage1} />
-            <Dropzone onFileUploaded={setImage2} />
-            <Dropzone onFileUploaded={setImage3} />
+            <ImageInput name="image1" />
+            <ImageInput name="image2" />
+            <ImageInput name="image3" />
           </Gallery>
         </fieldset>
 
