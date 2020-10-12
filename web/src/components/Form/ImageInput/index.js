@@ -1,10 +1,15 @@
 import React, { useRef, useEffect, useCallback, useState } from 'react';
 import { useField } from '@unform/core';
 
-import { Container } from './styles';
+import {
+  Container,
+  AddImage,
+  Preview,
+  RemoveIcon,
+} from './styles';
 
-export default function ImageInput({ name, previewURL, ...rest }) {
-  const inputRef = useRef(null);
+export default function ImageInput({ name, ...rest }) {
+  const inputImageRef = useRef(null);
   const { fieldName, registerField, defaultValue, error } = useField(name);
   const [preview, setPreview] = useState(defaultValue);
 
@@ -17,10 +22,14 @@ export default function ImageInput({ name, previewURL, ...rest }) {
     setPreview(previewURL);
   }, []);
 
+  const handleEditImage = useCallback(() => {
+    setPreview(undefined);
+  });
+
   useEffect(() => {
     registerField({
       name: fieldName,
-      ref: inputRef.current,
+      ref: inputImageRef.current,
       path: 'files[0]',
       clearValue(ref) {
         ref.value = '';
@@ -30,19 +39,29 @@ export default function ImageInput({ name, previewURL, ...rest }) {
         setPreview(value);
       },
     });
-
-    if (previewURL) {
-      setPreview(previewURL);
-    }
-  }, [fieldName, previewURL, registerField]);
+  }, [fieldName, registerField]);
 
   return (
-    <Container>
-      {preview && <img src={preview} alt="Preview" width="100" />}
-
-      <input type="file" ref={inputRef} onChange={handlePreview} {...rest} />
-      {!preview && <strong>Clique aqui para adicionar uma foto</strong>}
-      {error && <span>{error}</span>}
+    <Container preview={preview}>
+      {preview !== undefined ? (
+        <Preview>
+          <img src={preview} alt="Preview" />
+          <button type="button" onClick={handleEditImage}>
+            <RemoveIcon />
+          </button>
+        </Preview>
+      ) : (
+        <AddImage>
+          <strong>Clique aqui para adicionar uma foto</strong>
+          {error && <span>{error}</span>}
+          <input
+            type="file"
+            ref={inputImageRef}
+            onChange={handlePreview}
+            {...rest}
+          />
+        </AddImage>
+      )}
     </Container>
   );
 }

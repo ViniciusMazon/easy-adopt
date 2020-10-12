@@ -14,7 +14,7 @@ import { useProcedures } from '../../context/Procedures';
 import { Container, ButtonSave, SaveIcon } from './styles';
 
 export default function AddProcedure({ match }) {
-  const formRef = useRef(null);
+  const procedureRef = useRef(null);
   const history = useHistory();
 
   const { animals } = useAnimals();
@@ -39,7 +39,7 @@ export default function AddProcedure({ match }) {
     setNow(now);
 
     setTimeout(() => {
-      formRef.current.setData({
+      procedureRef.current.setData({
         name: animalSelected.name,
         date: now,
       });
@@ -68,7 +68,7 @@ export default function AddProcedure({ match }) {
       };
       setProcedures([...procedures, procedureData]);
 
-      formRef.current.setErrors({});
+      procedureRef.current.setErrors({});
       history.goBack();
       setIsCompacted(false);
     } catch (err) {
@@ -79,7 +79,7 @@ export default function AddProcedure({ match }) {
           errorMessages[error.path] = error.message;
         });
 
-        formRef.current.setErrors(errorMessages);
+        procedureRef.current.setErrors(errorMessages);
       }
     }
   }
@@ -88,7 +88,7 @@ export default function AddProcedure({ match }) {
     <Container>
       <Header title={'Cadastrar novo procedimento'} />
 
-      <Form ref={formRef} onSubmit={handleSubmit}>
+      <Form ref={procedureRef} onSubmit={handleSubmit}>
         <fieldset>
           <legend>Procedimento</legend>
 

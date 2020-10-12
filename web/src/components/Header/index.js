@@ -19,7 +19,7 @@ function Header({ title, animalName }) {
       <Container>
         <Body>
           <Title>
-            {title}
+            <h1>{title}</h1>
             <h2>{animalName}</h2>
           </Title>
         </Body>

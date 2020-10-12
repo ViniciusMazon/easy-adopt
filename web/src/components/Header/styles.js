@@ -37,21 +37,23 @@ export const Body = styled.div`
   display: flex;
 `;
 
-export const Title = styled.h1`
-  display: inline-flex;
+export const Title = styled.div`
+  display: flex;
   margin: 6rem auto;
   max-width: 76rem;
   width: 100%;
 
-  font-size: 3.6rem;
-  font-family: 'Varela Round';
-  color: var(--white);
+  > h1 {
+    font-size: 3.6rem;
+    font-family: 'Varela Round';
+    color: var(--white);
+  }
 
   > h2 {
     color: var(--white);
     font-size: 3.6rem;
     font-family: 'Varela Round';
-    margin-left: .8rem;
+    margin-left: 0.8rem;
   }
 `;
 

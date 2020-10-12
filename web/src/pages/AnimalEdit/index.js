@@ -13,11 +13,7 @@ import { useProcedures } from '../../context/Procedures';
 
 import {
   Container,
-  Profile,
-  AvatarContainer,
   DeleteIcon,
-  Avatar,
-  AnimalInfo,
   Gallery,
   ButtonSave,
   SaveIcon,
@@ -27,7 +23,7 @@ import {
 
 export default function AnimalEdit({ match }) {
   const history = useHistory();
-  const formRef = useRef(null);
+  const editRef = useRef(null);
   const { setIsCompacted } = useMenuBar();
   const { animals, setAnimals } = useAnimals();
   const { procedures } = useProcedures();
@@ -58,8 +54,8 @@ export default function AnimalEdit({ match }) {
           ? 'Disponível para adoção'
           : 'Indisponível para adoção';
 
-      if (formRef.current !== null) {
-        formRef.current.setData({
+      if (editRef.current !== null) {
+        editRef.current.setData({
           name: animalSelected.name,
           gender: animalSelected.gender,
           size: animalSelected.size,
@@ -147,7 +143,7 @@ export default function AnimalEdit({ match }) {
       });
       setAnimals(newArrayAnimals);
 
-      formRef.current.setErrors({});
+      editRef.current.setErrors({});
       history.push('/');
       setIsCompacted(false);
     } catch (err) {
@@ -158,7 +154,7 @@ export default function AnimalEdit({ match }) {
           errorMessages[error.path] = error.message;
         });
 
-        formRef.current.setErrors(errorMessages);
+        editRef.current.setErrors(errorMessages);
       }
     }
   }
@@ -166,7 +162,16 @@ export default function AnimalEdit({ match }) {
   return (
     <Container>
       <Header title={'Informações da '} animalName={animalData.name} />
-      <Form ref={formRef} onSubmit={handleSubmit}>
+      <Form ref={editRef} onSubmit={handleSubmit}>
+        <fieldset>
+          <legend>Fotos</legend>
+          <Gallery>
+            <ImageInput name="image1" />
+            <ImageInput name="image2" />
+            <ImageInput name="image3" />
+          </Gallery>
+        </fieldset>
+
         <fieldset>
           <legend>
             Sobre o animal
@@ -176,59 +181,27 @@ export default function AnimalEdit({ match }) {
             </button>
           </legend>
 
-          <Profile>
-            <AvatarContainer>
-              <Avatar avatarURL={animalData.image1} />
-            </AvatarContainer>
+          <Input name="name" label="Nome" />
 
-            <AnimalInfo>
-              <Input name="name" label="Nome" />
-
-              <div className="input-block">
-                <Select
-                  name="specie"
-                  label="Espécie"
-                  options={['Cachorro', 'Gato']}
-                />
-                <Select
-                  name="gender"
-                  label="Gênero"
-                  options={['Macho', 'Fêmea']}
-                />
-              </div>
-
-              <div className="input-block">
-                <Select
-                  name="size"
-                  label="Porte"
-                  options={['Pequeno', 'Médio', 'Grande']}
-                />
-                <Select
-                  name="age"
-                  label="Idade"
-                  options={['Filhote', 'Adulto', 'Sênior']}
-                />
-              </div>
-            </AnimalInfo>
-          </Profile>
-        </fieldset>
-
-        <fieldset>
-          <legend>Fotos</legend>
-          <Gallery>
-            <ImageInput name="image1" previewURL={animalData.image1} />
-            <ImageInput name="image2" previewURL={animalData.image2} />
-            <ImageInput name="image3" previewURL={animalData.image3} />
-          </Gallery>
-        </fieldset>
-
-        <fieldset>
-          <legend>Sobre a adoção</legend>
           <div className="input-block">
             <Select
-              name="status"
-              label="Status"
-              options={['Disponível para adoção', 'Indisponível para adoção']}
+              name="specie"
+              label="Espécie"
+              options={['Cachorro', 'Gato']}
+            />
+            <Select name="gender" label="Gênero" options={['Macho', 'Fêmea']} />
+          </div>
+
+          <div className="input-block">
+            <Select
+              name="size"
+              label="Porte"
+              options={['Pequeno', 'Médio', 'Grande']}
+            />
+            <Select
+              name="age"
+              label="Idade"
+              options={['Filhote', 'Adulto', 'Sênior']}
             />
           </div>
         </fieldset>
@@ -253,6 +226,17 @@ export default function AnimalEdit({ match }) {
               />
             ))}
           </ProcedureList>
+        </fieldset>
+
+        <fieldset>
+          <legend>Sobre a adoção</legend>
+          <div className="input-block">
+            <Select
+              name="status"
+              label="Status"
+              options={['Disponível para adoção', 'Indisponível para adoção']}
+            />
+          </div>
         </fieldset>
 
         <ButtonSave>
