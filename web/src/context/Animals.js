@@ -12,7 +12,7 @@ const tempData = [
     age: 'Filhote',
     status: 'disponível',
     image1:
-      'https://www.petvale.com.br/imagens/66631-vira-lata-macho-encontrado-centro-goiania-go_25574.jpg',
+      'https://www.petelegante.com.br/dicas/wp-content/uploads/2018/07/adoção-de-cachorro-filhote.jpg',
     image2:
       'https://midias.agazeta.com.br/2020/06/23/o-abrigo-vira-lata-vira-luxo-realizara-a-segunda-edicao-da-feira-de-adocao-au-line-neste-sabado-27-268047-article.jpg',
     image3:
@@ -27,7 +27,7 @@ const tempData = [
     age: 'Filhote',
     status: 'disponível',
     image1:
-      'https://www.petvale.com.br/imagens/66631-vira-lata-macho-encontrado-centro-goiania-go_25574.jpg',
+      'https://www.petlove.com.br/dicas/wp-content/uploads/2018/05/cachorro-para-adocao.jpg',
     image2:
       'https://midias.agazeta.com.br/2020/06/23/o-abrigo-vira-lata-vira-luxo-realizara-a-segunda-edicao-da-feira-de-adocao-au-line-neste-sabado-27-268047-article.jpg',
     image3:

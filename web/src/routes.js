@@ -6,6 +6,7 @@ import MenuBarProvider from './context/MenuBar';
 import UserProvider from './context/User';
 import AnimalsProvider from './context/Animals';
 import ProceduresProvider from './context/Procedures';
+import AdoptionRequestsProvider from './context/AdoptionRequests';
 
 import Animals from './pages/Animals';
 import Adoption from './pages/Adoption';
@@ -23,19 +24,21 @@ function PrivateRoutes() {
       <UserProvider>
         <AnimalsProvider>
           <ProceduresProvider>
-            <BrowserRouter>
-              <div style={css}>
-                <MenuBar />
-                <Route exact path="/" component={Animals} />
-                <Route path="/add-animal" component={AnimalRegistration} />
-                <Route exact path="/edit-animal/:id" component={AnimalEdit} />
-                <Route
-                  path="/edit-animal/:id/add-procedure"
-                  component={AddProcedure}
-                />
-                <Route path="/adoption" component={Adoption} />
-              </div>
-            </BrowserRouter>
+            <AdoptionRequestsProvider>
+              <BrowserRouter>
+                <div style={css}>
+                  <MenuBar />
+                  <Route exact path="/" component={Animals} />
+                  <Route path="/add-animal" component={AnimalRegistration} />
+                  <Route exact path="/edit-animal/:id" component={AnimalEdit} />
+                  <Route
+                    path="/edit-animal/:id/add-procedure"
+                    component={AddProcedure}
+                  />
+                  <Route path="/adoption" component={Adoption} />
+                </div>
+              </BrowserRouter>
+            </AdoptionRequestsProvider>
           </ProceduresProvider>
         </AnimalsProvider>
       </UserProvider>
