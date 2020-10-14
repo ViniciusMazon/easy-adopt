@@ -10,5 +10,5 @@ export { Help, HelpOutline, ArrowBack } from 'styled-icons/material-rounded';
 export { User, Search, Close } from 'styled-icons/evil';
 export { Plus } from 'styled-icons/boxicons-regular';
 export { OpenInNew } from 'styled-icons/material';
-export { Save } from 'styled-icons/feather';
+export { Save, Check } from 'styled-icons/feather';
 export { TrashAlt } from 'styled-icons/boxicons-regular';

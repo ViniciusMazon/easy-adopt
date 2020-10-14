@@ -1,15 +1,27 @@
 import React from 'react';
 
-import { Container, Wrapper } from './styles';
-import Header from '../../components/Header';
+import { Container, Header, AdoptionRequests } from './styles';
+
+import { useAdoptionRequests } from '../../context/AdoptionRequests';
+import AdoptionRequestCard from '../../components/AdoptionRequestCard';
 
 function Adoption() {
+  const { adoptionRequests } = useAdoptionRequests();
+
   return (
     <Container>
-      <Header title={'Informações da'} animalName={'Mikka'} />
-      <Wrapper>
-        <h1>Adoption</h1>
-      </Wrapper>
+      <Header />
+      <AdoptionRequests>
+        {adoptionRequests.map((item) => (
+          <AdoptionRequestCard
+            key={item.id}
+            id={item.id}
+            status={item.status}
+            tutor={item.tutor}
+            animal={item.animal}
+          />
+        ))}
+      </AdoptionRequests>
     </Container>
   );
 }

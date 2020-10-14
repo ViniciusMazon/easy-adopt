@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
@@ -13,9 +14,10 @@ import { useProcedures } from '../../context/Procedures';
 
 import { Container, ButtonSave, SaveIcon } from './styles';
 
-export default function AddProcedure({ match }) {
+export default function AddProcedure() {
   const procedureRef = useRef(null);
   const history = useHistory();
+  const params = useParams();
 
   const { animals } = useAnimals();
   const { user } = useUser();
@@ -27,7 +29,7 @@ export default function AddProcedure({ match }) {
 
   useEffect(() => {
     const [animalSelected] = animals.filter((item) => {
-      if (item.id === Number(match.params.id)) {
+      if (item.id === Number(params.id)) {
         return item;
       }
     });
@@ -38,13 +40,11 @@ export default function AddProcedure({ match }) {
     const now = format(new Date(), 'dd/MM/yyyy');
     setNow(now);
 
-    setTimeout(() => {
-      procedureRef.current.setData({
-        name: animalSelected.name,
-        date: now,
-      });
-    }, 2000);
-  }, [animals, match.params.id, setIsCompacted]);
+    procedureRef.current.setData({
+      name: animalSelected.name,
+      date: now,
+    });
+  }, [animals, params.id, setIsCompacted]);
 
   async function handleSubmit(data) {
     try {
