@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { OpenInNew } from '../../styles/Icons';
 
 export const Container = styled.div`
-  width: 35rem;
+  width: 40rem;
   height: 28rem;
 
   display: flex;

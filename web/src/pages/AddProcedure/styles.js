@@ -80,7 +80,7 @@ export const ButtonSave = styled.button`
 
   font: 500 1.6rem 'Montserrat';
   color: var(--white);
-  margin-top: 6rem;
+  margin-top: 1rem;
 
   outline: 0;
   cursor: pointer;
