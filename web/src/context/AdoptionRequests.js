@@ -30,8 +30,20 @@ const tempData = [
       name: 'Mikka',
       gender: 'Fêmea',
       age: 'Filhote',
+      specie: 'Cachorro',
       size: 'Pequeno',
     },
+    questionnaire: {
+      residence_type: 'Casa',
+      adults_home: '2',
+      children_home: '1',
+      smokers_home: 'Não',
+      adopted_before: 'Não',
+      other_animals: 'Não',
+      sick_animals: 'Não',
+      aware_cost: 'Sim',
+      why_want_adopt: 'Sempre quis adotar um animal, sou contra a compra de animais.',
+    }
   },
   {
     id: 2,
@@ -60,8 +72,20 @@ const tempData = [
       name: 'Mikka',
       gender: 'Fêmea',
       age: 'Filhote',
+      specie: 'Cachorro',
       size: 'Pequeno',
     },
+    questionnaire: {
+      residence_type: 'Casa',
+      adults_home: '2',
+      children_home: '1',
+      smokers_home: 'Não',
+      adopted_before: 'Não',
+      other_animals: 'Não',
+      sick_animals: 'Não',
+      aware_cost: 'Sim',
+      why_want_adopt: 'Sempre quis adotar um animal, sou contra a compra de animais.',
+    }
   },
   {
     id: 3,
@@ -90,8 +114,20 @@ const tempData = [
       name: 'Laika',
       gender: 'Fêmea',
       age: 'Filhote',
+      specie: 'Cachorro',
       size: 'Pequeno',
     },
+    questionnaire: {
+      residence_type: 'Casa',
+      adults_home: '2',
+      children_home: '1',
+      smokers_home: 'Não',
+      adopted_before: 'Não',
+      other_animals: 'Não',
+      sick_animals: 'Não',
+      aware_cost: 'Sim',
+      why_want_adopt: 'Sempre quis adotar um animal, sou contra a compra de animais.',
+    }
   },
 ];
 

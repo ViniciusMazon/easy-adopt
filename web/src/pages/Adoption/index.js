@@ -15,6 +15,7 @@ function Adoption() {
         {adoptionRequests.map((item) => (
           <AdoptionRequestCard
             key={item.id}
+            id={item.id}
             status={item.status}
             tutor={item.tutor}
             animal={item.animal}

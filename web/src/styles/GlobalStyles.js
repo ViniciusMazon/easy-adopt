@@ -40,6 +40,8 @@ export default createGlobalStyle`
     --white: #FFF;
     --green: #2F95A3;
     --dark-green: #118696;
+    --red: #FD4F59;
+    --dark-red: #DB3F48;
 
     --status-available: #09ffb5;
     --status-unavailable: #FF385C;

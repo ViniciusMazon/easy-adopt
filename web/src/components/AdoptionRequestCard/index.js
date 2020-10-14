@@ -11,7 +11,7 @@ import {
   DetailIcon,
 } from './styles';
 
-export default function AdoptionRequestCard({ status, tutor, animal }) {
+export default function AdoptionRequestCard({ id, status, tutor, animal }) {
   return (
     <Container>
       <Row>
@@ -35,7 +35,7 @@ export default function AdoptionRequestCard({ status, tutor, animal }) {
           <strong>{animal.name}</strong>
           <p>{animal.gender}</p>
 
-          <Link to="">
+          <Link to={`/adoption/${id}`}>
             <DetailIcon />
             detalhes
           </Link>
