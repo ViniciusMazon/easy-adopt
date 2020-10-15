@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
+import { toast } from 'react-toastify';
 
 import Header from '../../components/Header';
 import Procedure from '../../components/Procedure';
@@ -9,6 +10,7 @@ import Procedure from '../../components/Procedure';
 import { Input, Select, ImageInput } from '../../components/Form';
 import { useMenuBar } from '../../context/MenuBar';
 import { useAnimals } from '../../context/Animals';
+import { useAlert } from '../../context/Alert';
 import { useProcedures } from '../../context/Procedures';
 
 import {
@@ -25,11 +27,21 @@ export default function AnimalEdit({ match }) {
   const history = useHistory();
   const editRef = useRef(null);
   const { setIsCompacted } = useMenuBar();
+  const { alert, setAlert } = useAlert();
   const { animals, setAnimals } = useAnimals();
   const { procedures } = useProcedures();
 
   const [animalData, setAnimalData] = useState({});
   const [proceduresData, setProceduresData] = useState([]);
+
+  useEffect(() => {
+    if (alert === '') {
+      return;
+    }
+
+    toast(alert);
+    setAlert('');
+  }, [alert, setAlert]);
 
   useEffect(() => {
     setIsCompacted(true);
@@ -42,18 +54,6 @@ export default function AnimalEdit({ match }) {
       });
       setAnimalData(animalSelected);
 
-      // const proceduresOfThisAnimal = procedures.filter((item) => {
-      //   if (item.animal_id === Number(match.params.id)) {
-      //     return item;
-      //   }
-      // });
-      // setProceduresData(proceduresOfThisAnimal);
-
-      const formattedStatus =
-        animalSelected.status === 'disponível'
-          ? 'Disponível para adoção'
-          : 'Indisponível para adoção';
-
       if (editRef.current !== null) {
         editRef.current.setData({
           name: animalSelected.name,
@@ -61,7 +61,10 @@ export default function AnimalEdit({ match }) {
           size: animalSelected.size,
           specie: animalSelected.specie,
           age: animalSelected.age,
-          status: formattedStatus,
+          status:
+            animalSelected.status === 'disponível'
+              ? 'Disponível para adoção'
+              : 'Indisponível para adoção',
           image1: animalSelected.image1,
           image2: animalSelected.image2,
           image3: animalSelected.image3,
@@ -85,6 +88,8 @@ export default function AnimalEdit({ match }) {
         return item;
       }
     });
+
+    setAlert('🐶 Animal excluído com sucesso!');
     setAnimals(newAnimalsArray);
     history.push('/');
   }
@@ -144,6 +149,8 @@ export default function AnimalEdit({ match }) {
       setAnimals(newArrayAnimals);
 
       editRef.current.setErrors({});
+
+      setAlert('🐱 Animal editado com sucesso!');
       history.push('/');
       setIsCompacted(false);
     } catch (err) {

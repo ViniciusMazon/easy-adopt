@@ -7,6 +7,7 @@ import UserProvider from './context/User';
 import AnimalsProvider from './context/Animals';
 import ProceduresProvider from './context/Procedures';
 import AdoptionRequestsProvider from './context/AdoptionRequests';
+import AlertProvider from './context/Alert';
 
 import Animals from './pages/Animals';
 import Adoption from './pages/Adoption';
@@ -22,32 +23,38 @@ const css = {
 function PrivateRoutes() {
   return (
     <MenuBarProvider>
-      <UserProvider>
-        <AnimalsProvider>
-          <ProceduresProvider>
-            <AdoptionRequestsProvider>
-              <BrowserRouter>
-                <div style={css}>
-                  <MenuBar />
+      <AlertProvider>
+        <UserProvider>
+          <AnimalsProvider>
+            <ProceduresProvider>
+              <AdoptionRequestsProvider>
+                <BrowserRouter>
+                  <div style={css}>
+                    <MenuBar />
 
-                  <Route exact path="/" component={Animals} />
-                  <Route path="/add-animal" component={AnimalRegistration} />
-                  <Route exact path="/edit-animal/:id" component={AnimalEdit} />
-                  <Route
-                    path="/edit-animal/:id/add-procedure"
-                    component={AddProcedure}
-                  />
-                  <Route exact path="/adoption" component={Adoption} />
-                  <Route
-                    path="/adoption/:id"
-                    component={AdoptionRequestAnalysis}
-                  />
-                </div>
-              </BrowserRouter>
-            </AdoptionRequestsProvider>
-          </ProceduresProvider>
-        </AnimalsProvider>
-      </UserProvider>
+                    <Route exact path="/" component={Animals} />
+                    <Route path="/add-animal" component={AnimalRegistration} />
+                    <Route
+                      exact
+                      path="/edit-animal/:id"
+                      component={AnimalEdit}
+                    />
+                    <Route
+                      path="/edit-animal/:id/add-procedure"
+                      component={AddProcedure}
+                    />
+                    <Route exact path="/adoption" component={Adoption} />
+                    <Route
+                      path="/adoption/:id"
+                      component={AdoptionRequestAnalysis}
+                    />
+                  </div>
+                </BrowserRouter>
+              </AdoptionRequestsProvider>
+            </ProceduresProvider>
+          </AnimalsProvider>
+        </UserProvider>
+      </AlertProvider>
     </MenuBarProvider>
   );
 }

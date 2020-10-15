@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Form } from '@unform/web';
-import { Scope } from '@unform/core';
 import * as Yup from 'yup';
 import { useMenuBar } from '../../context/MenuBar';
 import { useHistory } from 'react-router-dom';
@@ -10,11 +9,13 @@ import { Container, Gallery, ButtonSave, SaveIcon } from './styles';
 import Header from '../../components/Header';
 import { Input, Select, ImageInput } from '../../components/Form';
 import { useAnimals } from '../../context/Animals';
+import { useAlert } from '../../context/Alert';
 
 function AnimalRegistration() {
   const registrationRef = useRef(null);
   const history = useHistory();
   const { setIsCompacted } = useMenuBar();
+  const { alert, setAlert } = useAlert();
   const { animals, setAnimals } = useAnimals();
 
   useEffect(() => {
@@ -74,6 +75,8 @@ function AnimalRegistration() {
       setAnimals([...animals, tempData]);
 
       registrationRef.current.setErrors({});
+
+      setAlert('Animal cadastrado com sucesso');
       history.push('/');
       setIsCompacted(false);
     } catch (err) {
