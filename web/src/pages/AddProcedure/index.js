@@ -11,6 +11,7 @@ import { useMenuBar } from '../../context/MenuBar';
 import { useAnimals } from '../../context/Animals';
 import { useUser } from '../../context/User';
 import { useProcedures } from '../../context/Procedures';
+import { useAlert } from '../../context/Alert';
 
 import { Container, ButtonSave, SaveIcon } from './styles';
 
@@ -23,6 +24,7 @@ export default function AddProcedure() {
   const { user } = useUser();
   const { setIsCompacted } = useMenuBar();
   const { procedures, setProcedures } = useProcedures();
+  const { setAlert } = useAlert();
 
   const [animal, setAnimal] = useState({});
   const [now, setNow] = useState();
@@ -69,6 +71,7 @@ export default function AddProcedure() {
       setProcedures([...procedures, procedureData]);
 
       procedureRef.current.setErrors({});
+      setAlert('😻 Procedimento criado com sucesso!');
       history.goBack();
       setIsCompacted(false);
     } catch (err) {

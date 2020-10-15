@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 import { Container, Header, AdoptionRequests } from './styles';
 
 import { useAdoptionRequests } from '../../context/AdoptionRequests';
 import AdoptionRequestCard from '../../components/AdoptionRequestCard';
+import { useAlert } from '../../context/Alert';
 
 function Adoption() {
   const { adoptionRequests } = useAdoptionRequests();
+  const { alert, setAlert } = useAlert();
+
+  useEffect(() => {
+    if (alert === '') {
+      return;
+    }
+
+    toast(alert);
+    setAlert('');
+  }, [alert, setAlert]);
 
   return (
     <Container>

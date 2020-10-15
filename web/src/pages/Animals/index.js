@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import { useAnimals } from '../../context/Animals';
+import { useAlert } from '../../context/Alert';
 
 import {
   Container,
@@ -15,9 +17,19 @@ import {
 import AnimalCard from '../../components/AnimalCard';
 
 function Animals() {
-  const { animals, setAnimals } = useAnimals();
+  const { alert, setAlert } = useAlert();
+  const { animals } = useAnimals();
   const [filteredAnimals, setFilteredAnimals] = useState([]);
   const [searchFor, setSearchFor] = useState('');
+
+  useEffect(() => {
+    if (alert === '') {
+      return;
+    }
+
+    toast(alert);
+    setAlert('');
+  }, [alert, setAlert]);
 
   function handleSearchAnimalByName(e) {
     e.preventDefault();

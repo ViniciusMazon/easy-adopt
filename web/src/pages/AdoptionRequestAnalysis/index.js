@@ -16,12 +16,14 @@ import {
 
 import Header from '../../components/Header';
 import { useMenuBar } from '../../context/MenuBar';
+import { useAlert } from '../../context/Alert';
 import { useAdoptionRequests } from '../../context/AdoptionRequests';
 
 export default function AdoptionRequestAnalysis() {
   const params = useParams();
   const history = useHistory();
   const { setIsCompacted } = useMenuBar();
+  const { setAlert } = useAlert();
   const { adoptionRequests, setAdoptionRequests } = useAdoptionRequests();
   const [status, setStatus] = useState('');
   const [animal, setAnimal] = useState();
@@ -50,6 +52,7 @@ export default function AdoptionRequestAnalysis() {
       return request;
     });
     setAdoptionRequests(newAdoptionRequests);
+    setAlert(`📄 Pedido de adoção ${status}`);
     history.push('/adoption');
     setIsCompacted(false);
   }
