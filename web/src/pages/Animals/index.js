@@ -27,7 +27,7 @@ function Animals() {
       return;
     }
 
-    toast(alert);
+    toast.success(alert);
     setAlert('');
   }, [alert, setAlert]);
 

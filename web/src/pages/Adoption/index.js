@@ -16,7 +16,7 @@ function Adoption() {
       return;
     }
 
-    toast(alert);
+    toast.success(alert);
     setAlert('');
   }, [alert, setAlert]);
 

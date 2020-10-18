@@ -52,4 +52,9 @@ export default createGlobalStyle`
       font-size: 62.5%;
     }
   }
+
+  .Toastify__toast--success {
+    font-size: 1.4rem;
+    background-color: var(--status-available);
+  }
 `;

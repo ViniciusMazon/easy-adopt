@@ -39,7 +39,7 @@ export default function AnimalEdit({ match }) {
       return;
     }
 
-    toast(alert);
+    toast.success(alert);
     setAlert('');
   }, [alert, setAlert]);
 
