@@ -31,7 +31,7 @@ export const DataInfo = styled.div`
 
   > span {
     > strong {
-      font-size: 2.0rem;
+      font-size: 2rem;
       font-weight: 600;
       color: var(--title);
     }

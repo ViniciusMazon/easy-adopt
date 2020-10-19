@@ -14,6 +14,7 @@ export const Topside = styled.div`
 
   height: 6rem;
   background: var(--dark-green);
+  z-index: 9999;
 `;
 
 export const BackButton = styled.button`

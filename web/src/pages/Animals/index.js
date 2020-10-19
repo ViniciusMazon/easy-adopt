@@ -15,10 +15,12 @@ import {
 } from './styles';
 
 import AnimalCard from '../../components/AnimalCard';
+import LoadingAnimalCard from '../../components/Shimmer/LoadingAnimalCard';
 
 function Animals() {
   const { alert, setAlert } = useAlert();
   const { animals } = useAnimals();
+  const [isLoading, setIsLoading] = useState(true);
   const [filteredAnimals, setFilteredAnimals] = useState([]);
   const [searchFor, setSearchFor] = useState('');
 
@@ -27,9 +29,15 @@ function Animals() {
       return;
     }
 
-    toast(alert);
+    toast.success(alert);
     setAlert('');
   }, [alert, setAlert]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+  });
 
   function handleSearchAnimalByName(e) {
     e.preventDefault();
@@ -61,27 +69,39 @@ function Animals() {
       </Header>
 
       <AnimalsCards>
-        {filteredAnimals.length > 0
-          ? filteredAnimals.map((item) => (
-              <AnimalCard
-                key={item.id}
-                id={item.id}
-                name={item.name}
-                gender={item.gender}
-                avatarURL={item.image1}
-                status={item.status}
-              />
-            ))
-          : animals.map((item) => (
-              <AnimalCard
-                key={item.id}
-                id={item.id}
-                name={item.name}
-                gender={item.gender}
-                avatarURL={item.image1}
-                status={item.status}
-              />
-            ))}
+        {isLoading && <LoadingAnimalCard />}
+
+        {!isLoading &&
+          animals.length > 0 &&
+          filteredAnimals.length === 0 &&
+          animals.map((item) => (
+            <AnimalCard
+              isLoading={isLoading}
+              key={item.id}
+              id={item.id}
+              name={item.name}
+              gender={item.gender}
+              avatarURL={item.image1}
+              status={item.status}
+            />
+          ))}
+
+        {filteredAnimals.length > 0 &&
+          filteredAnimals.map((item) => (
+            <AnimalCard
+              isLoading={isLoading}
+              key={item.id}
+              id={item.id}
+              name={item.name}
+              gender={item.gender}
+              avatarURL={item.image1}
+              status={item.status}
+            />
+          ))}
+
+        {!isLoading && animals.length === 0 && (
+          <h1>Não encontramos nenhum animal cadastrado</h1>
+        )}
       </AnimalsCards>
     </Container>
   );

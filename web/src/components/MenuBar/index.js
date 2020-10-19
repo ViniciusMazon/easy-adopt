@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { useMenuBar } from '../../context/MenuBar';
@@ -75,7 +75,7 @@ function MenuBar() {
         <MenuButton
           isCompacted={isCompacted}
           activeSection={activeSection}
-          onClick={() => handleNavigation(3)}
+          onClick={() => handleNavigation(3, '/donation')}
         >
           {activeSection === 3 ? <WalletIconActive /> : <WalletIcon />}
           <span>Contribuir</span>
