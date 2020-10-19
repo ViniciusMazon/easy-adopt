@@ -75,7 +75,7 @@ function MenuBar() {
         <MenuButton
           isCompacted={isCompacted}
           activeSection={activeSection}
-          onClick={() => handleNavigation(3)}
+          onClick={() => handleNavigation(3, '/donation')}
         >
           {activeSection === 3 ? <WalletIconActive /> : <WalletIcon />}
           <span>Contribuir</span>
