@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { Container, CloseIcon } from './styles';
+import { Container, CloseButton, CloseIcon } from './styles';
+
+import { useDonationCampaigns } from '../../context/DonationCampaigns';
 
 export default function CampaignCard({
   id,
@@ -10,6 +12,18 @@ export default function CampaignCard({
   current,
   description,
 }) {
+  const { campaigns, setCampaigns } = useDonationCampaigns();
+
+  function handleCloseCampaign() {
+    const newCampaigns = campaigns.filter((campaign) => {
+      if (campaign.id !== Number(id)) {
+        return campaign;
+      }
+    });
+
+    setCampaigns(newCampaigns);
+  }
+
   return (
     <Container>
       <span>
@@ -19,10 +33,10 @@ export default function CampaignCard({
 
       <p>{description}</p>
 
-      <Link to="">
+      <CloseButton onClick={handleCloseCampaign}>
         <CloseIcon />
         Encerrar
-      </Link>
+      </CloseButton>
     </Container>
   );
 }
