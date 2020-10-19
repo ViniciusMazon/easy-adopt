@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Plus, Search } from '../../styles/Icons';
+import { Plus } from '../../styles/Icons';
 
 export const Container = styled.div`
   width: 100%;
@@ -14,7 +14,7 @@ export const Header = styled.div`
   justify-content: space-between;
 
   > a {
-    margin-left: 9.0rem;
+    margin-left: 9rem;
     display: flex;
     align-items: center;
     text-decoration: none;
@@ -23,28 +23,13 @@ export const Header = styled.div`
       font-size: 1.6rem;
       font-weight: 500;
       color: var(--link);
-      margin-left: .4rem;
+      margin-left: 0.4rem;
     }
   }
 `;
 
-export const SearchBox = styled.form`
-  margin-right: 9.0rem;
-  display: flex;
-  align-items: center;
-
-  > input {
-    outline: 0;
-  }
-
-  border: .1rem solid var(--border);
-  border-radius: .6rem;
-  background: var(--input-background);
-  padding: 2.0rem 3.0rem;
-`;
-
-export const AnimalsCards = styled.main`
-  padding: 5.0rem 5.0rem 0 5.0rem;
+export const CampaignsCards = styled.div`
+  padding: 5rem 5rem 0 5rem;
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
@@ -60,11 +45,4 @@ export const PlusIcon = styled(Plus)`
   height: 2.8rem;
   flex-shrink: 0;
   fill: var(--link);
-`;
-
-export const SearchIcon = styled(Search)`
-  width: 2.0rem;
-  height: 2.0rem;
-  flex-shrink: 0;
-  fill: var(--subtext);
 `;
