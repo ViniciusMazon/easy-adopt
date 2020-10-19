@@ -15,9 +15,6 @@
   <img alt="easyAdopt" src="docs/mobile.png" width="65%">
 </p>
 
-
-
-
 # 💡 Sobre o projeto
 Criado como Trabalho de Conclusão do Curso de Engenharia de Software.
 
@@ -60,9 +57,8 @@ Depois que o merge da sua pull request for feito, você pode deletar a sua branc
 
 Esse projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
 
-
-
-
 ---
 
 Feito com 🖤 por Vinicius Mazon.
+
+
