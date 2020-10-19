@@ -12,6 +12,7 @@ import { useMenuBar } from '../../context/MenuBar';
 import { useAnimals } from '../../context/Animals';
 import { useAlert } from '../../context/Alert';
 import { useProcedures } from '../../context/Procedures';
+import LoadingAnimalEditForm from '../../components/Shimmer/LoadingAnimalEditForm';
 
 import {
   Container,
@@ -26,6 +27,7 @@ import {
 export default function AnimalEdit({ match }) {
   const history = useHistory();
   const editRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(true);
   const { setIsCompacted } = useMenuBar();
   const { alert, setAlert } = useAlert();
   const { animals, setAnimals } = useAnimals();
@@ -35,18 +37,10 @@ export default function AnimalEdit({ match }) {
   const [proceduresData, setProceduresData] = useState([]);
 
   useEffect(() => {
-    if (alert === '') {
-      return;
-    }
-
-    toast.success(alert);
-    setAlert('');
-  }, [alert, setAlert]);
-
-  useEffect(() => {
     setIsCompacted(true);
 
     setTimeout(() => {
+      setIsLoading(false);
       const [animalSelected] = animals.filter((item) => {
         if (item.id === Number(match.params.id)) {
           return item;
@@ -70,8 +64,17 @@ export default function AnimalEdit({ match }) {
           image3: animalSelected.image3,
         });
       }
-    }, 2000);
-  }, [animals, match.params.id, procedures, setIsCompacted]);
+    }, 3000);
+  });
+
+  useEffect(() => {
+    if (alert === '') {
+      return;
+    }
+
+    toast.success(alert);
+    setAlert('');
+  }, [alert, setAlert]);
 
   useEffect(() => {
     const proceduresOfThisAnimal = procedures.filter((item) => {
@@ -168,89 +171,102 @@ export default function AnimalEdit({ match }) {
 
   return (
     <Container>
-      <Header title={'Informações da '} animalName={animalData.name} />
-      <Form ref={editRef} onSubmit={handleSubmit}>
-        <fieldset>
-          <legend>Fotos</legend>
-          <Gallery>
-            <ImageInput name="image1" />
-            <ImageInput name="image2" />
-            <ImageInput name="image3" />
-          </Gallery>
-        </fieldset>
+      {isLoading ? (
+        <Header title={'Carregando informações do animal...'} />
+      ) : (
+        <Header title={'Informações da '} animalName={animalData.name} />
+      )}
 
-        <fieldset>
-          <legend>
-            Sobre o animal
-            <button type="button" onClick={handleDeleteAnimal}>
-              <DeleteIcon />
-              Excluir animal permanentemente
-            </button>
-          </legend>
+      {isLoading ? (
+        <LoadingAnimalEditForm />
+      ) : (
+        <Form ref={editRef} onSubmit={handleSubmit}>
+          <fieldset>
+            <legend>Fotos</legend>
+            <Gallery>
+              <ImageInput name="image1" />
+              <ImageInput name="image2" />
+              <ImageInput name="image3" />
+            </Gallery>
+          </fieldset>
 
-          <Input name="name" label="Nome" />
+          <fieldset>
+            <legend>
+              Sobre o animal
+              <button type="button" onClick={handleDeleteAnimal}>
+                <DeleteIcon />
+                Excluir animal permanentemente
+              </button>
+            </legend>
 
-          <div className="input-block">
-            <Select
-              name="specie"
-              label="Espécie"
-              options={['Cachorro', 'Gato']}
-            />
-            <Select name="gender" label="Gênero" options={['Macho', 'Fêmea']} />
-          </div>
+            <Input name="name" label="Nome" />
 
-          <div className="input-block">
-            <Select
-              name="size"
-              label="Porte"
-              options={['Pequeno', 'Médio', 'Grande']}
-            />
-            <Select
-              name="age"
-              label="Idade"
-              options={['Filhote', 'Adulto', 'Sênior']}
-            />
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <legend>
-            Procedimentos realizados
-            <button type="button" onClick={handleAddProcedure}>
-              <AddIcon />
-              Adicionar procedimento
-            </button>
-          </legend>
-
-          <ProcedureList>
-            {proceduresData.map((item, index) => (
-              <Procedure
-                key={index}
-                userName={item.user_name}
-                procedureName={item.name}
-                date={item.date}
-                comments={item.comments}
+            <div className="input-block">
+              <Select
+                name="specie"
+                label="Espécie"
+                options={['Cachorro', 'Gato']}
               />
-            ))}
-          </ProcedureList>
-        </fieldset>
+              <Select
+                name="gender"
+                label="Gênero"
+                options={['Macho', 'Fêmea']}
+              />
+            </div>
 
-        <fieldset>
-          <legend>Sobre a adoção</legend>
-          <div className="input-block">
-            <Select
-              name="status"
-              label="Status"
-              options={['Disponível para adoção', 'Indisponível para adoção']}
-            />
-          </div>
-        </fieldset>
+            <div className="input-block">
+              <Select
+                name="size"
+                label="Porte"
+                options={['Pequeno', 'Médio', 'Grande']}
+              />
+              <Select
+                name="age"
+                label="Idade"
+                options={['Filhote', 'Adulto', 'Sênior']}
+              />
+            </div>
+          </fieldset>
 
-        <ButtonSave>
-          <SaveIcon />
-          Salvar
-        </ButtonSave>
-      </Form>
+          <fieldset>
+            <legend>
+              Procedimentos realizados
+              <button type="button" onClick={handleAddProcedure}>
+                <AddIcon />
+                Adicionar procedimento
+              </button>
+            </legend>
+
+            <ProcedureList>
+              {proceduresData.map((item, index) => (
+                <Procedure
+                  key={index}
+                  userName={item.user_name}
+                  procedureName={item.name}
+                  date={item.date}
+                  comments={item.comments}
+                />
+              ))}
+            </ProcedureList>
+          </fieldset>
+
+          <fieldset>
+            <legend>Sobre a adoção</legend>
+            <div className="input-block">
+              <Select
+                name="status"
+                label="Status"
+                options={['Disponível para adoção', 'Indisponível para adoção']}
+              />
+            </div>
+          </fieldset>
+
+          <ButtonSave>
+            <SaveIcon />
+            Salvar
+          </ButtonSave>
+        </Form>
+      )}
     </Container>
   );
 }
