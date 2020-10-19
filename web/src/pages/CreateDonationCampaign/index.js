@@ -47,8 +47,8 @@ export default function CreateDonationCampaign() {
       setCampaigns([...campaigns, campaignData]);
       campaignRef.current.setErrors({});
       setAlert('😻 Campanha criada com sucesso!');
-      history.goBack();
       setIsCompacted(false);
+      history.goBack();
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         const errorMessages = {};
