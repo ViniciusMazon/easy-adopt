@@ -91,7 +91,7 @@ function MenuBar() {
         <MenuButton
           isCompacted={isCompacted}
           activeSection={activeSection}
-          onClick={() => handleNavigation(5)}
+          onClick={() => handleNavigation(5, '/help')}
         >
           {activeSection === 5 ? <HelpIconActive /> : <HelpIcon />}
           <span>Ajuda</span>
