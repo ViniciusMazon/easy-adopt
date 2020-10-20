@@ -83,7 +83,7 @@ function MenuBar() {
         <MenuButton
           isCompacted={isCompacted}
           activeSection={activeSection}
-          onClick={() => handleNavigation(4)}
+          onClick={() => handleNavigation(4, '/schedule')}
         >
           {activeSection === 4 ? <CalendarIconActive /> : <CalendarIcon />}
           <span>Agendar</span>
