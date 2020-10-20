@@ -36,7 +36,7 @@ function Animals() {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 3000);
+    }, 1500);
   });
 
   function handleSearchAnimalByName(e) {

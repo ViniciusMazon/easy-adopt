@@ -25,7 +25,7 @@ export default function DonationCampaigns() {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 3000);
+    }, 1500);
   });
 
   return (
