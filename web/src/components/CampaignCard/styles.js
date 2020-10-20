@@ -20,7 +20,7 @@ export const Container = styled.div`
     > p {
       font: 500 1.6rem 'Montserrat';
       color: var(--text);
-      margin-top: .7rem;
+      margin-top: 0.7rem;
     }
   }
 
@@ -28,19 +28,20 @@ export const Container = styled.div`
     font: normal 1.6rem 'Montserrat';
     color: var(--text);
   }
-  > a {
-    align-self: flex-end;
-    display: flex;
-    align-items: center;
+`;
 
-    font-size: 1.6rem;
-    font-weight: 500;
-    color: var(--text);
+export const CloseButton = styled.button`
+  align-self: flex-end;
+  display: flex;
+  align-items: center;
 
-    cursor: pointer;
-    text-decoration: none;
-    outline: 0;
-  }
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--text);
+
+  cursor: pointer;
+  text-decoration: none;
+  outline: 0;
 `;
 
 export const CloseIcon = styled(Close)`

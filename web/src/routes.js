@@ -18,6 +18,8 @@ import AnimalEdit from './pages/AnimalEdit';
 import AddProcedure from './pages/AddProcedure';
 import DonationCampaigns from './pages/DonationCampaigns';
 import CreateDonationCampaign from './pages/CreateDonationCampaign';
+import Schedule from './pages/Schedule';
+import Help from './pages/Help';
 
 const css = {
   display: 'flex',
@@ -65,6 +67,8 @@ function PrivateRoutes() {
                         path="/donation/create-campaign"
                         component={CreateDonationCampaign}
                       />
+                      <Route path="/schedule" component={Schedule} />
+                      <Route path="/help" component={Help} />
                     </div>
                   </BrowserRouter>
                 </DonationCampaignsProvider>

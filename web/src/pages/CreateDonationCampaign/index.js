@@ -21,7 +21,7 @@ export default function CreateDonationCampaign() {
 
   useEffect(() => {
     setIsCompacted(true);
-  });
+  }, [setIsCompacted]);
 
   async function handleSubmit(data) {
     try {
@@ -47,8 +47,8 @@ export default function CreateDonationCampaign() {
       setCampaigns([...campaigns, campaignData]);
       campaignRef.current.setErrors({});
       setAlert('😻 Campanha criada com sucesso!');
-      setIsCompacted(false);
       history.goBack();
+      setIsCompacted(false);
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         const errorMessages = {};

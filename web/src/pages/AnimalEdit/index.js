@@ -64,7 +64,7 @@ export default function AnimalEdit({ match }) {
           image3: animalSelected.image3,
         });
       }
-    }, 3000);
+    }, 1500);
   });
 
   useEffect(() => {
