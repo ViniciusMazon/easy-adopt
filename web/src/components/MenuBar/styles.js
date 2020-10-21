@@ -10,7 +10,8 @@ import {
   DonateHeartOutline,
   Help,
   HelpOutline,
-  User,
+  UserCircle,
+  UserCircleOutline,
 } from '../../styles/Icons';
 
 export const Container = styled.div`
@@ -38,7 +39,7 @@ export const TopSide = styled.div`
 `;
 
 export const Menu = styled.nav`
-  padding-top: 3.0rem;
+  padding-top: 3rem;
   display: flex;
   flex-direction: column;
 
@@ -51,14 +52,15 @@ export const MenuButton = styled.button`
   display: flex;
   justify-content: ${(props) => (props.isCompacted ? 'center' : 'flex-start')};
   flex-shrink: 0;
-  padding: ${(props) => (props.isCompacted ? '2.0rem 0' : '2.0rem 0 2.0rem 3.0rem')};
+  padding: ${(props) =>
+    props.isCompacted ? '2.0rem 0' : '2.0rem 0 2.0rem 3.0rem'};
 
   > span {
     display: ${(props) => (props.isCompacted ? 'none' : 'inherit')};
-    margin-left: .8rem;
+    margin-left: 0.8rem;
     font-size: 1.6rem;
     color: var(--menu-text);
-    margin-top: .3rem;
+    margin-top: 0.3rem;
   }
 
   cursor: pointer;
@@ -77,11 +79,12 @@ export const BotSide = styled.button`
   align-items: center;
   justify-content: center;
   background: var(--menu-botside);
-  padding: ${(props) => (props.isCompacted ? '2.0rem 0' : '2.0rem 3.0rem 2.0rem 3.0rem')};
+  padding: ${(props) =>
+    props.isCompacted ? '2.0rem 0' : '2.0rem 3.0rem 2.0rem 3.0rem'};
 
   > p {
     display: ${(props) => (props.isCompacted ? 'none' : 'inherit')};
-    margin-left: .8rem;
+    margin-left: 0.8rem;
     font-size: 1.2rem;
     color: var(--menu-text);
   }
@@ -137,6 +140,10 @@ export const HelpIconActive = styled(Help)`
   ${iconCSS}
 `;
 
-export const UserIcon = styled(User)`
+export const UserIcon = styled(UserCircleOutline)`
+  ${iconCSS}
+`;
+
+export const UserIconActive = styled(UserCircle)`
   ${iconCSS}
 `;

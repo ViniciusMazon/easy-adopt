@@ -21,6 +21,7 @@ import {
   HelpIconActive,
   BotSide,
   UserIcon,
+  UserIconActive,
 } from './styles';
 
 import logo from '../../assets/logo.svg';
@@ -100,9 +101,10 @@ function MenuBar() {
 
       <BotSide
         isCompacted={isCompacted}
+        activeSection={activeSection}
         onClick={() => handleNavigation(6, '/user')}
       >
-        <UserIcon />
+        {activeSection === 6 ? <UserIconActive /> : <UserIcon />}
         <p>{user.name}</p>
       </BotSide>
     </Container>
