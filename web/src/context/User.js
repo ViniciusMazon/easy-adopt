@@ -6,6 +6,11 @@ export default function UserProvider({ children }) {
   const [user, setUser] = useState({
     id: 1,
     name: 'Vera Luna Rosa',
+    birth_date: '20/10/1990',
+    email: 'teste@email.com',
+    phone: '1199999999',
+    cpf: '057.037.450-20',
+    access_code: '698DC19D489C4E',
   });
 
   return (

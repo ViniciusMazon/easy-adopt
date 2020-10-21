@@ -28,7 +28,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
 
-  > label {
+  > legend {
     font: 2.4rem 'Varela Round';
     color: var(--title);
     margin-bottom: 2.4rem;
