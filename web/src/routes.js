@@ -20,6 +20,7 @@ import DonationCampaigns from './pages/DonationCampaigns';
 import CreateDonationCampaign from './pages/CreateDonationCampaign';
 import Schedule from './pages/Schedule';
 import Help from './pages/Help';
+import User from './pages/User';
 
 const css = {
   display: 'flex',
@@ -69,6 +70,7 @@ function PrivateRoutes() {
                       />
                       <Route path="/schedule" component={Schedule} />
                       <Route path="/help" component={Help} />
+                      <Route path="/user" component={User} />
                     </div>
                   </BrowserRouter>
                 </DonationCampaignsProvider>

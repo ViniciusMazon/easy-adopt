@@ -11,5 +11,5 @@ export { User, Search, Close } from 'styled-icons/evil';
 export { DownloadOutline } from 'styled-icons/evaicons-outline';
 export { Plus } from 'styled-icons/boxicons-regular';
 export { OpenInNew } from 'styled-icons/material';
-export { Save, Check } from 'styled-icons/feather';
+export { Save, Check, LogOut } from 'styled-icons/feather';
 export { TrashAlt } from 'styled-icons/boxicons-regular';

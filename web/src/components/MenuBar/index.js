@@ -98,7 +98,10 @@ function MenuBar() {
         </MenuButton>
       </Menu>
 
-      <BotSide isCompacted={isCompacted}>
+      <BotSide
+        isCompacted={isCompacted}
+        onClick={() => handleNavigation(6, '/user')}
+      >
         <UserIcon />
         <p>{user.name}</p>
       </BotSide>
