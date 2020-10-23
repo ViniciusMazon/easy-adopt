@@ -1,0 +1,38 @@
+version: '3.2'
+
+services:
+  postgres:
+    container_name: pg
+    image: postgres:10.0-alpine
+    networks:
+      - easyAdopt-network
+    ports:
+      - 5432:5432
+    volumes:
+      - data:/var/lib/postgresql/data/pg_data
+    environment:
+      POSTGRES_DB: easyAdopt
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_PORT: 5432
+      PGDATA: /var/lib/postgresql/data/pg_data
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    ports:
+      - '16543:80'
+    environment:
+      PGADMIN_DEFAULT_EMAIL: 'admin@admin.com'
+      PGADMIN_DEFAULT_PASSWORD: 'password'
+    networks:
+      - easyAdopt-network
+    depends_on:
+      - postgres
+
+networks:
+  easyAdopt-network:
+    driver: bridge
+
+volumes:
+  data:
