@@ -3,6 +3,7 @@ import { Form } from '@unform/web';
 import * as Yup from 'yup';
 import { useMenuBar } from '../../context/MenuBar';
 import { useHistory } from 'react-router-dom';
+import api from '../../services/api';
 
 import { Container, Gallery, ButtonSave, SaveIcon } from './styles';
 
@@ -45,40 +46,26 @@ function AnimalRegistration() {
           ? 'disponível'
           : 'indisponível';
 
-      // const formData = new FormData();
-      // data.append('image1', image1);
-      // data.append('image2', image2);
-      // data.append('image3', image3);
-      // formData.append('name', data.name);
-      // formData.append('specie', data.specie);
-      // formData.append('gender', data.gender);
-      // formData.append('size', data.size);
-      // formData.append('age', data.age);
-      // formData.append('status', formattedStatusName);
+      const formData = new FormData();
+      formData.append('images', data.image1);
+      formData.append('images', data.image2);
+      formData.append('images', data.image3);
+      formData.append('name', data.name);
+      formData.append('specie', data.specie);
+      formData.append('gender', data.gender);
+      formData.append('size', data.size);
+      formData.append('age', data.age);
+      formData.append('status', formattedStatusName);
 
-      const tempData = {
-        id: 3,
-        image1:
-          'https://imagens.brasil.elpais.com/resizer/emY0sddaFt0rRsVdyjNGpIW6VHg=/768x0/arc-anglerfish-eu-central-1-prod-prisa.s3.amazonaws.com/public/POGGID5U7HB5OEVIB32OGG7ZWY.jpg',
-        image2:
-          'https://www.petz.com.br/blog/wp-content/uploads/2020/06/animais-com-sindrome-de-down.jpg',
-        image3:
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSpoCo75Kbrsqf4OpRN4P49gALW4Ei_wnj0dg&usqp=CAU',
-        name: data.name,
-        specie: data.specie,
-        gender: data.gender,
-        size: data.size,
-        age: data.age,
-        status: formattedStatusName,
-      };
-
-      setAnimals([...animals, tempData]);
-
+      const response = await api.post('/animals', formData);
+      if (response.status === 201) {
+        setAlert('Animal cadastrado com sucesso');
+        history.push('/');
+        setIsCompacted(false);
+      } else {
+        setAlert('Não foi possível concluir a operação');
+      }
       registrationRef.current.setErrors({});
-
-      setAlert('Animal cadastrado com sucesso');
-      history.push('/');
-      setIsCompacted(false);
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         const errorMessages = {};
