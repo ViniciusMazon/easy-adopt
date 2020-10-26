@@ -1,5 +1,7 @@
 const { format } = require('date-fns');
+
 const keyGenerator = require('../../utils/keyGenerator');
+const validations = require('../../validations/animalsSchema');
 
 const animalModel = require('../models/Animals');
 const animalView = require('../views/Animals');
@@ -28,11 +30,15 @@ module.exports = {
         image3: images[2].path,
       };
 
+      await validations.create(response, animal);
+
       await animalModel.create(animal);
       return response.status(201).json(animalView.render(animal));
     } catch (error) {
       console.error(error);
-      return response.status(400).json({ message: 'Internal server error' });
+      return response
+        .status(500)
+        .json({ message: 'Ocorreu um erro, tente novamente mais tarde' });
     }
   },
 };

@@ -2,7 +2,7 @@ const request = require('supertest');
 const db = require('../../src/database/connection');
 const app = require('../../src/app');
 
-describe('Animals', () => {
+describe('POST / Animals', () => {
   beforeAll(async () => {
     await db.migrate.rollback();
     await db.migrate.latest();
