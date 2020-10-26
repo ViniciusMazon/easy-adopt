@@ -1,10 +1,10 @@
 module.exports = {
-  host: 'smtp.mailtrap.io',
-  port: 2525,
+  host: process.env.MAIL_HOST,
+  port: process.env.MAIL_PORT,
   secure: false,
   auth: {
-    user: '34488b1ba342b4',
-    pass: '753e5a05fa577a',
+    user: process.env.MAIL_USER,
+    pass: process.env.MAIL_PASS,
   },
   default: {
     from: 'Equipe EasyAdopt <noreply@easyadopt.com.br>',
