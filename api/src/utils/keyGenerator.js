@@ -1,7 +1,7 @@
 const crypto = require('crypto');
 
-function keyGenerator(size) {
-  return crypto.randomBytes(size).toString('hex');
+function keyGenerator() {
+  return crypto.randomBytes(8).toString('hex');
 }
 
 module.exports = keyGenerator;

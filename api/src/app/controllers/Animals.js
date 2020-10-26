@@ -12,7 +12,7 @@ module.exports = {
         return { path: image.filename };
       });
 
-      const id = keyGenerator(8);
+      const id = keyGenerator();
       const registration_date = format(new Date(), 'yyyy/MM/dd');
       const animal = {
         id,
