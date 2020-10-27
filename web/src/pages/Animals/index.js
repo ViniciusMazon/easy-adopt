@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import api from '../../services/api';
 
 import { useAnimals } from '../../context/Animals';
 import { useAlert } from '../../context/Alert';
@@ -19,7 +20,7 @@ import LoadingAnimalCard from '../../components/Shimmer/LoadingAnimalCard';
 
 function Animals() {
   const { alert, setAlert } = useAlert();
-  const { animals } = useAnimals();
+  const [animals, setAnimals] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [filteredAnimals, setFilteredAnimals] = useState([]);
   const [searchFor, setSearchFor] = useState('');
@@ -34,10 +35,11 @@ function Animals() {
   }, [alert, setAlert]);
 
   useEffect(() => {
-    setTimeout(() => {
+    api.get('/animals').then((reponse) => {
+      setAnimals(reponse.data);
       setIsLoading(false);
-    }, 1500);
-  });
+    });
+  }, []);
 
   function handleSearchAnimalByName(e) {
     e.preventDefault();
@@ -81,7 +83,7 @@ function Animals() {
               id={item.id}
               name={item.name}
               gender={item.gender}
-              avatarURL={item.image1}
+              avatarURL={item.image1_url}
               status={item.status}
             />
           ))}
@@ -94,7 +96,7 @@ function Animals() {
               id={item.id}
               name={item.name}
               gender={item.gender}
-              avatarURL={item.image1}
+              avatarURL={item.image1_url}
               status={item.status}
             />
           ))}

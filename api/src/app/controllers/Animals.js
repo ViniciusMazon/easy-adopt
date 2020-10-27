@@ -8,7 +8,7 @@ const animalModel = require('../models/Animals');
 const animalView = require('../views/Animals');
 
 module.exports = {
-  async createNewAnimal(request, response) {
+  async create(request, response) {
     try {
       const { name, gender, specie, size, age, status } = request.body;
       const images = request.files.map((image) => {
@@ -42,6 +42,36 @@ module.exports = {
         .json({ message: 'Ocorreu um erro, tente novamente mais tarde' });
     }
   },
+  async update(request, response) {
+    try {
+      const { id } = request.params;
+      const { name, gender, specie, size, age, status } = request.body;
+      // const images = request.files.map((image) => {
+      //   return { path: image.filename };
+      // });
+
+      const animal = {
+        name,
+        gender,
+        specie,
+        size,
+        age,
+        status,
+        // image1: images[0].path,
+        // image2: images[1].path,
+        // image3: images[2].path,
+      };
+
+      await validations.update(response, animal);
+      await animalModel.edit(id, animal);
+      return response.status(200).send();
+    } catch (error) {
+      console.error(error);
+      return response
+        .status(500)
+        .json({ message: 'Ocorreu um erro, tente novamente mais tarde' });
+    }
+  },
   async index(request, response) {
     try {
       const animals = await animalModel.index();
@@ -64,6 +94,18 @@ module.exports = {
       } else {
         return response.status(200).json([]);
       }
+    } catch (error) {
+      console.error(error);
+      return response
+        .status(500)
+        .json({ message: 'Ocorreu um erro, tente novamente mais tarde' });
+    }
+  },
+  async delete(request, response) {
+    try {
+      const { id } = request.params;
+      await animalModel.destroy(id);
+      return response.status(200).send();
     } catch (error) {
       console.error(error);
       return response

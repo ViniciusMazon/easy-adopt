@@ -1,8 +1,13 @@
+const { destroy } = require('../../database/connection');
 const connection = require('../../database/connection');
 
 module.exports = {
   async create(animal) {
     await connection('animals').insert(animal);
+    return;
+  },
+  async edit(id, animal) {
+    await connection('animals').where('id', id).update(animal);
     return;
   },
   async index() {
@@ -16,5 +21,9 @@ module.exports = {
       .first();
 
     return animal;
+  },
+  async destroy(id) {
+    await connection('animals').where('id', id).delete();
+    return;
   },
 };
