@@ -2,6 +2,7 @@ const { format } = require('date-fns');
 
 const keyGenerator = require('../../utils/keyGenerator');
 const validations = require('../../validations/animalsSchema');
+const { show } = require('../models/Animals');
 
 const animalModel = require('../models/Animals');
 const animalView = require('../views/Animals');
@@ -34,6 +35,35 @@ module.exports = {
 
       await animalModel.create(animal);
       return response.status(201).json(animalView.render(animal));
+    } catch (error) {
+      console.error(error);
+      return response
+        .status(500)
+        .json({ message: 'Ocorreu um erro, tente novamente mais tarde' });
+    }
+  },
+  async index(request, response) {
+    try {
+      const animals = await animalModel.index();
+      return response.status(200).json(animalView.renderMany(animals));
+    } catch (error) {
+      console.error(error);
+      return response
+        .status(500)
+        .json({ message: 'Ocorreu um erro, tente novamente mais tarde' });
+    }
+  },
+  async show(request, response) {
+    try {
+      const { id } = request.params;
+      await validations.show(response, id);
+
+      const animal = await animalModel.show(id);
+      if (animal) {
+        return response.status(200).json(animalView.render(animal));
+      } else {
+        return response.status(200).json([]);
+      }
     } catch (error) {
       console.error(error);
       return response

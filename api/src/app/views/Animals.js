@@ -14,4 +14,7 @@ module.exports = {
       image3_url: `${process.env.CDN_URL}/uploads/${animal.image3}`,
     };
   },
+  renderMany(animals) {
+    return animals.map((animal) => this.render(animal));
+  },
 };

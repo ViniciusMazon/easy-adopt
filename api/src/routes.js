@@ -6,7 +6,8 @@ const upload = multer(uploadConfig);
 
 const animals = require('./app/controllers/Animals');
 
-
 routes.post('/animals', upload.array('images'), animals.createNewAnimal);
+routes.get('/animals', animals.index);
+routes.get('/animals/:id', animals.show);
 
 module.exports = routes;
