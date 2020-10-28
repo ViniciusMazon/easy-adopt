@@ -4,7 +4,12 @@ exports.up = function (knex) {
     table.date('date').notNullable();
     table.string('procedure').notNullable();
     table.string('comments').notNullable();
-    table.string('animal_id').notNullable().references('id').inTable('animals');
+    table
+      .string('animal_id')
+      .notNullable()
+      .references('id')
+      .inTable('animals')
+      .onDelete('CASCADE');
     table
       .string('collaborator_id')
       .notNullable()

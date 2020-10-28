@@ -6,7 +6,9 @@ module.exports = {
     return;
   },
   async index(animal_id) {
-    const procedures = await connection('procedures').where('animal_id', animal_id).select('*');
+    const procedures = await connection('procedures')
+      .where('animal_id', animal_id)
+      .select('*');
     return procedures;
   },
 };
