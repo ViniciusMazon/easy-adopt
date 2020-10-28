@@ -2,9 +2,9 @@ const { format } = require('date-fns');
 
 const keyGenerator = require('../../utils/keyGenerator');
 const validations = require('../../validations/animalsSchema');
-const { show } = require('../models/Animals');
 
 const animalModel = require('../models/Animals');
+const proceduresModel = require('../models/Procedures');
 const animalView = require('../views/Animals');
 
 module.exports = {
@@ -15,17 +15,15 @@ module.exports = {
         return { path: image.filename };
       });
 
-      const id = keyGenerator();
-      const registration_date = format(new Date(), 'yyyy/MM/dd');
       const animal = {
-        id,
+        id: keyGenerator(),
         name,
         gender,
         specie,
         size,
         age,
         status,
-        registration_date,
+        registration_date: format(new Date(), 'yyyy/MM/dd'),
         image1: images[0].path,
         image2: images[1].path,
         image3: images[2].path,
@@ -90,9 +88,10 @@ module.exports = {
 
       const animal = await animalModel.show(id);
       if (animal) {
+        const procedures = await proceduresModel.index(animal.id);
         return response.status(200).json(animalView.render(animal));
       } else {
-        return response.status(200).json([]);
+        return response.status(200).json({});
       }
     } catch (error) {
       console.error(error);

@@ -1,3 +1,5 @@
+const proceduresView = require('./Procedures');
+
 module.exports = {
   render(animal) {
     return {
