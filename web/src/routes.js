@@ -50,7 +50,7 @@ function PrivateRoutes() {
                         component={AnimalEdit}
                       />
                       <Route
-                        path="/edit-animal/:id/add-procedure"
+                        path="/edit-animal/:id/:animal_name/add-procedure"
                         component={AddProcedure}
                       />
                       <Route exact path="/adoption" component={Adoption} />

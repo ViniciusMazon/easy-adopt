@@ -8,10 +8,12 @@ module.exports = {
       size: animal.size,
       age: animal.age,
       status: animal.status,
-      registration_date: animal.registration_date,
       image1_url: `${process.env.CDN_URL}/uploads/${animal.image1}`,
       image2_url: `${process.env.CDN_URL}/uploads/${animal.image2}`,
       image3_url: `${process.env.CDN_URL}/uploads/${animal.image3}`,
     };
+  },
+  renderMany(animals) {
+    return animals.map((animal) => this.render(animal));
   },
 };
