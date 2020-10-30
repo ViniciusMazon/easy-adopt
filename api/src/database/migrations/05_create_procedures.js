@@ -14,7 +14,8 @@ exports.up = function (knex) {
       .string('collaborator_id')
       .notNullable()
       .references('id')
-      .inTable('collaborators');
+      .inTable('collaborators')
+      .onDelete('CASCADE');
   });
 };
 
