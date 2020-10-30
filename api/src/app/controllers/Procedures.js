@@ -6,12 +6,12 @@ const proceduresModel = require('../models/Procedures');
 module.exports = {
   async create(request, response) {
     try {
-      const { name, date, comments, animal_id, collaborator_id } = request.body;
+      const { name, comments, animal_id, collaborator_id } = request.body;
 
       const newProcedure = {
         id: keyGenerator(),
         name,
-        date: format(new Date(date), 'yyyy/MM/dd'),
+        date: format(new Date(), 'yyyy/MM/dd'),
         comments,
         animal_id,
         collaborator_id,
@@ -21,7 +21,7 @@ module.exports = {
       await proceduresModel.create(newProcedure);
       return response.status(201).send();
     } catch (error) {
-      console.error(error);
+      console.log(error);
       return response
         .status(500)
         .json({ message: 'Ocorreu um erro, tente novamente mais tarde' });
