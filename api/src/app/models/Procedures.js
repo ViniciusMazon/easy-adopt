@@ -7,8 +7,13 @@ module.exports = {
   },
   async index(animal_id) {
     const procedures = await connection('procedures')
+      .innerJoin(
+        'collaborators',
+        'procedures.collaborator_id',
+        'collaborators.id'
+      )
       .where('animal_id', animal_id)
-      .select('*');
+      .select('procedures.*', 'collaborators.name');
     return procedures;
   },
 };

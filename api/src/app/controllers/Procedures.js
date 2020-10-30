@@ -6,17 +6,11 @@ const proceduresModel = require('../models/Procedures');
 module.exports = {
   async create(request, response) {
     try {
-      const {
-        procedure,
-        date,
-        comments,
-        animal_id,
-        collaborator_id,
-      } = request.body;
+      const { name, date, comments, animal_id, collaborator_id } = request.body;
 
       const newProcedure = {
         id: keyGenerator(),
-        procedure,
+        name,
         date: format(new Date(date), 'yyyy/MM/dd'),
         comments,
         animal_id,
