@@ -4,6 +4,8 @@ const keyGenerator = require('../../utils/keyGenerator');
 const adoptionRequestsModel = require('../models/AdoptionRequests');
 const validations = require('../../validations/adoptionRequestsSchema');
 const adoptionRequestView = require('../views/AdoptionRequests');
+const adoptionRequestsWithAnimalAndTutor = require('../views/AdoptionRequestsWithAnimalAndTutor');
+const adoptionRequestsAnalysis = require('../views/AdoptionRequestsAnalysis');
 
 module.exports = {
   async create(request, response) {
@@ -45,6 +47,33 @@ module.exports = {
       return response
         .status(201)
         .json(adoptionRequestView.render(adoptionRequest));
+    } catch (error) {
+      console.error(error);
+      return response
+        .status(500)
+        .json({ message: 'Ocorreu um erro, tente novamente mais tarde' });
+    }
+  },
+  async index(request, response) {
+    try {
+      const adoptionRequests = await adoptionRequestsModel.index();
+      return response
+        .status(200)
+        .json(adoptionRequestsWithAnimalAndTutor.renderMany(adoptionRequests));
+    } catch (error) {
+      console.error(error);
+      return response
+        .status(500)
+        .json({ message: 'Ocorreu um erro, tente novamente mais tarde' });
+    }
+  },
+  async show(request, response) {
+    try {
+      const { id } = request.params;
+      const adoptionRequest = await adoptionRequestsModel.show(id);
+      return response
+        .status(200)
+        .json(adoptionRequestsAnalysis.render(adoptionRequest));
     } catch (error) {
       console.error(error);
       return response

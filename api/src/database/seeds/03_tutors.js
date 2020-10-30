@@ -5,7 +5,8 @@ exports.seed = function (knex) {
       return knex('tutors').insert([
         {
           id: 'hrg123',
-          avatar_url:
+          gender: 'Feminino',
+          avatar:
             'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSnS1o3mO3S_Nkfw1WAGaRJ6KaOGgODpfoOsA&usqp=CAU',
           name: 'Fabíola de Camargo Correia',
           birth_date: new Date('1990/02/23'),

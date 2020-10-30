@@ -1,8 +1,9 @@
 exports.up = function (knex) {
   return knex.schema.createTable('tutors', (table) => {
     table.string('id').primary();
-    table.string('avatar_url').notNullable();
+    table.string('avatar').notNullable();
     table.string('name').notNullable();
+    table.string('gender').notNullable();
     table.date('birth_date').notNullable();
     table.string('cpf').notNullable();
     table.string('email').notNullable();

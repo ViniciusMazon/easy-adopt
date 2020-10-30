@@ -6,6 +6,7 @@ exports.seed = function (knex) {
         {
           id: '1hg3gge',
           street: 'Rua A',
+          number: '123',
           neighborhood: 'Bairro A',
           city: 'Cidade A',
           state: 'Estado A',
@@ -14,6 +15,7 @@ exports.seed = function (knex) {
         {
           id: 'j3k45jh',
           street: 'Rua B',
+          number: '456',
           neighborhood: 'Bairro B',
           city: 'Cidade B',
           state: 'Estado B',
