@@ -1,12 +1,7 @@
 import React, { useRef, useEffect, useCallback, useState } from 'react';
 import { useField } from '@unform/core';
 
-import {
-  Container,
-  AddImage,
-  Preview,
-  RemoveIcon,
-} from './styles';
+import { Container, AddImage, Preview, RemoveIcon } from './styles';
 
 export default function ImageInput({ name, ...rest }) {
   const inputImageRef = useRef(null);

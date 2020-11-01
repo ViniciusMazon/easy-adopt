@@ -11,7 +11,6 @@ import Procedure from '../../components/Procedure';
 import { Input, Select, ImageInput } from '../../components/Form';
 import { useMenuBar } from '../../context/MenuBar';
 import { useAlert } from '../../context/Alert';
-import { useProcedures } from '../../context/Procedures';
 import LoadingAnimalEditForm from '../../components/Shimmer/LoadingAnimalEditForm';
 
 import {
@@ -28,26 +27,23 @@ export default function AnimalEdit({ match }) {
   const history = useHistory();
   const editRef = useRef(null);
   const params = useParams();
-  const [isLoading, setIsLoading] = useState(true);
   const { setIsCompacted } = useMenuBar();
   const { alert, setAlert } = useAlert();
-  const [animal, setAnimal] = useState({});
-  const { procedures } = useProcedures();
 
-  const [animalData, setAnimalData] = useState({});
-  const [proceduresData, setProceduresData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [animal, setAnimal] = useState({});
+  const [procedures, setProcedures] = useState([]);
 
   useEffect(() => {
     setIsCompacted(true);
 
     api.get(`/animals/${params.id}`).then((response) => {
       setAnimal(response.data);
+      setProcedures(response.data.procedures);
     });
   }, [params.id, setIsCompacted]);
 
   useEffect(() => {
-    setIsLoading(false);
-
     if (editRef.current !== null) {
       editRef.current.setData({
         name: animal.name,
@@ -64,12 +60,15 @@ export default function AnimalEdit({ match }) {
         image3: animal.image3_url,
       });
     }
+
+    setIsLoading(false);
   }, [
     animal.age,
     animal.gender,
     animal.image1_url,
     animal.image2_url,
     animal.image3_url,
+    animal.length,
     animal.name,
     animal.size,
     animal.specie,
@@ -85,15 +84,6 @@ export default function AnimalEdit({ match }) {
     setAlert('');
   }, [alert, setAlert]);
 
-  // useEffect(() => {
-  //   const proceduresOfThisAnimal = procedures.filter((item) => {
-  //     if (item.animal_id === Number(match.params.id)) {
-  //       return item;
-  //     }
-  //   });
-  //   setProceduresData(proceduresOfThisAnimal);
-  // }, [match.params.id, procedures]);
-
   function handleDeleteAnimal() {
     api.delete(`/animals/${params.id}`);
 
@@ -101,11 +91,9 @@ export default function AnimalEdit({ match }) {
     history.push('/');
   }
 
-  // function handleAddProcedure() {
-  //   history.push(`/edit-animal/${animalData.id}/add-procedure`, {
-  //     animalName: animalData.name,
-  //   });
-  // }
+  function handleAddProcedure() {
+    history.push(`/edit-animal/${animal.id}/${animal.name}/add-procedure`);
+  }
 
   async function handleSubmit(data) {
     try {
@@ -131,9 +119,6 @@ export default function AnimalEdit({ match }) {
           : 'indisponível';
 
       const formData = new FormData();
-      formData.append('images', data.image1);
-      formData.append('images', data.image2);
-      formData.append('images', data.image3);
       formData.append('name', data.name);
       formData.append('specie', data.specie);
       formData.append('gender', data.gender);
@@ -165,7 +150,7 @@ export default function AnimalEdit({ match }) {
       {isLoading ? (
         <Header title={'Carregando informações do animal...'} />
       ) : (
-        <Header title={'Informações da '} animalName={animalData.name} />
+        <Header title={'Informações da '} animalName={animal.name} />
       )}
 
       {isLoading ? (
@@ -222,20 +207,20 @@ export default function AnimalEdit({ match }) {
           <fieldset>
             <legend>
               Procedimentos realizados
-              <button type="button" onClick={() => {}}>
+              <button type="button" onClick={handleAddProcedure}>
                 <AddIcon />
                 Adicionar procedimento
               </button>
             </legend>
 
             <ProcedureList>
-              {proceduresData.map((item, index) => (
+              {procedures.map((procedure) => (
                 <Procedure
-                  key={index}
-                  userName={item.user_name}
-                  procedureName={item.name}
-                  date={item.date}
-                  comments={item.comments}
+                  key={procedure.id}
+                  userName={procedure.user_name}
+                  procedureName={procedure.name}
+                  date={procedure.date}
+                  comments={procedure.comments}
                 />
               ))}
             </ProcedureList>
