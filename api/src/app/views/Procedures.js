@@ -6,7 +6,7 @@ module.exports = {
       id: procedure.id,
       name: procedure.procedure,
       comments: procedure.comments,
-      date: format(procedure.date, 'dd/MM/yyyy'),
+      date: format(new Date(procedure.date), 'dd/MM/yyyy'),
       user_name: procedure.name,
     };
   },

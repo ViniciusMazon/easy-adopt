@@ -1,11 +1,11 @@
 const { format } = require('date-fns');
-
 const keyGenerator = require('../../utils/keyGenerator');
 const validations = require('../../validations/animalsSchema');
 
 const animalModel = require('../models/Animals');
 const proceduresModel = require('../models/Procedures');
 const animalView = require('../views/Animals');
+const animalAndProceduresView = require('../views/AnimalAndProcedures');
 
 module.exports = {
   async create(request, response) {
@@ -89,7 +89,9 @@ module.exports = {
       const animal = await animalModel.show(id);
       if (animal) {
         const procedures = await proceduresModel.index(animal.id);
-        return response.status(200).json(animalView.render(animal));
+        return response
+          .status(200)
+          .json(animalAndProceduresView.render(animal, procedures));
       } else {
         return response.status(200).json({});
       }
