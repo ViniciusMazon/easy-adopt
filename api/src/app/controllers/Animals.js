@@ -44,9 +44,6 @@ module.exports = {
     try {
       const { id } = request.params;
       const { name, gender, specie, size, age, status } = request.body;
-      // const images = request.files.map((image) => {
-      //   return { path: image.filename };
-      // });
 
       const animal = {
         name,
@@ -55,9 +52,6 @@ module.exports = {
         size,
         age,
         status,
-        // image1: images[0].path,
-        // image2: images[1].path,
-        // image3: images[2].path,
       };
 
       await validations.update(response, animal);

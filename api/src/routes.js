@@ -9,7 +9,7 @@ const procedures = require('./app/controllers/Procedures');
 const adoptionRequests = require('./app/controllers/AdoptionRequests');
 
 routes.post('/animals', upload.array('images'), animals.create);
-routes.put('/animals/:id', upload.array('images'), animals.update);
+routes.put('/animals/:id', animals.update);
 routes.get('/animals', animals.index);
 routes.get('/animals/:id', animals.show);
 routes.delete('/animals/:id', animals.delete);
