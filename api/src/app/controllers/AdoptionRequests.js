@@ -54,6 +54,27 @@ module.exports = {
         .json({ message: 'Ocorreu um erro, tente novamente mais tarde' });
     }
   },
+  async update(request, response) {
+    try {
+      const { id } = request.params;
+      const { collaborator_id, status } = request.body;
+      const evaluation_date = format(new Date(), 'yyyy/MM/dd');
+
+      const evaluate = {
+        collaborator_id,
+        status,
+        evaluation_date,
+      };
+
+      await adoptionRequestsModel.update(id, evaluate);
+      return response.status(200).send();
+    } catch (error) {
+      console.error(error);
+      return response
+        .status(500)
+        .json({ message: 'Ocorreu um erro, tente novamente mais tarde' });
+    }
+  },
   async index(request, response) {
     try {
       const adoptionRequests = await adoptionRequestsModel.index();
