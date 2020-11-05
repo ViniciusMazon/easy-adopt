@@ -1,11 +1,11 @@
 const { format } = require('date-fns');
-
 const keyGenerator = require('../../utils/keyGenerator');
 const validations = require('../../validations/animalsSchema');
 
 const animalModel = require('../models/Animals');
 const proceduresModel = require('../models/Procedures');
 const animalView = require('../views/Animals');
+const animalAndProceduresView = require('../views/AnimalAndProcedures');
 
 module.exports = {
   async create(request, response) {
@@ -44,9 +44,6 @@ module.exports = {
     try {
       const { id } = request.params;
       const { name, gender, specie, size, age, status } = request.body;
-      // const images = request.files.map((image) => {
-      //   return { path: image.filename };
-      // });
 
       const animal = {
         name,
@@ -55,9 +52,6 @@ module.exports = {
         size,
         age,
         status,
-        // image1: images[0].path,
-        // image2: images[1].path,
-        // image3: images[2].path,
       };
 
       await validations.update(response, animal);
@@ -89,7 +83,9 @@ module.exports = {
       const animal = await animalModel.show(id);
       if (animal) {
         const procedures = await proceduresModel.index(animal.id);
-        return response.status(200).json(animalView.render(animal));
+        return response
+          .status(200)
+          .json(animalAndProceduresView.render(animal, procedures));
       } else {
         return response.status(200).json({});
       }

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { TrashAlt } from '../../../styles/Icons';
+import { TrashAlt } from '../../styles/Icons';
 
 export const Container = styled.div`
   width: 18rem;

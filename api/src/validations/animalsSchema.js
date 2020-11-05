@@ -50,9 +50,6 @@ async function update(response, animal) {
     size: yup.string().required('Este campo é obrigatório'),
     age: yup.string().required('Este campo é obrigatório'),
     status: yup.string().required('Este campo é obrigatório'),
-    // image1: yup.string().required('Este campo é obrigatório'),
-    // image2: yup.string().required('Este campo é obrigatório'),
-    // image3: yup.string().required('Este campo é obrigatório'),
   });
 
   try {

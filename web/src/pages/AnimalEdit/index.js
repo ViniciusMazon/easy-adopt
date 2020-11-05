@@ -8,10 +8,10 @@ import api from '../../services/api';
 import Header from '../../components/Header';
 import Procedure from '../../components/Procedure';
 
-import { Input, Select, ImageInput } from '../../components/Form';
+import { Input, Select } from '../../components/Form';
+import InputImage from '../../components/InputImage';
 import { useMenuBar } from '../../context/MenuBar';
 import { useAlert } from '../../context/Alert';
-import { useProcedures } from '../../context/Procedures';
 import LoadingAnimalEditForm from '../../components/Shimmer/LoadingAnimalEditForm';
 
 import {
@@ -24,30 +24,34 @@ import {
   AddIcon,
 } from './styles';
 
-export default function AnimalEdit({ match }) {
+export default function AnimalEdit() {
   const history = useHistory();
   const editRef = useRef(null);
   const params = useParams();
-  const [isLoading, setIsLoading] = useState(true);
   const { setIsCompacted } = useMenuBar();
   const { alert, setAlert } = useAlert();
-  const [animal, setAnimal] = useState({});
-  const { procedures } = useProcedures();
 
-  const [animalData, setAnimalData] = useState({});
-  const [proceduresData, setProceduresData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [animal, setAnimal] = useState({});
+  const [procedures, setProcedures] = useState([]);
+
+  const [preview1, setPreview1] = useState('');
+  const [preview2, setPreview2] = useState('');
+  const [preview3, setPreview3] = useState('');
 
   useEffect(() => {
     setIsCompacted(true);
 
     api.get(`/animals/${params.id}`).then((response) => {
       setAnimal(response.data);
+      setProcedures(response.data.procedures);
+      setPreview1(response.data.image1_url);
+      setPreview2(response.data.image2_url);
+      setPreview3(response.data.image3_url);
     });
   }, [params.id, setIsCompacted]);
 
   useEffect(() => {
-    setIsLoading(false);
-
     if (editRef.current !== null) {
       editRef.current.setData({
         name: animal.name,
@@ -59,17 +63,13 @@ export default function AnimalEdit({ match }) {
           animal.status === 'disponível'
             ? 'Disponível para adoção'
             : 'Indisponível para adoção',
-        image1: animal.image1_url,
-        image2: animal.image2_url,
-        image3: animal.image3_url,
       });
     }
+
+    setIsLoading(false);
   }, [
     animal.age,
     animal.gender,
-    animal.image1_url,
-    animal.image2_url,
-    animal.image3_url,
     animal.name,
     animal.size,
     animal.specie,
@@ -85,15 +85,6 @@ export default function AnimalEdit({ match }) {
     setAlert('');
   }, [alert, setAlert]);
 
-  // useEffect(() => {
-  //   const proceduresOfThisAnimal = procedures.filter((item) => {
-  //     if (item.animal_id === Number(match.params.id)) {
-  //       return item;
-  //     }
-  //   });
-  //   setProceduresData(proceduresOfThisAnimal);
-  // }, [match.params.id, procedures]);
-
   function handleDeleteAnimal() {
     api.delete(`/animals/${params.id}`);
 
@@ -101,47 +92,40 @@ export default function AnimalEdit({ match }) {
     history.push('/');
   }
 
-  // function handleAddProcedure() {
-  //   history.push(`/edit-animal/${animalData.id}/add-procedure`, {
-  //     animalName: animalData.name,
-  //   });
-  // }
+  function handleAddProcedure() {
+    history.push(`/edit-animal/${animal.id}/${animal.name}/add-procedure`);
+  }
 
   async function handleSubmit(data) {
     try {
-      // const schema = Yup.object().shape({
-      //   // image1: Yup.mixed().required('A imagem é obrigatória'),
-      //   // image2: Yup.mixed().required('A imagem é obrigatória'),
-      //   // image3: Yup.mixed().required('A imagem é obrigatória'),
-      //   name: Yup.string().required('O nome é obrigatório'),
-      //   specie: Yup.string().required('A espécie é obrigatória'),
-      //   gender: Yup.string().required('O gênero é obrigatório'),
-      //   size: Yup.string().required('O tamanho é obrigatório'),
-      //   age: Yup.string().required('A idade é obrigatória'),
-      //   status: Yup.string().required('O status é obrigatório'),
-      // });
+      const schema = Yup.object().shape({
+        name: Yup.string().required('O nome é obrigatório'),
+        specie: Yup.string().required('A espécie é obrigatória'),
+        gender: Yup.string().required('O gênero é obrigatório'),
+        size: Yup.string().required('O tamanho é obrigatório'),
+        age: Yup.string().required('A idade é obrigatória'),
+        status: Yup.string().required('O status é obrigatório'),
+      });
 
-      // await schema.validate(data, {
-      //   abortEarly: false,
-      // });
+      await schema.validate(data, {
+        abortEarly: false,
+      });
 
       const formattedStatusName =
         data.status === 'Disponível para adoção'
           ? 'disponível'
           : 'indisponível';
 
-      const formData = new FormData();
-      formData.append('images', data.image1);
-      formData.append('images', data.image2);
-      formData.append('images', data.image3);
-      formData.append('name', data.name);
-      formData.append('specie', data.specie);
-      formData.append('gender', data.gender);
-      formData.append('size', data.size);
-      formData.append('age', data.age);
-      formData.append('status', formattedStatusName);
+      const animal = {
+        name: data.name,
+        specie: data.specie,
+        gender: data.gender,
+        size: data.size,
+        age: data.age,
+        status: formattedStatusName,
+      };
 
-      api.put(`/animals/${params.id}`, formData);
+      api.put(`/animals/${params.id}`, animal);
 
       editRef.current.setErrors({});
       setAlert('🐱 Animal editado com sucesso!');
@@ -165,7 +149,7 @@ export default function AnimalEdit({ match }) {
       {isLoading ? (
         <Header title={'Carregando informações do animal...'} />
       ) : (
-        <Header title={'Informações da '} animalName={animalData.name} />
+        <Header title={'Informações da '} animalName={animal.name} />
       )}
 
       {isLoading ? (
@@ -175,9 +159,21 @@ export default function AnimalEdit({ match }) {
           <fieldset>
             <legend>Fotos</legend>
             <Gallery>
-              <ImageInput name="image1" />
-              <ImageInput name="image2" />
-              <ImageInput name="image3" />
+              <InputImage
+                isEditable={false}
+                preview={preview1}
+                changePreview={setPreview1}
+              />
+              <InputImage
+                isEditable={false}
+                preview={preview2}
+                changePreview={setPreview2}
+              />
+              <InputImage
+                isEditable={false}
+                preview={preview3}
+                changePreview={setPreview3}
+              />
             </Gallery>
           </fieldset>
 
@@ -222,20 +218,20 @@ export default function AnimalEdit({ match }) {
           <fieldset>
             <legend>
               Procedimentos realizados
-              <button type="button" onClick={() => {}}>
+              <button type="button" onClick={handleAddProcedure}>
                 <AddIcon />
                 Adicionar procedimento
               </button>
             </legend>
 
             <ProcedureList>
-              {proceduresData.map((item, index) => (
+              {procedures.map((procedure) => (
                 <Procedure
-                  key={index}
-                  userName={item.user_name}
-                  procedureName={item.name}
-                  date={item.date}
-                  comments={item.comments}
+                  key={procedure.id}
+                  userName={procedure.user_name}
+                  procedureName={procedure.name}
+                  date={procedure.date}
+                  comments={procedure.comments}
                 />
               ))}
             </ProcedureList>

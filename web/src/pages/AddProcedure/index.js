@@ -48,7 +48,6 @@ export default function AddProcedure() {
 
       const procedureData = {
         animal_id: params.id,
-        date: format(new Date(), 'yyyy/MM/dd'),
         name: data.name,
         comments: data.comments,
         collaborator_id: user.id,
