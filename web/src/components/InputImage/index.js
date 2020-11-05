@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Container, AddImage, Preview, RemoveIcon } from './styles';
 
-function InputImage({ changeFile, preview, changePreview }) {
+function InputImage({ changeFile, preview, changePreview, isEditable = true }) {
   function handleRemovePreview() {
     changePreview('');
   }
@@ -23,9 +23,11 @@ function InputImage({ changeFile, preview, changePreview }) {
       {preview ? (
         <Preview>
           <img src={preview} alt="Preview" />
-          <button type="button" onClick={handleRemovePreview}>
-            <RemoveIcon />
-          </button>
+          {isEditable && (
+            <button type="button" onClick={handleRemovePreview}>
+              <RemoveIcon />
+            </button>
+          )}
         </Preview>
       ) : (
         <AddImage>

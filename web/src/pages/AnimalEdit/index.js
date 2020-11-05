@@ -35,9 +35,6 @@ export default function AnimalEdit() {
   const [animal, setAnimal] = useState({});
   const [procedures, setProcedures] = useState([]);
 
-  const [image1, setImage1] = useState();
-  const [image2, setImage2] = useState();
-  const [image3, setImage3] = useState();
   const [preview1, setPreview1] = useState('');
   const [preview2, setPreview2] = useState('');
   const [preview3, setPreview3] = useState('');
@@ -73,10 +70,6 @@ export default function AnimalEdit() {
   }, [
     animal.age,
     animal.gender,
-    animal.image1_url,
-    animal.image2_url,
-    animal.image3_url,
-    animal.length,
     animal.name,
     animal.size,
     animal.specie,
@@ -106,9 +99,6 @@ export default function AnimalEdit() {
   async function handleSubmit(data) {
     try {
       const schema = Yup.object().shape({
-        // image1: Yup.mixed().required('A imagem é obrigatória'),
-        // image2: Yup.mixed().required('A imagem é obrigatória'),
-        // image3: Yup.mixed().required('A imagem é obrigatória'),
         name: Yup.string().required('O nome é obrigatório'),
         specie: Yup.string().required('A espécie é obrigatória'),
         gender: Yup.string().required('O gênero é obrigatório'),
@@ -126,18 +116,16 @@ export default function AnimalEdit() {
           ? 'disponível'
           : 'indisponível';
 
-      const formData = new FormData();
-      formData.append('name', data.name);
-      formData.append('specie', data.specie);
-      formData.append('gender', data.gender);
-      formData.append('size', data.size);
-      formData.append('age', data.age);
-      formData.append('status', formattedStatusName);
-      formData.append('images', image1);
-      formData.append('images', image2);
-      formData.append('images', image3);
+      const animal = {
+        name: data.name,
+        specie: data.specie,
+        gender: data.gender,
+        size: data.size,
+        age: data.age,
+        status: formattedStatusName,
+      };
 
-      api.put(`/animals/${params.id}`, formData);
+      api.put(`/animals/${params.id}`, animal);
 
       editRef.current.setErrors({});
       setAlert('🐱 Animal editado com sucesso!');
@@ -172,17 +160,17 @@ export default function AnimalEdit() {
             <legend>Fotos</legend>
             <Gallery>
               <InputImage
-                changeFile={setImage1}
+                isEditable={false}
                 preview={preview1}
                 changePreview={setPreview1}
               />
               <InputImage
-                changeFile={setImage2}
+                isEditable={false}
                 preview={preview2}
                 changePreview={setPreview2}
               />
               <InputImage
-                changeFile={setImage3}
+                isEditable={false}
                 preview={preview3}
                 changePreview={setPreview3}
               />
