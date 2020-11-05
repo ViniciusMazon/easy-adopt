@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 import { useMenuBar } from '../../context/MenuBar';
@@ -8,27 +8,33 @@ import api from '../../services/api';
 import { Container, Gallery, ButtonSave, SaveIcon } from './styles';
 
 import Header from '../../components/Header';
-import { Input, Select, ImageInput } from '../../components/Form';
-import { useAnimals } from '../../context/Animals';
+import { Input, Select } from '../../components/Form';
+import InputImage from '../../components/InputImage';
 import { useAlert } from '../../context/Alert';
 
 function AnimalRegistration() {
   const registrationRef = useRef(null);
   const history = useHistory();
   const { setIsCompacted } = useMenuBar();
-  const { alert, setAlert } = useAlert();
-  const { animals, setAnimals } = useAnimals();
+  const { setAlert } = useAlert();
+
+  const [image1, setImage1] = useState();
+  const [image2, setImage2] = useState();
+  const [image3, setImage3] = useState();
+  const [preview1, setPreview1] = useState('');
+  const [preview2, setPreview2] = useState('');
+  const [preview3, setPreview3] = useState('');
 
   useEffect(() => {
     setIsCompacted(true);
-  }, [animals, setIsCompacted]);
+  }, [setIsCompacted]);
 
   async function handleSubmit(data) {
     try {
       const schema = Yup.object().shape({
-        image1: Yup.mixed().required('A imagem é obrigatória'),
-        image2: Yup.mixed().required('A imagem é obrigatória'),
-        image3: Yup.mixed().required('A imagem é obrigatória'),
+        // image1: Yup.mixed().required('A imagem é obrigatória'),
+        // image2: Yup.mixed().required('A imagem é obrigatória'),
+        // image3: Yup.mixed().required('A imagem é obrigatória'),
         name: Yup.string().required('O nome é obrigatório'),
         specie: Yup.string().required('A espécie é obrigatória'),
         gender: Yup.string().required('O gênero é obrigatório'),
@@ -47,15 +53,15 @@ function AnimalRegistration() {
           : 'indisponível';
 
       const formData = new FormData();
-      formData.append('images', data.image1);
-      formData.append('images', data.image2);
-      formData.append('images', data.image3);
       formData.append('name', data.name);
       formData.append('specie', data.specie);
       formData.append('gender', data.gender);
       formData.append('size', data.size);
       formData.append('age', data.age);
       formData.append('status', formattedStatusName);
+      formData.append('images', image1);
+      formData.append('images', image2);
+      formData.append('images', image3);
 
       const response = await api.post('/animals', formData);
       if (response.status === 201) {
@@ -86,9 +92,21 @@ function AnimalRegistration() {
         <fieldset>
           <legend>Fotos</legend>
           <Gallery>
-            <ImageInput name="image1" />
-            <ImageInput name="image2" />
-            <ImageInput name="image3" />
+            <InputImage
+              changeFile={setImage1}
+              preview={preview1}
+              changePreview={setPreview1}
+            />
+            <InputImage
+              changeFile={setImage2}
+              preview={preview2}
+              changePreview={setPreview2}
+            />
+            <InputImage
+              changeFile={setImage3}
+              preview={preview3}
+              changePreview={setPreview3}
+            />
           </Gallery>
         </fieldset>
 
