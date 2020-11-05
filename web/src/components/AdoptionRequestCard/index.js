@@ -15,7 +15,7 @@ export default function AdoptionRequestCard({ id, status, tutor, animal }) {
   return (
     <Container>
       <Row>
-        <Avatar avatarURL={tutor.avatar_url} className="avatar-top" />
+        <Avatar avatarURL={tutor.avatar} className="avatar-top" />
 
         <Info>
           <Status>
@@ -29,7 +29,7 @@ export default function AdoptionRequestCard({ id, status, tutor, animal }) {
       </Row>
 
       <Row>
-        <Avatar avatarURL={animal.avatar_url} />
+        <Avatar avatarURL={animal.avatar} />
 
         <Info>
           <strong>{animal.name}</strong>
