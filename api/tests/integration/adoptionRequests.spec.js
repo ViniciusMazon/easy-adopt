@@ -36,6 +36,17 @@ describe('Animals', () => {
     });
   });
 
+  describe('PUT', () => {
+    it('Should evaluate a request', async () => {
+      const response = await request(app).get('/adoption-request/fdas878', {
+        collaborator_id: 'abc123',
+        status: 'aprovado',
+      });
+
+      expect(response.statusCode).toEqual(200);
+    });
+  });
+
   describe('INDEX', () => {
     it('Should list all adoption requests', async () => {
       const response = await request(app).get('/adoption-request');
