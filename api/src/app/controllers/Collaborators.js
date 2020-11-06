@@ -1,0 +1,56 @@
+const { format } = require('date-fns');
+const keyGenerator = require('../../utils/keyGenerator');
+const hash = require('../../utils/hash');
+
+const collaboratorsModel = require('../models/Collaborators');
+const collaboratorsView = require('../views/Collaborator');
+
+module.exports = {
+  async create(request, response) {
+    try {
+      const {
+        name,
+        birth_date,
+        cpf,
+        email,
+        password,
+        phone,
+        access_code,
+        address_id,
+      } = request.body;
+
+      const collaborator = {
+        id: keyGenerator(),
+        name,
+        birth_date: format(new Date(birth_date), 'yyyy/MM/dd'),
+        cpf,
+        email,
+        hash_password: await hash.encrypt(password),
+        phone,
+        access_code,
+        address_id,
+      };
+
+      await collaboratorsModel.create(collaborator);
+
+      return response.status(201).send();
+    } catch (error) {
+      console.error(error);
+      return response
+        .status(500)
+        .json({ message: 'Ocorreu um erro, tente novamente mais tarde' });
+    }
+  },
+  async show(request, response) {
+    try {
+      const { id } = request.params;
+      const collaborator = await collaboratorsModel.show(id);
+      return response.status(200).json(collaboratorsView.renter(collaborator));
+    } catch (error) {
+      console.error(error);
+      return response
+        .status(500)
+        .json({ message: 'Ocorreu um erro, tente novamente mais tarde' });
+    }
+  },
+};
