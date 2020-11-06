@@ -8,6 +8,7 @@ const animals = require('./app/controllers/Animals');
 const procedures = require('./app/controllers/Procedures');
 const adoptionRequests = require('./app/controllers/AdoptionRequests');
 const collaborators = require('./app/controllers/Collaborators');
+const accessCode = require('./app/controllers/AccessCode');
 
 routes.post('/animals', upload.array('images'), animals.create);
 routes.put('/animals/:id', animals.update);
@@ -23,6 +24,10 @@ routes.get('/adoption-request', adoptionRequests.index);
 routes.get('/adoption-request/:id', adoptionRequests.show);
 
 routes.post('/collaborators', collaborators.create);
+routes.put('/collaborators/:id', collaborators.update);
 routes.get('/collaborators/:id', collaborators.show);
+
+routes.post('/access-code', accessCode.create);
+routes.get('/access-code/:access_code', accessCode.show);
 
 module.exports = routes;

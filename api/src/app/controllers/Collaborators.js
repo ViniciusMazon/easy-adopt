@@ -4,6 +4,7 @@ const hash = require('../../utils/hash');
 
 const collaboratorsModel = require('../models/Collaborators');
 const collaboratorsView = require('../views/Collaborator');
+const accessCodeModel = require('../models/AccessCode');
 
 module.exports = {
   async create(request, response) {
@@ -19,6 +20,14 @@ module.exports = {
         address_id,
       } = request.body;
 
+      const accessCodeIsValid = await accessCodeModel.show(access_code);
+
+      if (!accessCodeIsValid || accessCodeIsValid.used_by !== null) {
+        return response
+          .status(200)
+          .json({ message: 'Código de acesso inválido' });
+      }
+
       const collaborator = {
         id: keyGenerator(),
         name,
@@ -32,8 +41,34 @@ module.exports = {
       };
 
       await collaboratorsModel.create(collaborator);
+      const updateAccessCode = {
+        date_use: format(new Date(), 'yyyy/MM/dd'),
+        used_by: collaborator.id,
+      };
+      await accessCodeModel.edit(access_code, updateAccessCode);
 
       return response.status(201).send();
+    } catch (error) {
+      console.error(error);
+      return response
+        .status(500)
+        .json({ message: 'Ocorreu um erro, tente novamente mais tarde' });
+    }
+  },
+  async update(request, response) {
+    try {
+      const { id } = request.params;
+      const { name, birth_date, cpf, email, phone } = request.body;
+
+      const collaborator = {
+        name,
+        birth_date,
+        cpf,
+        email,
+        phone,
+      };
+      await collaboratorsModel.edit(id, collaborator);
+      return response.status(200).send();
     } catch (error) {
       console.error(error);
       return response

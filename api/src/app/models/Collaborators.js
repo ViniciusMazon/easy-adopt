@@ -1,9 +1,12 @@
 const connection = require('../../database/connection');
-const { show } = require('../controllers/Collaborators');
 
 module.exports = {
   async create(collaborator) {
     await connection('collaborators').insert(collaborator);
+    return;
+  },
+  async edit(id, collaborator) {
+    await connection('collaborators').where('id', id).update(collaborator);
     return;
   },
   async show(id) {
