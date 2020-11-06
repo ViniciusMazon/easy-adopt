@@ -21,6 +21,15 @@ exports.seed = function (knex) {
           state: 'Estado B',
           cep: '11.111-111',
         },
+        {
+          id: '1hj3ge',
+          street: 'Rua C',
+          number: '456',
+          neighborhood: 'Bairro C',
+          city: 'Cidade C',
+          state: 'Estado C',
+          cep: '22.222-222',
+        },
       ]);
     });
 };
