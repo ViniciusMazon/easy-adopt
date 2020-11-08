@@ -9,6 +9,8 @@ const procedures = require('./app/controllers/Procedures');
 const adoptionRequests = require('./app/controllers/AdoptionRequests');
 const collaborators = require('./app/controllers/Collaborators');
 const accessCode = require('./app/controllers/AccessCode');
+const donations = require('./app/controllers/Donations');
+const donationCampaigns = require('./app/controllers/DonationCampaigns');
 
 routes.post('/animals', upload.array('images'), animals.create);
 routes.put('/animals/:id', animals.update);
@@ -29,5 +31,11 @@ routes.get('/collaborators/:id', collaborators.show);
 
 routes.post('/access-code', accessCode.create);
 routes.get('/access-code/:access_code', accessCode.show);
+
+routes.post('/donation-campaigns', donationCampaigns.create);
+routes.get('/donation-campaigns', donationCampaigns.index);
+routes.delete('/donation-campaigns/:id', donationCampaigns.delete);
+
+routes.post('/donation/donate', donations.checkout);
 
 module.exports = routes;
