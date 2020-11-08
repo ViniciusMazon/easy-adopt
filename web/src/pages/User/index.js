@@ -89,9 +89,11 @@ export default function User() {
 
   function handleLogout() {}
 
-  function handleGenerateAccessCode() {
-    const hash = Math.random().toString(36).substring(7);
-    setAccessCode(hash);
+  async function handleGenerateAccessCode() {
+    const { data: code } = await api.post('/access-code', {
+      collaborator_id: user.id,
+    });
+    setAccessCode(code);
   }
 
   return (
@@ -130,6 +132,7 @@ export default function User() {
                 label="Novo código de acesso"
                 readonly
                 className="input-custom"
+                value={accessCode}
               />
               <button type="button" onClick={handleGenerateAccessCode}>
                 Gerar
