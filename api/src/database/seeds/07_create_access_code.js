@@ -1,8 +1,8 @@
 exports.seed = function (knex) {
-  return knex('adoption_requests')
+  return knex('access_code')
     .del()
     .then(function () {
-      return knex('adoption_requests').insert([
+      return knex('access_code').insert([
         {
           id: 'fds5gf43',
           access_code: '2444900A435D7D9A',
