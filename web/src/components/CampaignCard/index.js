@@ -28,7 +28,7 @@ export default function CampaignCard({
     <Container>
       <span>
         <strong>{title}</strong>
-        <p>{`R$${current} de R$${goal}`}</p>
+        <p>{`${current} de ${goal}`}</p>
       </span>
 
       <p>{description}</p>
