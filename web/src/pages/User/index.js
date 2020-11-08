@@ -3,21 +3,20 @@ import { useHistory } from 'react-router-dom';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
+import api from '../../services/api';
 
 import { Container, ButtonSave, SaveIcon, LogoutIcon } from './styles';
 import { Input } from '../../components/Form';
-
 import { useAlert } from '../../context/Alert';
-import { useUser } from '../../context/User';
 import LoadingUser from '../../components/Shimmer/LoadingUser';
 
 export default function User() {
   const history = useHistory();
   const userRef = useRef(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState({});
   const [accessCode, setAccessCode] = useState('');
   const { alert, setAlert } = useAlert();
-  const { user, setUser } = useUser();
 
   useEffect(() => {
     if (alert === '') {
@@ -29,28 +28,24 @@ export default function User() {
   }, [alert, setAlert]);
 
   useEffect(() => {
-    if (userRef.current !== null) {
-      userRef.current.setData({
-        generate_access_code: accessCode,
-      });
-    }
-  }, [accessCode]);
+    api.get('/collaborators/abc123').then((response) => {
+      setUser(response.data);
+    });
+  }, []);
 
   useEffect(() => {
     if (userRef.current !== null) {
       userRef.current.setData({
         name: user.name,
         birth_date: user.birth_date,
+        cpf: user.cpf,
         email: user.email,
         phone: user.phone,
-        cpf: user.cpf,
       });
     }
 
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1500);
-  });
+    setIsLoading(false);
+  }, [user.birth_date, user.cpf, user.email, user.name, user.phone]);
 
   async function handleSubmit(data) {
     try {
@@ -74,7 +69,8 @@ export default function User() {
         cpf: data.cpf,
       };
 
-      setUser(newUserData);
+      await api.put(`/collaborators/${user.id}`, newUserData);
+
       userRef.current.setErrors({});
       setAlert('😄 Suas informações foram alteradas com sucesso!');
       history.push('/');
