@@ -11,6 +11,7 @@ const collaborators = require('./app/controllers/Collaborators');
 const accessCode = require('./app/controllers/AccessCode');
 const donations = require('./app/controllers/Donations');
 const donationCampaigns = require('./app/controllers/DonationCampaigns');
+const schedule = require('./app/controllers/Schedule');
 
 routes.post('/animals', upload.array('images'), animals.create);
 routes.put('/animals/:id', animals.update);
@@ -37,5 +38,8 @@ routes.get('/donation-campaigns', donationCampaigns.index);
 routes.delete('/donation-campaigns/:id', donationCampaigns.delete);
 
 routes.post('/donation/donate', donations.checkout);
+
+routes.post('/schedule', schedule.create);
+routes.get('/schedule', schedule.index);
 
 module.exports = routes;
