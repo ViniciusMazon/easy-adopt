@@ -2,20 +2,18 @@ import React, { useRef, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
-import { format } from 'date-fns';
+import api from '../../services/api';
 
 import Header from '../../components/Header';
 import { Input, TextArea } from '../../components/Form';
 import { useMenuBar } from '../../context/MenuBar';
 import { useAlert } from '../../context/Alert';
-import { useDonationCampaigns } from '../../context/DonationCampaigns';
 
 import { Container, ButtonSave, SaveIcon } from './styles';
 
 export default function CreateDonationCampaign() {
   const campaignRef = useRef(null);
   const history = useHistory();
-  const { campaigns, setCampaigns } = useDonationCampaigns();
   const { setIsCompacted } = useMenuBar();
   const { setAlert } = useAlert();
 
@@ -34,17 +32,19 @@ export default function CreateDonationCampaign() {
         abortEarly: false,
       });
 
+      const { id: userID } = JSON.parse(
+        sessionStorage.getItem('@easy-adopt/user')
+      );
+
       const campaignData = {
-        id: 3,
         title: data.title,
-        goal: data.goal,
-        current: 0.0,
         description: data.description,
-        date: format(new Date(), 'dd/MM/yyyy'),
-        collaborator_id: 1,
+        goal: data.goal,
+        collaborator_id: userID,
       };
 
-      setCampaigns([...campaigns, campaignData]);
+      await api.post('/donation-campaigns', campaignData);
+
       campaignRef.current.setErrors({});
       setAlert('😻 Campanha criada com sucesso!');
       history.goBack();

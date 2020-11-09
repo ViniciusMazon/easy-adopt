@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
+import api from '../../services/api';
 
 import { Container, Header, AdoptionRequests } from './styles';
 
-import { useAdoptionRequests } from '../../context/AdoptionRequests';
 import AdoptionRequestCard from '../../components/AdoptionRequestCard';
 import { useAlert } from '../../context/Alert';
 
 import LoadingAdoptionRequestCard from '../../components/Shimmer/LoadingAdoptionRequestCard';
 
 function Adoption() {
-  const { adoptionRequests } = useAdoptionRequests();
   const { alert, setAlert } = useAlert();
+  const [adoptionRequests, setAdoptionRequests] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -24,10 +24,11 @@ function Adoption() {
   }, [alert, setAlert]);
 
   useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1500);
-  });
+    api.get('/adoption-request').then((response) => {
+      setAdoptionRequests(response.data);
+    });
+    setIsLoading(false);
+  }, []);
 
   return (
     <Container>

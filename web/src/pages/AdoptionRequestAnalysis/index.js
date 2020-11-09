@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import api from '../../services/api';
 
 import {
   Container,
@@ -17,7 +18,7 @@ import {
 import Header from '../../components/Header';
 import { useMenuBar } from '../../context/MenuBar';
 import { useAlert } from '../../context/Alert';
-import { useAdoptionRequests } from '../../context/AdoptionRequests';
+import { useUser } from '../../context/User';
 
 import LoadingAdoptionRequestAnalysisMain from '../../components/Shimmer/LoadingAdoptionRequestAnalysisMain';
 
@@ -26,41 +27,33 @@ export default function AdoptionRequestAnalysis() {
   const history = useHistory();
   const { setIsCompacted } = useMenuBar();
   const { setAlert } = useAlert();
-  const { adoptionRequests, setAdoptionRequests } = useAdoptionRequests();
+  const { user } = useUser();
   const [isLoading, setIsLoading] = useState(true);
-  const [status, setStatus] = useState('');
-  const [animal, setAnimal] = useState();
-  const [tutor, setTutor] = useState();
-  const [questionnaire, setQuestionnaire] = useState({});
+
+  const [animal, setAnimal] = useState({});
+  const [tutor, setTutor] = useState({});
+  const [request, setRequest] = useState({});
 
   useEffect(() => {
     setIsCompacted(true);
-
-    adoptionRequests.filter((item) => {
-      if (item.id === Number(params.id)) {
-        setStatus(item.status);
-        setAnimal(item.animal);
-        setTutor(item.tutor);
-        setQuestionnaire(item.questionnaire);
-      }
-    });
-  }, [adoptionRequests, animal, params.id, setIsCompacted]);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1500);
   });
 
-  function handleEvaluate(status) {
-    const newAdoptionRequests = adoptionRequests.map((request) => {
-      if (request.id === Number(params.id)) {
-        request.status = status;
-        return request;
-      }
-      return request;
+  useEffect(() => {
+    setIsLoading(false);
+    api.get(`/adoption-request/${params.id}`).then((response) => {
+      setRequest(response.data.request);
+      setAnimal(response.data.animal);
+      setTutor(response.data.tutor);
     });
-    setAdoptionRequests(newAdoptionRequests);
+  }, [params.id]);
+
+  async function handleEvaluate(status) {
+    const evaluate = {
+      collaborator_id: user.id,
+      status,
+    };
+
+    await api.put(`/adoption-request/${request.id}`, evaluate);
     setAlert(`📄 Pedido de adoção ${status}`);
     history.push('/adoption');
     setIsCompacted(false);
@@ -76,7 +69,7 @@ export default function AdoptionRequestAnalysis() {
           <fieldset>
             <legend>Sobre o animal</legend>
             <Data>
-              <Avatar avatarURL={animal.avatar_url} />
+              <Avatar avatarURL={animal.avatar} />
 
               <Info>
                 <Answer>
@@ -112,7 +105,7 @@ export default function AdoptionRequestAnalysis() {
           <fieldset>
             <legend>Sobre o tutor</legend>
             <Data>
-              <Avatar avatarURL={tutor.avatar_url} />
+              <Avatar avatarURL={tutor.avatar} />
 
               <Info>
                 <Answer>
@@ -138,7 +131,7 @@ export default function AdoptionRequestAnalysis() {
 
                 <Answer>
                   <strong>Endereço</strong>
-                  <p>{`${tutor.address.street}, ${tutor.address.number}, ${tutor.address.neighborhood} - ${tutor.address.city}/${tutor.address.state}`}</p>
+                  <p>{tutor.address}</p>
                 </Answer>
               </Info>
             </Data>
@@ -151,22 +144,22 @@ export default function AdoptionRequestAnalysis() {
                 <div className="answer-block">
                   <Answer>
                     <strong>Tipo de residência</strong>
-                    <p>{questionnaire.residence_type}</p>
+                    <p>{request.residence_type}</p>
                   </Answer>
                   <Answer>
                     <strong>Número de adultos na residência</strong>
-                    <p>{questionnaire.adults_home}</p>
+                    <p>{request.adults_home}</p>
                   </Answer>
                 </div>
 
                 <div className="answer-block">
                   <Answer>
                     <strong>Número de crianças na residência</strong>
-                    <p>{questionnaire.children_home}</p>
+                    <p>{request.children_home}</p>
                   </Answer>
                   <Answer>
                     <strong>Possui fumantes em casa</strong>
-                    <p>{questionnaire.smokers_home}</p>
+                    <p>{request.smokers_home}</p>
                   </Answer>
                 </div>
               </Info>
@@ -180,11 +173,11 @@ export default function AdoptionRequestAnalysis() {
                 <div className="answer-block">
                   <Answer>
                     <strong>Já adotou algum animal antes?</strong>
-                    <p>{questionnaire.adopted_before}</p>
+                    <p>{request.adopted_before}</p>
                   </Answer>
                   <Answer>
                     <strong>Possui outros animais em casa?</strong>
-                    <p>{questionnaire.other_animals}</p>
+                    <p>{request.other_animals}</p>
                   </Answer>
                 </div>
 
@@ -193,20 +186,20 @@ export default function AdoptionRequestAnalysis() {
                     <strong>
                       Possui animais que ficaram doentes nos ultimos meses?
                     </strong>
-                    <p>{questionnaire.sick_animals}</p>
+                    <p>{request.sick_animals}</p>
                   </Answer>
                   <Answer>
                     <strong>
                       Você esta ciente que terá que adicionar custos como
                       alimentação, vacinas e veterinário ao seu orçamento?
                     </strong>
-                    <p>{questionnaire.aware_cost}</p>
+                    <p>{request.aware_cost}</p>
                   </Answer>
                 </div>
 
                 <Answer>
                   <strong>Por quê você quer adotar esse animal?</strong>
-                  <p>{questionnaire.why_want_adopt}</p>
+                  <p>{request.why_want_adopt}</p>
                 </Answer>
               </Info>
             </Data>

@@ -1,9 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import api from '../../services/api';
 
 import { Container, CloseButton, CloseIcon } from './styles';
-
-import { useDonationCampaigns } from '../../context/DonationCampaigns';
 
 export default function CampaignCard({
   id,
@@ -12,23 +11,15 @@ export default function CampaignCard({
   current,
   description,
 }) {
-  const { campaigns, setCampaigns } = useDonationCampaigns();
-
-  function handleCloseCampaign() {
-    const newCampaigns = campaigns.filter((campaign) => {
-      if (campaign.id !== Number(id)) {
-        return campaign;
-      }
-    });
-
-    setCampaigns(newCampaigns);
+  async function handleCloseCampaign() {
+    await api.delete(`/donation-campaigns/${id}`);
   }
 
   return (
     <Container>
       <span>
         <strong>{title}</strong>
-        <p>{`R$${current} de R$${goal}`}</p>
+        <p>{`${current} de ${goal}`}</p>
       </span>
 
       <p>{description}</p>

@@ -1,8 +1,13 @@
 const connection = require('../../database/connection');
+const { update } = require('../controllers/AdoptionRequests');
 
 module.exports = {
   async create(adoptionRequest) {
     await connection('adoption_requests').insert(adoptionRequest);
+    return;
+  },
+  async update(id, evaluate) {
+    await connection('adoption_requests').where('id', id).update(evaluate);
     return;
   },
   async index() {

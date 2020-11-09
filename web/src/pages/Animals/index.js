@@ -41,6 +41,12 @@ function Animals() {
     });
   }, []);
 
+  useEffect(() => {
+    api.get('/collaborators/abc123').then((response) => {
+      sessionStorage.setItem('@easy-adopt/user', JSON.stringify(response.data));
+    });
+  });
+
   function handleSearchAnimalByName(e) {
     e.preventDefault();
 
