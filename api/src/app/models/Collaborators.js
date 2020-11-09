@@ -13,7 +13,16 @@ module.exports = {
     const collaborator = await connection('collaborators')
       .innerJoin('addresses', 'collaborators.address_id', 'addresses.id')
       .where('collaborators.id', id)
-      .select('*')
+      .select(
+        'collaborators.*',
+        'addresses.id as addresses_id',
+        'addresses.street',
+        'addresses.number',
+        'addresses.neighborhood',
+        'addresses.city',
+        'addresses.state',
+        'addresses.cep'
+      )
       .first();
 
     return collaborator;

@@ -58,15 +58,19 @@ module.exports = {
   async update(request, response) {
     try {
       const { id } = request.params;
-      const { name, birth_date, cpf, email, phone } = request.body;
+      const { name, cpf, email, phone } = request.body;
+
+      const date = format(new Date(request.body.birth_date), 'yyyy/MM/dd');
 
       const collaborator = {
         name,
-        birth_date,
+        birth_date: date,
         cpf,
         email,
         phone,
       };
+
+      console.log(collaborator);
       await collaboratorsModel.edit(id, collaborator);
       return response.status(200).send();
     } catch (error) {
