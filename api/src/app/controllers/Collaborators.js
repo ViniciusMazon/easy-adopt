@@ -2,6 +2,7 @@ const { format } = require('date-fns');
 const keyGenerator = require('../../utils/keyGenerator');
 const hash = require('../../utils/hash');
 
+const validations = require('../../validations/collaboratorsSchema');
 const collaboratorsModel = require('../models/Collaborators');
 const collaboratorsView = require('../views/Collaborator');
 const accessCodeModel = require('../models/AccessCode');
@@ -40,6 +41,7 @@ module.exports = {
         address_id,
       };
 
+      await validations.create(response, collaborator);
       await collaboratorsModel.create(collaborator);
       const updateAccessCode = {
         date_use: format(new Date(), 'yyyy/MM/dd'),
@@ -79,6 +81,7 @@ module.exports = {
         });
       }
 
+      await validations.update(response, collaborator);
       await collaboratorsModel.edit(id, collaborator);
       return response.status(200).send();
     } catch (error) {

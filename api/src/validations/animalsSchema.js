@@ -26,22 +26,6 @@ async function create(response, animal) {
   }
 }
 
-async function show(response, id) {
-  const schema = yup.object().shape({
-    id: yup.string().required('Este campo é obrigatório'),
-  });
-
-  try {
-    await schema.validate(animal, { abortEarly: false });
-  } catch (error) {
-    if (error instanceof yup.ValidationError) {
-      return response
-        .status(400)
-        .json({ message: 'Solicitação negada, erro de validação' });
-    }
-  }
-}
-
 async function update(response, animal) {
   const schema = yup.object().shape({
     name: yup.string().required('Este campo é obrigatório'),
@@ -63,4 +47,4 @@ async function update(response, animal) {
   }
 }
 
-module.exports = { create, show, update };
+module.exports = { create, update };
