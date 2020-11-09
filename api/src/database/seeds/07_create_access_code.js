@@ -11,6 +11,14 @@ exports.seed = function (knex) {
           date_use: new Date('2020/10/23'),
           used_by: 'abc123',
         },
+        {
+          id: 'gfghh34',
+          access_code: '5D44900A435D35D9A',
+          creation_date: new Date('2020/10/23'),
+          created_by: 'cdb321',
+          date_use: null,
+          used_by: null,
+        },
       ]);
     });
 };
