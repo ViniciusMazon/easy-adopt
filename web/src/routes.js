@@ -3,12 +3,8 @@ import { BrowserRouter, Route } from 'react-router-dom';
 
 import MenuBar from './components/MenuBar';
 import MenuBarProvider from './context/MenuBar';
-import UserProvider from './context/User';
-import AnimalsProvider from './context/Animals';
-import ProceduresProvider from './context/Procedures';
-import AdoptionRequestsProvider from './context/AdoptionRequests';
 import AlertProvider from './context/Alert';
-import DonationCampaignsProvider from './context/DonationCampaigns';
+import UserProvider from './context/User';
 
 import Animals from './pages/Animals';
 import Adoption from './pages/Adoption';
@@ -31,52 +27,30 @@ function PrivateRoutes() {
     <MenuBarProvider>
       <AlertProvider>
         <UserProvider>
-          <AnimalsProvider>
-            <ProceduresProvider>
-              <AdoptionRequestsProvider>
-                <DonationCampaignsProvider>
-                  <BrowserRouter>
-                    <div style={css}>
-                      <MenuBar />
+          <BrowserRouter>
+            <div style={css}>
+              <MenuBar />
 
-                      <Route exact path="/" component={Animals} />
-                      <Route
-                        path="/add-animal"
-                        component={AnimalRegistration}
-                      />
-                      <Route
-                        exact
-                        path="/edit-animal/:id"
-                        component={AnimalEdit}
-                      />
-                      <Route
-                        path="/edit-animal/:id/:animal_name/add-procedure"
-                        component={AddProcedure}
-                      />
-                      <Route exact path="/adoption" component={Adoption} />
-                      <Route
-                        path="/adoption/:id"
-                        component={AdoptionRequestAnalysis}
-                      />
-                      <Route
-                        exact
-                        path="/donation"
-                        component={DonationCampaigns}
-                      />
-                      <Route
-                        exact
-                        path="/donation/create-campaign"
-                        component={CreateDonationCampaign}
-                      />
-                      <Route path="/schedule" component={Schedule} />
-                      <Route path="/help" component={Help} />
-                      <Route path="/user" component={User} />
-                    </div>
-                  </BrowserRouter>
-                </DonationCampaignsProvider>
-              </AdoptionRequestsProvider>
-            </ProceduresProvider>
-          </AnimalsProvider>
+              <Route exact path="/" component={Animals} />
+              <Route path="/add-animal" component={AnimalRegistration} />
+              <Route exact path="/edit-animal/:id" component={AnimalEdit} />
+              <Route
+                path="/edit-animal/:id/:animal_name/add-procedure"
+                component={AddProcedure}
+              />
+              <Route exact path="/adoption" component={Adoption} />
+              <Route path="/adoption/:id" component={AdoptionRequestAnalysis} />
+              <Route exact path="/donation" component={DonationCampaigns} />
+              <Route
+                exact
+                path="/donation/create-campaign"
+                component={CreateDonationCampaign}
+              />
+              <Route path="/schedule" component={Schedule} />
+              <Route path="/help" component={Help} />
+              <Route path="/user" component={User} />
+            </div>
+          </BrowserRouter>
         </UserProvider>
       </AlertProvider>
     </MenuBarProvider>

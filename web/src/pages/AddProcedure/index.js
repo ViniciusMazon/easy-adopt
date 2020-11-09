@@ -23,12 +23,9 @@ export default function AddProcedure() {
   const { setAlert } = useAlert();
   const { user } = useUser();
 
-  const [now, setNow] = useState();
-
   useEffect(() => {
     setIsCompacted(true);
     const now = format(new Date(), 'dd/MM/yyyy');
-    setNow(now);
     procedureRef.current.setData({
       name: params.animal_name,
       date: now,
