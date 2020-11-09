@@ -70,7 +70,15 @@ module.exports = {
         phone,
       };
 
-      console.log(collaborator);
+      const isValid = await collaboratorsModel.show(id);
+
+      if (!isValid) {
+        return response.status(400).json({
+          message:
+            'Não foi possível encontrar um colaborador com o id informado',
+        });
+      }
+
       await collaboratorsModel.edit(id, collaborator);
       return response.status(200).send();
     } catch (error) {
