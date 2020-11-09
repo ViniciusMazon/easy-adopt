@@ -1,6 +1,7 @@
 const { format } = require('date-fns');
 const keyGenerator = require('../../utils/keyGenerator');
 
+const validations = require('../../validations/donationCampaignsSchema');
 const donationCampaignsModel = require('../models/DonationCampaigns');
 const donationCampaignsView = require('../views/DonationCampaigns');
 
@@ -14,12 +15,13 @@ module.exports = {
         creation_date: format(new Date(), 'yyyy/MM/dd'),
         status: 'ativa',
         title,
-        description,
+        description: Number(description),
         goal,
         current: 0.0,
         created_by: collaborator_id,
       };
 
+      await validations.create(response, donationCampaign);
       await donationCampaignsModel.create(donationCampaign);
       return response.status(201).send();
     } catch (error) {

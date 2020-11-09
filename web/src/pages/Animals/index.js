@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import api from '../../services/api';
 
-import { useAnimals } from '../../context/Animals';
 import { useAlert } from '../../context/Alert';
 
 import {

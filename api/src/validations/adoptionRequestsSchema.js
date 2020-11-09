@@ -29,4 +29,21 @@ async function create(response, adoptionRequest) {
   }
 }
 
-module.exports = { create };
+async function update(response, evaluate) {
+  const schema = yup.object().shape({
+    collaborator_id: yup.string().required('Este campo é obrigatório'),
+    status: yup.string().required('Este campo é obrigatório'),
+  });
+
+  try {
+    await schema.validate(evaluate, { abortEarly: false });
+  } catch (error) {
+    if (error instanceof yup.ValidationError) {
+      return response
+        .status(400)
+        .json({ message: 'Solicitação negada, erro de validação' });
+    }
+  }
+}
+
+module.exports = { create, update };

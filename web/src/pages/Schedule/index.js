@@ -1,89 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { format, addDays } from 'date-fns';
-import { Container, Wrapper, ScheduleContainer } from './styles';
+import api from '../../services/api';
 
+import { Container, Wrapper, ScheduleContainer } from './styles';
 import ScheduleItem from '../../components/ScheduleItem';
 import LoadingSchedule from '../../components/Shimmer/LoadingSchedule';
 
-const tempData = [
-  {
-    id: 1,
-    date: format(new Date(2020, 9, 20), 'dd/MM/yyyy'),
-    time: '14:00',
-    tutor_name: 'Camila Dias Neves',
-    animal_name: 'Laika',
-  },
-  {
-    id: 2,
-    date: format(new Date(2020, 9, 21), 'dd/MM/yyyy'),
-    time: '14:00',
-    tutor_name: 'Camila Dias Neves',
-    animal_name: 'Laika',
-  },
-  {
-    id: 3,
-    date: format(new Date(2020, 9, 22), 'dd/MM/yyyy'),
-    time: '14:00',
-    tutor_name: 'Camila Dias Neves',
-    animal_name: 'Laika',
-  },
-  {
-    id: 4,
-    date: format(new Date(2020, 9, 23), 'dd/MM/yyyy'),
-    time: '14:00',
-    tutor_name: 'Camila Dias Neves',
-    animal_name: 'Laika',
-  },
-  {
-    id: 5,
-    date: format(new Date(2020, 9, 24), 'dd/MM/yyyy'),
-    time: '14:00',
-    tutor_name: 'Camila Dias Neves',
-    animal_name: 'Laika',
-  },
-  {
-    id: 6,
-    date: format(new Date(2020, 9, 25), 'dd/MM/yyyy'),
-    time: '14:00',
-    tutor_name: 'Camila Dias Neves',
-    animal_name: 'Laika',
-  },
-  {
-    id: 7,
-    date: format(new Date(2020, 9, 26), 'dd/MM/yyyy'),
-    time: '14:00',
-    tutor_name: 'Camila Dias Neves',
-    animal_name: 'Laika',
-  },
-  {
-    id: 8,
-    date: format(new Date(2020, 9, 27), 'dd/MM/yyyy'),
-    time: '14:00',
-    tutor_name: 'Camila Dias Neves',
-    animal_name: 'Laika',
-  },
-  {
-    id: 9,
-    date: format(new Date(2020, 9, 28), 'dd/MM/yyyy'),
-    time: '14:00',
-    tutor_name: 'Camila Dias Neves',
-    animal_name: 'Laika',
-  },
-  {
-    id: 10,
-    date: format(new Date(2020, 9, 29), 'dd/MM/yyyy'),
-    time: '14:00',
-    tutor_name: 'Camila Dias Neves',
-    animal_name: 'Laika',
-  },
-];
-
 export default function Schedule() {
   const [isLoading, setIsLoading] = useState(true);
-  const [schedule, setSchedule] = useState(tempData);
+  const [schedule, setSchedule] = useState([]);
 
   useEffect(() => {
-    setTimeout(() => setIsLoading(false), 1500);
+    api.get('/schedule').then((response) => {
+      setSchedule(response.data);
+    });
+    setIsLoading(false);
   }, []);
 
   return (

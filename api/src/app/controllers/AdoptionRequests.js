@@ -65,7 +65,7 @@ module.exports = {
         status,
         evaluation_date,
       };
-
+      await validations.update(response, evaluate);
       await adoptionRequestsModel.update(id, evaluate);
       return response.status(200).send();
     } catch (error) {
@@ -91,6 +91,7 @@ module.exports = {
   async show(request, response) {
     try {
       const { id } = request.params;
+
       const adoptionRequest = await adoptionRequestsModel.show(id);
       return response
         .status(200)

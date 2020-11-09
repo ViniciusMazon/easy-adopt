@@ -78,7 +78,6 @@ module.exports = {
   async show(request, response) {
     try {
       const { id } = request.params;
-      await validations.show(response, id);
 
       const animal = await animalModel.show(id);
       if (animal) {
