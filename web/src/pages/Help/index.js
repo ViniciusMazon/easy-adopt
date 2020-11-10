@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import api from '../../services/api';
 
 import { Container, Wrapper, DownloadIcon } from './styles';
 
 export default function Help() {
+  const [link, setLink] = useState('');
+
+  useEffect(() => {
+    api.get('/help').then((response) => {
+      setLink(response.data.link);
+    });
+  });
+
   return (
     <Container>
       <Wrapper>
@@ -10,13 +20,15 @@ export default function Help() {
 
         <div>
           <p>
-            O manual do usuário contem informações sobre as principais funcionalidades do sistema e pode ser consultado clicando no botão "Download".
+            O manual do usuário contem informações sobre as principais
+            funcionalidades do sistema e pode ser consultado clicando no botão
+            "Download".
           </p>
 
-          <button>
+          <a href={link} target="_blank" rel="noopener noreferrer">
             <DownloadIcon />
             Download
-          </button>
+          </a>
         </div>
       </Wrapper>
     </Container>
