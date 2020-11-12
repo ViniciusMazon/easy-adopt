@@ -35,4 +35,25 @@ async function checkout(response, purchaseOrder) {
   }
 }
 
-module.exports = { checkout };
+async function create(response, donation) {
+  const schema = yup.object().shape({
+    id: yup.string().required(),
+    date: yup.date().required(),
+    status: yup.string().required(),
+    amount: yup.number().required('Este campo é obrigatório'),
+    tutor_id: yup.string().required('Este campo é obrigatório'),
+    donation_campaign_id: yup.string().required('Este campo é obrigatório'),
+  });
+
+  try {
+    await schema.validate(donation, { abortEarly: false });
+  } catch (error) {
+    if (error instanceof yup.ValidationError) {
+      return response
+        .status(400)
+        .json({ message: 'Solicitação negada, erro de validação' });
+    }
+  }
+}
+
+module.exports = { checkout, create };

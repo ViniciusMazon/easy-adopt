@@ -13,7 +13,7 @@ module.exports = {
         'collaborators.id'
       )
       .where('animal_id', animal_id)
-      .select('procedures.*', 'collaborators.name');
+      .select('procedures.*', 'collaborators.name as collaborator_name');
     return procedures;
   },
 };

@@ -12,6 +12,7 @@ const accessCode = require('./app/controllers/AccessCode');
 const donations = require('./app/controllers/Donations');
 const donationCampaigns = require('./app/controllers/DonationCampaigns');
 const schedule = require('./app/controllers/Schedule');
+const help = require('./app/controllers/Help');
 
 routes.post('/animals', upload.array('images'), animals.create);
 routes.put('/animals/:id', animals.update);
@@ -37,9 +38,12 @@ routes.post('/donation-campaigns', donationCampaigns.create);
 routes.get('/donation-campaigns', donationCampaigns.index);
 routes.delete('/donation-campaigns/:id', donationCampaigns.delete);
 
-routes.post('/donation/donate', donations.checkout);
+routes.post('/donation', donations.create);
+routes.put('/donation/:id', donations.update);
 
 routes.post('/schedule', schedule.create);
 routes.get('/schedule', schedule.index);
+
+routes.get('/help', help.index);
 
 module.exports = routes;

@@ -1,5 +1,4 @@
 const connection = require('../../database/connection');
-const { edit } = require('./Collaborators');
 
 module.exports = {
   async create(access_code_data) {

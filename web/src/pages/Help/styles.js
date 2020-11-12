@@ -53,7 +53,7 @@ export const Wrapper = styled.div`
       color: var(--text);
     }
 
-    button {
+    a {
       width: 16rem;
       height: 5rem;
 
@@ -63,6 +63,7 @@ export const Wrapper = styled.div`
 
       border-radius: 0.8rem;
       background: var(--green);
+      text-decoration: none;
 
       font: 500 1.6rem 'Montserrat';
       color: var(--white);

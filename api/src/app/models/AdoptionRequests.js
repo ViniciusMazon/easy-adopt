@@ -1,5 +1,4 @@
 const connection = require('../../database/connection');
-const { update } = require('../controllers/AdoptionRequests');
 
 module.exports = {
   async create(adoptionRequest) {
