@@ -15,7 +15,7 @@ module.exports = {
         creation_date: format(new Date(), 'yyyy/MM/dd'),
         status: 'ativa',
         title,
-        description: Number(description),
+        description,
         goal,
         current: 0.0,
         created_by: collaborator_id,

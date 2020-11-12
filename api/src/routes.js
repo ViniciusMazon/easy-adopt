@@ -38,7 +38,8 @@ routes.post('/donation-campaigns', donationCampaigns.create);
 routes.get('/donation-campaigns', donationCampaigns.index);
 routes.delete('/donation-campaigns/:id', donationCampaigns.delete);
 
-routes.post('/donation/donate', donations.checkout);
+routes.post('/donation', donations.create);
+routes.put('/donation/:id', donations.update);
 
 routes.post('/schedule', schedule.create);
 routes.get('/schedule', schedule.index);

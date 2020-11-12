@@ -4,10 +4,10 @@ module.exports = {
   render(procedure) {
     return {
       id: procedure.id,
-      name: procedure.procedure,
+      name: procedure.name,
       comments: procedure.comments,
       date: format(new Date(procedure.date), 'dd/MM/yyyy'),
-      user_name: procedure.name,
+      user_name: procedure.collaborator_name,
     };
   },
   renderMany(procedures) {

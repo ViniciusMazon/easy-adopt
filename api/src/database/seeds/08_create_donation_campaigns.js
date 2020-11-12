@@ -9,7 +9,7 @@ exports.seed = function (knex) {
           status: 'ativa',
           title: 'Compra de Ração',
           description: 'Precisamos de dinheiro para comprar ração',
-          goal: 1500.50,
+          goal: 1500.5,
           current: 0,
           created_by: 'cdb321',
         },
