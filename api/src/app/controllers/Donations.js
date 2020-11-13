@@ -1,9 +1,11 @@
 const { format } = require('date-fns');
 const keyGenerator = require('../../utils/keyGenerator');
+const sendMail = require('../../lib/mail');
 
 const mercadoPago = require('mercadopago');
 const mercadoPagoConfig = require('../../config/mercadoPago');
 const donationsModel = require('../models/Donations');
+const tutorsModel = require('../models/Tutors');
 const donationCampaigns = require('../models/DonationCampaigns');
 
 const validations = require('../../validations/donationSchema');
@@ -64,6 +66,19 @@ module.exports = {
       const { id } = request.params;
       await donationsModel.edit(id);
       await donationCampaigns.edit(id);
+
+      const donation = await donationsModel.show(id);
+      const tutor = await tutorsModel.show(donation.tutor_id);
+
+      await sendMail({
+        to: `${tutor.name} <${tutor.email}>`,
+        subject: 'Recebemos sua doação!',
+        template: 'donationReceived',
+        context: {
+          tutor_name: tutor.name,
+        },
+      });
+
       return response.status(200).send();
     } catch (error) {
       console.log(error);

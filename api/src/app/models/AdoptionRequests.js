@@ -45,6 +45,7 @@ module.exports = {
         'adoption_requests.aware_cost',
         'adoption_requests.why_want_adopt',
 
+        'animals.id as animal_id',
         'animals.image1 as animal_avatar',
         'animals.name as animal_name',
         'animals.specie as animal_specie',
@@ -52,6 +53,7 @@ module.exports = {
         'animals.gender as animal_gender',
         'animals.size as animal_size',
 
+        'tutors.id as tutor_id',
         'tutors.avatar as tutor_avatar',
         'tutors.name as tutor_name',
         'tutors.gender as tutor_gender',

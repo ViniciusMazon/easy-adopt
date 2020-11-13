@@ -1,7 +1,10 @@
 const keyGenerator = require('../../utils/keyGenerator');
 const { format } = require('date-fns');
+const sendMail = require('../../lib/mail');
 
 const scheduleModel = require('../models/Schedule');
+const tutorsModel = require('../models/Tutors');
+const animalsModel = require('../models/Animals');
 const scheduleView = require('../views/Schedule');
 const validations = require('../../validations/scheduleSchema');
 
@@ -20,6 +23,21 @@ module.exports = {
 
       await validations.create(response, schedule);
       await scheduleModel.create(schedule);
+
+      const tutor = await tutorsModel.show(tutor_id);
+      const animal = await animalsModel.show(animal_id);
+
+      await sendMail({
+        to: `${tutor.name} <${tutor.email}>`,
+        subject: 'Agendamento realizado!',
+        template: 'scheduling',
+        context: {
+          tutor_name: tutor.name,
+          animal_name: animal.name,
+          schedule_date: `${format(new Date(date), 'dd/MM/yyyy')} às ${time}`,
+        },
+      });
+
       return response.status(201).send(schedule);
     } catch (error) {
       console.error(error);
