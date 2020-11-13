@@ -1,7 +1,10 @@
 const { format } = require('date-fns');
 const keyGenerator = require('../../utils/keyGenerator');
+const sendMail = require('../../lib/mail');
 
 const adoptionRequestsModel = require('../models/AdoptionRequests');
+const tutorsModel = require('../models/Tutors');
+const animalsModel = require('../models/Animals');
 const validations = require('../../validations/adoptionRequestsSchema');
 const adoptionRequestView = require('../views/AdoptionRequests');
 const adoptionRequestsWithAnimalAndTutor = require('../views/AdoptionRequestsWithAnimalAndTutor');
@@ -42,8 +45,21 @@ module.exports = {
       };
 
       await validations.create(response, adoptionRequest);
-
       await adoptionRequestsModel.create(adoptionRequest);
+
+      const tutor = await tutorsModel.show(tutor_id);
+      const animal = await animalsModel.show(animal_id);
+
+      await sendMail({
+        to: `${tutor.name} <${tutor.email}>`,
+        subject: 'Recebemos seu pedido de adoção!',
+        template: 'adoptionRequest',
+        context: {
+          tutor_name: tutor.name,
+          animal_name: animal.name,
+        },
+      });
+
       return response
         .status(201)
         .json(adoptionRequestView.render(adoptionRequest));
@@ -65,8 +81,36 @@ module.exports = {
         status,
         evaluation_date,
       };
+
       await validations.update(response, evaluate);
       await adoptionRequestsModel.update(id, evaluate);
+
+      const adoptionRequest = await adoptionRequestsModel.show(id);
+      const tutor = await tutorsModel.show(adoptionRequest.tutor_id);
+
+      if (status === 'aprovado') {
+        const animal = await animalsModel.show(adoptionRequest.animal_id);
+
+        await sendMail({
+          to: `${tutor.name} <${tutor.email}>`,
+          subject: 'Avaliamos seu pedido de adoção!',
+          template: 'adoptionRequestApproved',
+          context: {
+            tutor_name: tutor.name,
+            animal_name: animal.name,
+          },
+        });
+      } else {
+        await sendMail({
+          to: `${tutor.name} <${tutor.email}>`,
+          subject: 'Avaliamos seu pedido de adoção!',
+          template: 'adoptionRequestDisapproved',
+          context: {
+            tutor_name: tutor.name,
+          },
+        });
+      }
+
       return response.status(200).send();
     } catch (error) {
       console.error(error);

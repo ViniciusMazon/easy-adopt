@@ -9,4 +9,8 @@ module.exports = {
     await connection('donations').where('id', id).update({ status: 'pago' });
     return;
   },
+  async show(id) {
+    const [donation] = await connection('donations').where('id', id);
+    return donation;
+  },
 };
