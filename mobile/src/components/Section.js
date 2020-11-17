@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
     width: '100%',
+    paddingHorizontal: 15,
   },
   title: {
     fontFamily: 'VarelaRound_400Regular',
