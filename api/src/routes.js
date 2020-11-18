@@ -48,5 +48,6 @@ routes.get('/schedule', schedule.index);
 routes.get('/help', help.index);
 
 routes.post('/tutors', tutors.create);
+routes.get('/tutors/:email', tutors.show);
 
 module.exports = routes;

@@ -4,6 +4,7 @@ const { format } = require('date-fns');
 
 const tutorsModel = require('../models/Tutors');
 const validations = require('../../validations/tutorsSchema');
+const tutorsViews = require('../views/Tutors');
 
 module.exports = {
   async create(request, response) {
@@ -34,7 +35,24 @@ module.exports = {
 
       await validations.create(response, tutor);
       await tutorsModel.create(tutor);
-      return response.status(201).json(tutor);
+      return response.status(201).send();
+    } catch (error) {
+      console.error(error);
+      return response
+        .status(500)
+        .json({ message: 'Ocorreu um erro, tente novamente mais tarde' });
+    }
+  },
+  async show(request, response) {
+    try {
+      const tutor = await tutorsModel.showByEmail(request.params.email);
+      if (tutor) {
+        return response.status(200).json(tutorsViews.render(tutor));
+      } else {
+        return response
+          .status(200)
+          .json({ message: 'Não existe um tutor cadastrado com esse e-mail' });
+      }
     } catch (error) {
       console.error(error);
       return response
