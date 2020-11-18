@@ -66,7 +66,17 @@ module.exports = {
   },
   async index(request, response) {
     try {
-      const animals = await animalModel.index();
+      var animals = await animalModel.index();
+
+      if (request.query.status) {
+        const avaliableAnimals = animals.filter((animal) => {
+          if (animal.status === request.query.status) {
+            return animal;
+          }
+        });
+        animals = avaliableAnimals;
+      }
+
       return response.status(200).json(animalView.renderMany(animals));
     } catch (error) {
       console.error(error);
