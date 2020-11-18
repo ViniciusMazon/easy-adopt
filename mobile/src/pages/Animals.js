@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, ScrollView, StyleSheet } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../services/api';
 
 import Section from '../components/Section';
@@ -10,15 +11,26 @@ export default function Animals() {
   const [adoptionRequests, setAdoptionRequests] = useState([]);
   const [animals, setAnimals] = useState([]);
 
-  useEffect(() => {
-    api.get('/adoption-request').then((response) => {
-      setAdoptionRequests(response.data);
-    });
+  async function getTutorId() {
+    const data = await AsyncStorage.getItem('@easyAdopt_user');
+    const tutor = JSON.parse(data);
+    return tutor.id;
+  }
 
-    api.get('/animals').then((response) => {
-      setAnimals(response.data);
-      console.log(response.data);
-    });
+  async function getAdoptionRequests() {
+    const tutorID = await getTutorId();
+    const response = await api.get(`/adoption-request?tutor_id=${tutorID}`);
+    setAdoptionRequests(response.data);
+  }
+
+  async function getAnimals() {
+    const response = await api.get('/animals?status=disponível');
+    setAnimals(response.data);
+  }
+
+  useEffect(() => {
+    getAdoptionRequests();
+    getAnimals();
   }, []);
 
   return (

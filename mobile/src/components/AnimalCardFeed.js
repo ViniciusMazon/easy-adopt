@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
   name: {
     color: '#FFF',
-    fontFamily: 'Montserrat_500Medium',
+    fontFamily: 'Montserrat_600SemiBold',
     fontSize: 18,
   },
   more: {

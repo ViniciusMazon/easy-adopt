@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     color: '#666666',
   },
   name: {
-    fontFamily: ' Montserrat_500Medium',
+    fontFamily: 'Montserrat_600SemiBold',
     fontSize: 18,
     color: '#484848',
   },
