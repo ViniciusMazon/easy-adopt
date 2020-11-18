@@ -121,7 +121,19 @@ module.exports = {
   },
   async index(request, response) {
     try {
-      const adoptionRequests = await adoptionRequestsModel.index();
+      var adoptionRequests = await adoptionRequestsModel.index();
+
+      if (request.query.tutor_id) {
+        var adoptionRequestsFilteredByTutorId = adoptionRequests.filter(
+          (adoption) => {
+            if (adoption.tutor_id === request.query.tutor_id) {
+              return adoption;
+            }
+          }
+        );
+        adoptionRequests = adoptionRequestsFilteredByTutorId;
+      }
+
       return response
         .status(200)
         .json(adoptionRequestsWithAnimalAndTutor.renderMany(adoptionRequests));
