@@ -21,7 +21,8 @@ export default function AnimalAdoptionRequest({
 
   return (
     <View style={styles.animalAdoptionRequest}>
-      <Image source={avatar} style={styles.avatar} />
+      <Image source={{ uri: avatar }} style={styles.avatar} />
+
       <View style={styles.data}>
         <View style={styles.status}>
           <View style={[styles.indicator, { backgroundColor: statusColor }]} />
@@ -30,13 +31,13 @@ export default function AnimalAdoptionRequest({
 
         <View>
           <Text style={styles.name}>{name}</Text>
-
-          <Text style={styles.gender}>
+          <View style={styles.genderContainer}>
             <Image
               source={gender === 'Macho' ? maleOutlineGray : femaleOutlineGray}
+              style={styles.genderIcon}
             />
-            {gender}
-          </Text>
+            <Text style={styles.genderText}>{gender}</Text>
+          </View>
         </View>
 
         <View style={styles.bot}>
@@ -59,13 +60,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   avatar: {
-    width: 90,
+    width: 120,
     height: 113,
     borderTopLeftRadius: 8,
     borderBottomLeftRadius: 8,
   },
   data: {
-    width: 220,
+    width: 190,
     justifyContent: 'space-between',
     paddingRight: 2,
     paddingLeft: 10,
@@ -92,7 +93,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#484848',
   },
-  gender: {
+  genderContainer: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  genderIcon: {
+    marginRight: 4
+  },
+  genderText: {
     fontFamily: 'Montserrat_400Regular',
     fontSize: 14,
     color: '#9C98A6',

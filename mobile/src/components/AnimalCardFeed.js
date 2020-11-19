@@ -1,17 +1,30 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { RectButton } from 'react-native-gesture-handler';
 import { femaleOutline, maleOutline } from '../styles/icons';
 
-export default function AnimalCardFeed({ id, avatar, name, gender }) {
+export default function AnimalCardFeed({ animal }) {
+  const navigation = useNavigation();
+
+  function navigateToAdopt() {
+    navigation.navigate('Adopt', { animal: animal });
+  }
+
   return (
     <View style={styles.animalCard}>
-      <Image source={avatar} style={styles.avatar} />
+      <Image source={{ uri: animal.image1_url }} style={styles.avatar} />
       <View style={styles.data}>
-        <Text style={styles.name}>
-          {name}
-          <Image source={gender === 'Macho' ? maleOutline : femaleOutline} />
-        </Text>
-        <Text style={styles.more}>Mais informações</Text>
+        <View style={styles.nameContainer}>
+          <Text style={styles.nameText}>{animal.name}</Text>
+          <Image
+            source={animal.gender === 'Macho' ? maleOutline : femaleOutline}
+            style={styles.nameIcon}
+          />
+        </View>
+        <RectButton onPress={navigateToAdopt}>
+          <Text style={styles.more}>Mais informações</Text>
+        </RectButton>
       </View>
     </View>
   );
@@ -36,7 +49,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 20,
   },
-  name: {
+  nameContainer: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  nameIcon: {
+    marginLeft: 8,
+    height: 20,
+    width: 20
+  },
+  nameText: {
     color: '#FFF',
     fontFamily: 'Montserrat_600SemiBold',
     fontSize: 18,

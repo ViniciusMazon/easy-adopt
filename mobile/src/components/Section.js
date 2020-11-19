@@ -18,12 +18,13 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: 'VarelaRound_400Regular',
-    fontSize: 19,
-    marginBottom: 9,
+    fontSize: 21,
+    marginBottom: 5,
   },
   subtitle: {
     fontFamily: 'Montserrat_400Regular',
-    fontSize: 14,
+    lineHeight: 24,
+    fontSize: 16,
     color: '#9C98A6',
   },
 });
