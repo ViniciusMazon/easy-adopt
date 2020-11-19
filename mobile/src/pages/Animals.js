@@ -62,15 +62,7 @@ export default function Animals() {
       />
       <View style={styles.animalCardContainer}>
         {animals.map((animal) => {
-          return (
-            <AnimalCardFeed
-              key={String(animal.id)}
-              id={animal.id}
-              avatar={animal.image1_url}
-              name={animal.name}
-              gender={animal.gender}
-            />
-          );
+          return <AnimalCardFeed key={String(animal.id)} animal={animal} />;
         })}
       </View>
     </ScrollView>
