@@ -16,9 +16,11 @@ module.exports = {
       .select(
         'adoption_requests.id',
         'adoption_requests.status',
+        'animals.id as animal_id',
         'animals.name as animal_name',
         'animals.gender as animal_gender',
         'animals.image1 as animal_avatar',
+        'tutors.id as tutor_id',
         'tutors.name as tutor_name',
         'tutors.gender as tutor_gender',
         'tutors.avatar as tutor_avatar'

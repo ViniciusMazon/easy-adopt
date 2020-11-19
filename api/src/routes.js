@@ -13,6 +13,7 @@ const donations = require('./app/controllers/Donations');
 const donationCampaigns = require('./app/controllers/DonationCampaigns');
 const schedule = require('./app/controllers/Schedule');
 const help = require('./app/controllers/Help');
+const tutors = require('./app/controllers/Tutors');
 
 routes.post('/animals', upload.array('images'), animals.create);
 routes.put('/animals/:id', animals.update);
@@ -45,5 +46,8 @@ routes.post('/schedule', schedule.create);
 routes.get('/schedule', schedule.index);
 
 routes.get('/help', help.index);
+
+routes.post('/tutors', tutors.create);
+routes.get('/tutors/:email', tutors.show);
 
 module.exports = routes;
