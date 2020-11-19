@@ -1,6 +1,6 @@
 import React from 'react';
 import { SafeAreaView, Image, View, Text, StyleSheet } from 'react-native';
-import { useRoute } from '@react-navigation/native';
+import { useRoute, useNavigation } from '@react-navigation/native';
 import { RectButton } from 'react-native-gesture-handler';
 
 import {
@@ -16,6 +16,11 @@ export default function Adopt() {
   const route = useRoute();
   const params = route.params;
   const animal = params.animal;
+  const navigation = useNavigation();
+
+  function navigateToAdoptionTerm() {
+    navigation.navigate('AdoptionTerm');
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -40,7 +45,7 @@ export default function Adopt() {
         </View>
       </View>
 
-      <RectButton style={styles.button}>
+      <RectButton style={styles.button} onPress={navigateToAdoptionTerm}>
         <Text style={styles.buttonText}>Adotar</Text>
       </RectButton>
     </SafeAreaView>
