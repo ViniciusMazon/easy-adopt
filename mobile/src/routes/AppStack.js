@@ -6,8 +6,10 @@ const { Navigator, Screen } = createStackNavigator();
 
 import Tabs from './Tabs';
 import Adopt from '../pages/Adopt';
-import AdoptionTerm from '../pages/AdoptionTerm';
-import AdoptionForm from '../pages/AdoptionForm';
+import AdoptionTerm from '../pages/AdoptionForm/AdoptionTerm';
+import AboutYourResidence from '../pages/AdoptionForm/AboutYourResidence';
+import AboutYourHistory from '../pages/AdoptionForm/AboutYourHistory';
+import Success from '../pages/AdoptionForm/Success';
 
 function AppStack() {
   return (
@@ -16,7 +18,9 @@ function AppStack() {
         <Screen name="Study" component={Tabs} />
         <Screen name="Adopt" component={Adopt} />
         <Screen name="AdoptionTerm" component={AdoptionTerm} />
-        <Screen name="AdoptionForm" component={AdoptionForm} />
+        <Screen name="AboutYourResidence" component={AboutYourResidence} />
+        <Screen name="AboutYourHistory" component={AboutYourHistory} />
+        <Screen name="Success" component={Success} />
       </Navigator>
     </NavigationContainer>
   );
