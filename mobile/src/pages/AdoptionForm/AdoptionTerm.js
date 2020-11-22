@@ -9,17 +9,17 @@ import {
 } from 'react-native';
 import { Checkbox } from 'react-native-paper';
 
-import TopBar from '../components/TopBar';
-import PaginationIndicator from '../components/PaginationIndicator';
-import Section from '../components/Section';
+import TopBar from '../../components/TopBar';
+import PaginationIndicator from '../../components/PaginationIndicator';
+import Section from '../../components/Section';
 
 export default function AdoptionTerm() {
   const [checked, setChecked] = useState(false);
   const navigation = useNavigation();
 
-  function navigateToAdoptionForm() {
+  function navigateToAboutYourResidence() {
     if (checked) {
-      navigation.navigate('AdoptionForm');
+      navigation.navigate('AboutYourResidence');
     }
   }
 
@@ -92,8 +92,11 @@ export default function AdoptionTerm() {
         </Text>
       </View>
 
-      <TouchableOpacity style={styles.button} onPress={navigateToAdoptionForm}>
-        <Text style={styles.buttonText}>Adotar</Text>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={navigateToAboutYourResidence}
+      >
+        <Text style={styles.buttonText}>Próximo</Text>
       </TouchableOpacity>
     </View>
   );

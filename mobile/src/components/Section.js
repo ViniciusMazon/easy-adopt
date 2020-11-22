@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-export default function Section({ title, subtitle }) {
+export default function Section({ title, subtitle, newStyles }) {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, newStyles]}>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.subtitle}>{subtitle}</Text>
     </View>

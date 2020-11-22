@@ -10,6 +10,7 @@ import femaleOutline from '../assets/icons/female-outline.png';
 import maleOutlineGray from '../assets/icons/maleOutlineGray.png';
 import femaleOutlineGray from '../assets/icons/femaleOutlineGray.png';
 import size from '../assets/icons/size.png';
+import success from '../assets/icons/success.png';
 
 export {
   paw,
@@ -24,4 +25,5 @@ export {
   maleOutlineGray,
   femaleOutlineGray,
   size,
+  success,
 };
