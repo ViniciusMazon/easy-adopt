@@ -25,6 +25,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat_400Regular',
     lineHeight: 24,
     fontSize: 16,
-    color: '#9C98A6',
+    color: '#666666',
   },
 });

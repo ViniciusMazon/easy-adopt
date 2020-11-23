@@ -38,13 +38,13 @@ const styles = StyleSheet.create({
   label: {
     fontFamily: 'Montserrat_400Regular',
     fontSize: 16,
-    color: '#9C98A6',
+    color: '#666666',
     marginBottom: 10,
   },
   select: {
     width: '100%',
     height: 60,
-    color: '#9C98A6',
+    color: '#666666',
   },
   selectBorder: {
     borderColor: '#DDD',

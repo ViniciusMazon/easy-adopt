@@ -2,11 +2,9 @@ import React from 'react';
 import { View, Image, Text, StyleSheet } from 'react-native';
 import { BorderlessButton } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
+import { back, logout } from '../styles/icons';
 
-import backIcon from '../assets/icons/back.png';
-import logOutIcon from '../assets/icons/logOut.png';
-
-export default function TopBar() {
+export default function TopBar({ logout = false }) {
   const { goBack } = useNavigation();
 
   function handleGoBack() {
@@ -16,13 +14,15 @@ export default function TopBar() {
   return (
     <View style={styles.container}>
       <BorderlessButton onPress={handleGoBack} style={styles.button}>
-        <Image source={backIcon} resizeMode="contain" />
+        <Image source={back} resizeMode="contain" />
       </BorderlessButton>
 
-      <BorderlessButton onPress={() => {}} style={styles.button}>
-        <Image source={logOutIcon} resizeMode="contain" style={styles.icon} />
-        <Text style={styles.exitText}>Sair</Text>
-      </BorderlessButton>
+      {logout && (
+        <BorderlessButton onPress={() => {}} style={styles.button}>
+          <Image source={logout} resizeMode="contain" style={styles.icon} />
+          <Text style={styles.exitText}>Sair</Text>
+        </BorderlessButton>
+      )}
     </View>
   );
 }
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: '#FA5293',
+    backgroundColor: '#FFF0F6',
     paddingHorizontal: 12,
   },
   button: {

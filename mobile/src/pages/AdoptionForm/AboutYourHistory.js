@@ -48,7 +48,7 @@ export default function AboutYourHistory() {
         <Section
           title={'Sobre seu histórico'}
           subtitle={`Queremos saber mais sobre seu histórico com animais.`}
-          newStyles={{ marginBottom: 60 }}
+          newStyles={{ marginBottom: 40 }}
         />
 
         <SelectInput

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
-import { maleOutlineGray, femaleOutlineGray } from '../styles/icons';
+import { male, female } from '../styles/icons';
 
 import dogImage from '../assets/dog.png';
 
@@ -33,7 +33,7 @@ export default function AnimalAdoptionRequest({
           <Text style={styles.name}>{name}</Text>
           <View style={styles.genderContainer}>
             <Image
-              source={gender === 'Macho' ? maleOutlineGray : femaleOutlineGray}
+              source={gender === 'Macho' ? male : female}
               style={styles.genderIcon}
             />
             <Text style={styles.genderText}>{gender}</Text>
@@ -78,8 +78,8 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
   },
   indicator: {
-    width: 16,
-    height: 16,
+    width: 11,
+    height: 11,
     borderRadius: 8,
   },
   text: {
@@ -95,15 +95,17 @@ const styles = StyleSheet.create({
   },
   genderContainer: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   genderIcon: {
-    marginRight: 4
+    width: 14,
+    height: 14,
+    marginRight: 4,
   },
   genderText: {
     fontFamily: 'Montserrat_400Regular',
     fontSize: 14,
-    color: '#9C98A6',
+    color: '#666666',
   },
   bot: {
     alignSelf: 'flex-end',

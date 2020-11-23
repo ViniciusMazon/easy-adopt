@@ -41,7 +41,7 @@ export default function AboutYourResidence() {
         <Section
           title={'Sobre sua residência'}
           subtitle={`Nos conte um pouco sobre como é o lugar onde você mora.`}
-          newStyles={{ marginBottom: 60 }}
+          newStyles={{ marginBottom: 40 }}
         />
 
         <SelectInput

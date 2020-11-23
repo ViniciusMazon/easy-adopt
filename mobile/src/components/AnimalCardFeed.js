@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { RectButton } from 'react-native-gesture-handler';
-import { femaleOutline, maleOutline } from '../styles/icons';
+import { femaleWhite, maleWhite } from '../styles/icons';
 
 export default function AnimalCardFeed({ animal }) {
   const navigation = useNavigation();
@@ -18,7 +18,7 @@ export default function AnimalCardFeed({ animal }) {
         <View style={styles.nameContainer}>
           <Text style={styles.nameText}>{animal.name}</Text>
           <Image
-            source={animal.gender === 'Macho' ? maleOutline : femaleOutline}
+            source={animal.gender === 'Macho' ? maleWhite : femaleWhite}
             style={styles.nameIcon}
           />
         </View>
@@ -51,12 +51,12 @@ const styles = StyleSheet.create({
   },
   nameContainer: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   nameIcon: {
     marginLeft: 8,
-    height: 20,
-    width: 20
+    height: 18,
+    width: 18,
   },
   nameText: {
     color: '#FFF',

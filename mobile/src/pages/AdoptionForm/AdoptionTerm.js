@@ -133,6 +133,7 @@ const styles = StyleSheet.create({
   },
   checkboxLabel: {
     fontFamily: 'Montserrat_600SemiBold',
+    color: '#666666',
     fontSize: 12,
   },
   button: {
