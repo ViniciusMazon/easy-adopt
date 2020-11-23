@@ -3,12 +3,7 @@ import { SafeAreaView, Image, View, Text, StyleSheet } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { RectButton } from 'react-native-gesture-handler';
 
-import {
-  size,
-  pawOutlineGray,
-  maleOutlineGray,
-  femaleOutlineGray,
-} from '../styles/icons';
+import { size, heart, male, female } from '../styles/icons';
 import TopBar from '../components/TopBar';
 import Swiper from '../components/Swiper';
 
@@ -19,7 +14,7 @@ export default function Adopt() {
   const navigation = useNavigation();
 
   function navigateToAdoptionTerm() {
-    navigation.navigate('AdoptionTerm');
+    navigation.navigate('AdoptionTerm', { animal });
   }
 
   return (
@@ -32,11 +27,14 @@ export default function Adopt() {
 
       <View style={styles.about}>
         <View style={styles.infoContainer}>
-          <Image source={maleOutlineGray} style={styles.infoIcon} />
+          <Image
+            source={animal.gender === 'Macho' ? male : female}
+            style={styles.infoIcon}
+          />
           <Text style={styles.infoText}>{animal.gender}</Text>
         </View>
         <View style={styles.infoContainer}>
-          <Image source={pawOutlineGray} style={styles.infoIcon} />
+          <Image source={heart} style={styles.infoIcon} />
           <Text style={styles.infoText}>{animal.age}</Text>
         </View>
         <View style={styles.infoContainer}>
@@ -76,14 +74,15 @@ const styles = StyleSheet.create({
   },
   infoContainer: {
     flexDirection: 'row',
+    alignItems: 'center',
   },
   infoIcon: {
-    height: 20,
-    width: 20,
+    height: 16,
+    width: 16,
     marginRight: 4,
   },
   infoText: {
-    color: '#9C98A6',
+    color: '#666666',
     fontFamily: 'Montserrat_400Regular',
     fontSize: 16,
   },

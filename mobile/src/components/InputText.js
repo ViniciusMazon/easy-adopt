@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   label: {
     fontFamily: 'Montserrat_400Regular',
     fontSize: 16,
-    color: '#9C98A6',
+    color: '#666666',
     marginBottom: 10,
   },
   input: {
@@ -40,6 +40,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     paddingHorizontal: 10,
     paddingVertical: 10,
-    color: '#9C98A6',
+    color: '#666666',
   },
 });

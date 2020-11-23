@@ -1,29 +1,38 @@
 import paw from '../assets/icons/paw.png';
 import pawOutline from '../assets/icons/pawOutline.png';
-import pawOutlineGray from '../assets/icons/pawOutlineGray.png';
-import donation from '../assets/icons/donation.png';
-import donationOutline from '../assets/icons/donationOutline.png';
-import schedule from '../assets/icons/schedule.png';
-import scheduleOutline from '../assets/icons/scheduleOutline.png';
-import maleOutline from '../assets/icons/male-outline.png';
-import femaleOutline from '../assets/icons/female-outline.png';
-import maleOutlineGray from '../assets/icons/maleOutlineGray.png';
-import femaleOutlineGray from '../assets/icons/femaleOutlineGray.png';
+import card from '../assets/icons/card.png';
+import cardOutline from '../assets/icons/cardOutline.png';
+import calendar from '../assets/icons/calendar.png';
+import calendarOutline from '../assets/icons/calendarOutline.png';
+
+import male from '../assets/icons/male.png';
+import maleWhite from '../assets/icons/maleWhite.png';
+
+import female from '../assets/icons/female.png';
+import femaleWhite from '../assets/icons/femaleWhite.png';
+
+import heart from '../assets/icons/heart.png';
+
 import size from '../assets/icons/size.png';
+
+import back from '../assets/icons/back.png';
 import success from '../assets/icons/success.png';
+import logout from '../assets/icons/logOut.png';
 
 export {
   paw,
   pawOutline,
-  pawOutlineGray,
-  donation,
-  donationOutline,
-  schedule,
-  scheduleOutline,
-  maleOutline,
-  femaleOutline,
-  maleOutlineGray,
-  femaleOutlineGray,
+  card,
+  cardOutline,
+  calendar,
+  calendarOutline,
+  male,
+  maleWhite,
+  female,
+  femaleWhite,
   size,
+  heart,
   success,
+  back,
+  logout,
 };

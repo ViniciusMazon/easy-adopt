@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import * as Yup from 'yup';
+import { ValidationError } from 'yup';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   StyleSheet,
   ScrollView,
   View,
   Text,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
+import api from '../../services/api';
 
 import TopBar from '../../components/TopBar';
 import PaginationIndicator from '../../components/PaginationIndicator';
@@ -18,26 +23,90 @@ export default function AboutYourHistory() {
   const navigation = useNavigation();
   const route = useRoute();
   const aboutResidence = route.params.aboutResidence;
+  const animal = route.params.animal;
   const [adopted_before, setAdoptedBefore] = useState('');
   const [other_animals, setOtherAnimals] = useState('');
   const [sick_animals, setSickAnimals] = useState('');
   const [aware_cost, setAwareCost] = useState('');
   const [why_want_adopt, setWhyWantAdopt] = useState('');
 
-  function navigateToSuccess() {
-    navigation.navigate('Success');
-    const data = {
-      residence_type: aboutResidence.residence_type,
-      adults_home: aboutResidence.adults_home,
-      children_home: aboutResidence.children_home,
-      smokers_home: aboutResidence.smokers_home,
-      adopted_before,
-      other_animals,
-      sick_animals,
-      aware_cost,
-      why_want_adopt,
-    };
-    console.log(data);
+  async function getTutorId() {
+    const data = await AsyncStorage.getItem('@easyAdopt_user');
+    const tutor = JSON.parse(data);
+    return tutor.id;
+  }
+
+  async function navigateToSuccess() {
+    try {
+      const schema = Yup.object().shape({
+        adopted_before: Yup.string().required(),
+        other_animals: Yup.string().required(),
+        sick_animals: Yup.string().required(),
+        aware_cost: Yup.string().required(),
+        why_want_adopt: Yup.string().required(),
+      });
+
+      const aboutHistory = {
+        adopted_before,
+        other_animals,
+        sick_animals,
+        aware_cost,
+        why_want_adopt,
+      };
+
+      await schema.validate(aboutHistory, {
+        abortEarly: false,
+      });
+
+      const tutorID = await getTutorId();
+
+      const adoptionRequest = {
+        residence_type: aboutResidence.residence_type,
+        adults_home: aboutResidence.adults_home,
+        children_home: aboutResidence.children_home,
+        smokers_home: aboutResidence.smokers_home,
+        adopted_before,
+        other_animals,
+        sick_animals,
+        aware_cost,
+        why_want_adopt,
+        animal_id: animal.id,
+        tutor_id: tutorID,
+      };
+
+      await api.post('/adoption-request', adoptionRequest);
+      console.log(adoptionRequest);
+      navigation.navigate('Success');
+    } catch (error) {
+      if (error instanceof ValidationError) {
+        Alert.alert(
+          'Dados inválidos',
+          'Verifique se preencheu todos os dados corretamente',
+          [
+            {
+              text: 'Ok',
+              onPress: () => {},
+              style: 'cancel',
+            },
+          ],
+          { cancelable: false }
+        );
+      } else {
+        console.log(error);
+        Alert.alert(
+          'Ocorreu um erro inesperado',
+          'Por favor, tente novamente mais tarde',
+          [
+            {
+              text: 'Ok',
+              onPress: () => {},
+              style: 'cancel',
+            },
+          ],
+          { cancelable: false }
+        );
+      }
+    }
   }
 
   return (
@@ -48,7 +117,7 @@ export default function AboutYourHistory() {
         <Section
           title={'Sobre seu histórico'}
           subtitle={`Queremos saber mais sobre seu histórico com animais.`}
-          newStyles={{ marginBottom: 60 }}
+          newStyles={{ marginBottom: 40 }}
         />
 
         <SelectInput

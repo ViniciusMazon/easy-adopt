@@ -5,10 +5,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
   paw,
   pawOutline,
-  donation,
-  donationOutline,
-  schedule,
-  scheduleOutline,
+  card,
+  cardOutline,
+  calendar,
+  calendarOutline,
 } from '../styles/icons';
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -35,13 +35,11 @@ function Tabs() {
         },
         iconStyle: {
           flex: 0,
-          width: 24,
-          height: 24,
+          width: 30,
+          height: 30,
         },
-        inactiveTintColor: '#FFF',
-        activeTintColor: '#FFF',
         style: {
-          backgroundColor: '#FA5293',
+          backgroundColor: '#FFF0F6',
         },
       }}
     >
@@ -52,9 +50,9 @@ function Tabs() {
           tabBarLabel: '',
           tabBarIcon: ({ focused }) => {
             if (focused) {
-              return <Image source={paw} style={styles.icon} />;
+              return <Image source={paw} />;
             } else {
-              return <Image source={pawOutline} style={styles.icon} />;
+              return <Image source={pawOutline} />;
             }
           },
         }}
@@ -66,9 +64,9 @@ function Tabs() {
           tabBarLabel: '',
           tabBarIcon: ({ focused }) => {
             if (focused) {
-              return <Image source={donation} style={styles.icon} />;
+              return <Image source={card} style={styles.icon} />;
             } else {
-              return <Image source={donationOutline} style={styles.icon} />;
+              return <Image source={cardOutline} />;
             }
           },
         }}
@@ -80,9 +78,9 @@ function Tabs() {
           tabBarLabel: '',
           tabBarIcon: ({ focused }) => {
             if (focused) {
-              return <Image source={schedule} style={styles.icon} />;
+              return <Image source={calendar} />;
             } else {
-              return <Image source={scheduleOutline} style={styles.icon} />;
+              return <Image source={calendarOutline} />;
             }
           },
         }}
@@ -104,13 +102,9 @@ function Tabs() {
 export default Tabs;
 
 const styles = StyleSheet.create({
-  icon: {
-    width: 27,
-    height: 27,
-  },
   user: {
-    width: 45,
-    height: 45,
-    borderRadius: 21.5,
+    width: 30,
+    height: 30,
+    borderRadius: 15,
   },
 });

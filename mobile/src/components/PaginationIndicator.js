@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     marginRight: 12,
     marginTop: 24,
+    marginBottom: 24,
   },
   indicator: {
     fontSize: 10,

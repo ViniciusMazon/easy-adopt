@@ -34,7 +34,7 @@ export default function App() {
     return (
       <>
         <AppStack />
-        <StatusBar style="light" backgroundColor={'#FA5293'} />
+        <StatusBar style="dark" backgroundColor={'#FFF0F6'} />
       </>
     );
   }

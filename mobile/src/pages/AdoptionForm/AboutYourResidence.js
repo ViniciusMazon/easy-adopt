@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useRoute, useNavigation } from '@react-navigation/native';
+import * as Yup from 'yup';
 
 import {
   StyleSheet,
@@ -7,6 +8,7 @@ import {
   ScrollView,
   Text,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 
 import TopBar from '../../components/TopBar';
@@ -17,20 +19,52 @@ import InputText from '../../components/InputText';
 
 export default function AboutYourResidence() {
   const navigation = useNavigation();
+  const route = useRoute();
+  const params = route.params;
+  const animal = params.animal;
   const [residence_type, setResidenceType] = useState('');
-  const [adults_home, setAdultsHome] = useState('');
-  const [children_home, setChildrenHome] = useState('');
+  const [adults_home, setAdultsHome] = useState(0);
+  const [children_home, setChildrenHome] = useState(0);
   const [smokers_home, setSmokersHome] = useState('');
 
-  function navigateToAboutYourHistory() {
-    navigation.navigate('AboutYourHistory', {
-      aboutResidence: {
+  async function navigateToAboutYourHistory() {
+    try {
+      const schema = Yup.object().shape({
+        residence_type: Yup.string().required(),
+        adults_home: Yup.number().integer().moreThan(0).required(),
+        children_home: Yup.number().integer().moreThan(-1).required(),
+        smokers_home: Yup.string().required(),
+      });
+
+      const aboutResidence = {
         residence_type,
-        adults_home,
-        children_home,
+        adults_home: Number(adults_home),
+        children_home: Number(children_home),
         smokers_home,
-      },
-    });
+      };
+
+      await schema.validate(aboutResidence, {
+        abortEarly: false,
+      });
+
+      navigation.navigate('AboutYourHistory', {
+        aboutResidence,
+        animal,
+      });
+    } catch (error) {
+      Alert.alert(
+        'Dados inválidos',
+        'Verifique se preencheu todos os dados corretamente',
+        [
+          {
+            text: 'Ok',
+            onPress: () => {},
+            style: 'cancel',
+          },
+        ],
+        { cancelable: false }
+      );
+    }
   }
 
   return (
@@ -41,10 +75,11 @@ export default function AboutYourResidence() {
         <Section
           title={'Sobre sua residência'}
           subtitle={`Nos conte um pouco sobre como é o lugar onde você mora.`}
-          newStyles={{ marginBottom: 60 }}
+          newStyles={{ marginBottom: 40 }}
         />
 
         <SelectInput
+          label={'Tipo da residência'}
           selectedValue={residence_type}
           setValue={setResidenceType}
           itemsList={[
@@ -58,14 +93,14 @@ export default function AboutYourResidence() {
           label={'Número de adultos na residência'}
           setValue={setAdultsHome}
           selectedValue={adults_home}
-          keyboardType={'number-pad'}
+          keyboardType={'numeric'}
         />
 
         <InputText
           label={'Número de crianças na residência'}
           setValue={setChildrenHome}
           selectedValue={children_home}
-          keyboardType={'number-pad'}
+          keyboardType={'numeric'}
         />
 
         <SelectInput
