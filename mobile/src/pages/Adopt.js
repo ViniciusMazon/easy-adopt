@@ -14,7 +14,7 @@ export default function Adopt() {
   const navigation = useNavigation();
 
   function navigateToAdoptionTerm() {
-    navigation.navigate('AdoptionTerm');
+    navigation.navigate('AdoptionTerm', { animal });
   }
 
   return (

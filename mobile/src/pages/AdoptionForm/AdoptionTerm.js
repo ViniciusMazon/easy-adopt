@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useRoute, useNavigation } from '@react-navigation/native';
 import {
   StyleSheet,
   View,
@@ -14,12 +14,15 @@ import PaginationIndicator from '../../components/PaginationIndicator';
 import Section from '../../components/Section';
 
 export default function AdoptionTerm() {
+  const route = useRoute();
+  const params = route.params;
+  const animal = params.animal;
   const [checked, setChecked] = useState(false);
   const navigation = useNavigation();
 
   function navigateToAboutYourResidence() {
     if (checked) {
-      navigation.navigate('AboutYourResidence');
+      navigation.navigate('AboutYourResidence', { animal });
     }
   }
 

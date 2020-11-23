@@ -5,7 +5,7 @@ import TopBar from '../components/TopBar';
 export default function User() {
   return (
     <View style={styles.container}>
-      <TopBar logout />
+      <TopBar userPage />
     </View>
   );
 }

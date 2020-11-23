@@ -4,7 +4,7 @@ import { BorderlessButton } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { back, logout } from '../styles/icons';
 
-export default function TopBar({ logout = false }) {
+export default function TopBar({ userPage = false }) {
   const { goBack } = useNavigation();
 
   function handleGoBack() {
@@ -17,7 +17,7 @@ export default function TopBar({ logout = false }) {
         <Image source={back} resizeMode="contain" />
       </BorderlessButton>
 
-      {logout && (
+      {userPage && (
         <BorderlessButton onPress={() => {}} style={styles.button}>
           <Image source={logout} resizeMode="contain" style={styles.icon} />
           <Text style={styles.exitText}>Sair</Text>
