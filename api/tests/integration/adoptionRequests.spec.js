@@ -27,7 +27,8 @@ describe('Animals', () => {
         other_animals: 'Não',
         sick_animals: 'Não',
         aware_cost: 'Sim',
-        why_want_adopt: 'Quero ajudar a melhorar a vida dos animais',
+        why_want_adopt:
+          'Me mudei a trabalho e minha filha precisa de um novo amigo',
         animal_id: '1bc2',
         tutor_id: 'hrg123',
       });
@@ -59,6 +60,13 @@ describe('Animals', () => {
     it('Should list an adoption request', async () => {
       const response = await request(app).get('/adoption-request/fdas878');
 
+      expect(response.statusCode).toEqual(200);
+    });
+  });
+
+  describe('DELETE', () => {
+    it('Should cancel an adoption request', async () => {
+      const response = await request(app).delete('/adoption-request/fdas878');
       expect(response.statusCode).toEqual(200);
     });
   });
