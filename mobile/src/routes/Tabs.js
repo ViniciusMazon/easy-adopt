@@ -5,8 +5,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
   paw,
   pawOutline,
-  card,
-  cardOutline,
+  donation,
+  donationOutline,
   calendar,
   calendarOutline,
 } from '../styles/icons';
@@ -64,9 +64,9 @@ function Tabs() {
           tabBarLabel: '',
           tabBarIcon: ({ focused }) => {
             if (focused) {
-              return <Image source={card} style={styles.icon} />;
+              return <Image source={donation} style={styles.icon} />;
             } else {
-              return <Image source={cardOutline} />;
+              return <Image source={donationOutline} />;
             }
           },
         }}

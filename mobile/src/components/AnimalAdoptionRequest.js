@@ -1,50 +1,63 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
-import { male, female } from '../styles/icons';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { male, female, more } from '../styles/icons';
+import { useNavigation } from '@react-navigation/native';
 
-import dogImage from '../assets/dog.png';
+export default function AnimalAdoptionRequest({ request }) {
+  const navigation = useNavigation();
 
-export default function AnimalAdoptionRequest({
-  id,
-  avatar,
-  status,
-  name,
-  gender,
-}) {
-  var statusColor = '#F6C06E';
+  var statusColor = '';
+  switch (request.status) {
+    case 'novo':
+      statusColor = '#F6C06E';
+      break;
+    case 'aprovado':
+      statusColor = '#6EF7A5';
+      break;
+    case 'reprovado':
+      statusColor = '#FD4F59';
+      break;
+    case 'cancelado':
+      statusColor = '#FD4F59';
+      break;
+    default:
+      statusColor = '#FFF';
+      break;
+  }
 
-  if (status === 'aprovado') {
-    statusColor = '#6EF7A5';
-  } else if (status === 'reprovado') {
-    statusColor = '#FD4F59';
+  function navigateToCancelAdoptionRequest() {
+    navigation.navigate('CancelAdoptionRequest', { request });
   }
 
   return (
-    <View style={styles.animalAdoptionRequest}>
-      <Image source={{ uri: avatar }} style={styles.avatar} />
+    <TouchableOpacity
+      style={styles.animalAdoptionRequest}
+      onPress={navigateToCancelAdoptionRequest}
+    >
+      <Image source={{ uri: request.animal.avatar }} style={styles.avatar} />
 
       <View style={styles.data}>
         <View style={styles.status}>
           <View style={[styles.indicator, { backgroundColor: statusColor }]} />
-          <Text style={styles.text}>{status}</Text>
+          <Text style={styles.text}>{request.status}</Text>
         </View>
 
         <View>
-          <Text style={styles.name}>{name}</Text>
+          <Text style={styles.name}>{request.animal.name}</Text>
           <View style={styles.genderContainer}>
             <Image
-              source={gender === 'Macho' ? male : female}
+              source={request.animal.gender === 'Macho' ? male : female}
               style={styles.genderIcon}
             />
-            <Text style={styles.genderText}>{gender}</Text>
+            <Text style={styles.genderText}>{request.animal.gender}</Text>
           </View>
         </View>
 
         <View style={styles.bot}>
-          <Text style={styles.link}>Mais informações</Text>
+          <Image source={more} style={styles.more} />
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 
@@ -80,7 +93,7 @@ const styles = StyleSheet.create({
   indicator: {
     width: 11,
     height: 11,
-    borderRadius: 8,
+    borderRadius: 5,
   },
   text: {
     marginLeft: 8,
@@ -110,9 +123,9 @@ const styles = StyleSheet.create({
   bot: {
     alignSelf: 'flex-end',
   },
-  link: {
-    fontFamily: 'Montserrat_400Regular',
-    fontSize: 14,
-    color: '#666666',
+  more: {
+    width: 20,
+    resizeMode: 'contain',
+    marginBottom: 2
   },
 });

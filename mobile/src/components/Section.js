@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: 'VarelaRound_400Regular',
     fontSize: 21,
+    color: '#484848',
     marginBottom: 5,
   },
   subtitle: {
