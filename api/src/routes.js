@@ -27,6 +27,7 @@ routes.post('/adoption-request', adoptionRequests.create);
 routes.put('/adoption-request/:id', adoptionRequests.update);
 routes.get('/adoption-request', adoptionRequests.index);
 routes.get('/adoption-request/:id', adoptionRequests.show);
+routes.delete('/adoption-request/:id', adoptionRequests.delete);
 
 routes.post('/collaborators', collaborators.create);
 routes.put('/collaborators/:id', collaborators.update);

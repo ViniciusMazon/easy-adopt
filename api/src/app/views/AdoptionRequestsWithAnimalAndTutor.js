@@ -7,6 +7,8 @@ module.exports = {
         id: adoptionRequest.animal_id,
         name: adoptionRequest.animal_name,
         gender: adoptionRequest.animal_gender,
+        age: adoptionRequest.animal_age,
+        size: adoptionRequest.animal_size,
         avatar: `${process.env.CDN_URL}/uploads/${adoptionRequest.animal_avatar}`,
       },
       tutor: {

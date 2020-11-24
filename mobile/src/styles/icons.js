@@ -1,7 +1,7 @@
 import paw from '../assets/icons/paw.png';
 import pawOutline from '../assets/icons/pawOutline.png';
-import card from '../assets/icons/card.png';
-import cardOutline from '../assets/icons/cardOutline.png';
+import donation from '../assets/icons/donation.png';
+import donationOutline from '../assets/icons/donationOutline.png';
 import calendar from '../assets/icons/calendar.png';
 import calendarOutline from '../assets/icons/calendarOutline.png';
 
@@ -17,15 +17,16 @@ import size from '../assets/icons/size.png';
 
 import back from '../assets/icons/back.png';
 import success from '../assets/icons/success.png';
-import logout from '../assets/icons/logOut.png';
+import logOut from '../assets/icons/logOut.png';
+import more from '../assets/icons/more.png';
 
 export {
   paw,
   pawOutline,
-  card,
-  cardOutline,
   calendar,
   calendarOutline,
+  donation,
+  donationOutline,
   male,
   maleWhite,
   female,
@@ -34,5 +35,6 @@ export {
   heart,
   success,
   back,
-  logout,
+  logOut,
+  more,
 };

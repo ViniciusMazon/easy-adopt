@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Image, Text, StyleSheet } from 'react-native';
 import { BorderlessButton } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
-import { back, logout } from '../styles/icons';
+import { back, logOut } from '../styles/icons';
 
 export default function TopBar({ userPage = false }) {
   const { goBack } = useNavigation();
@@ -19,7 +19,7 @@ export default function TopBar({ userPage = false }) {
 
       {userPage && (
         <BorderlessButton onPress={() => {}} style={styles.button}>
-          <Image source={logout} resizeMode="contain" style={styles.icon} />
+          <Image source={logOut} resizeMode="contain" style={styles.icon} />
           <Text style={styles.exitText}>Sair</Text>
         </BorderlessButton>
       )}
@@ -39,6 +39,8 @@ const styles = StyleSheet.create({
   },
   button: {
     flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   icon: {
     width: 20,
@@ -47,7 +49,7 @@ const styles = StyleSheet.create({
   exitText: {
     fontFamily: 'Montserrat_400Regular',
     fontSize: 16,
-    color: '#FFF',
+    color: '#FA5293',
     marginLeft: 6,
   },
 });

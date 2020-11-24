@@ -19,6 +19,8 @@ module.exports = {
         'animals.id as animal_id',
         'animals.name as animal_name',
         'animals.gender as animal_gender',
+        'animals.age as animal_age',
+        'animals.size as animal_size',
         'animals.image1 as animal_avatar',
         'tutors.id as tutor_id',
         'tutors.name as tutor_name',
@@ -73,5 +75,9 @@ module.exports = {
       );
 
     return adoptionRequest;
+  },
+  async delete(id, deleted) {
+    await connection('adoption_requests').where('id', id).update(deleted);
+    return;
   },
 };

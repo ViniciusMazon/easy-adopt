@@ -99,5 +99,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: '#FFF',
+    fontFamily: 'Montserrat_600SemiBold',
   },
 });

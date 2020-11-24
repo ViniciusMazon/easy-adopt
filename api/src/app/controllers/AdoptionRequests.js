@@ -159,4 +159,23 @@ module.exports = {
         .json({ message: 'Ocorreu um erro, tente novamente mais tarde' });
     }
   },
+  async delete(request, response) {
+    try {
+      const { id } = request.params;
+      const evaluation_date = format(new Date(), 'yyyy/MM/dd');
+
+      const deleted = {
+        status: 'cancelado',
+        evaluation_date,
+      };
+
+      await adoptionRequestsModel.update(id, deleted);
+      return response.status(200).send();
+    } catch (error) {
+      console.error(error);
+      return response
+        .status(500)
+        .json({ message: 'Ocorreu um erro, tente novamente mais tarde' });
+    }
+  },
 };

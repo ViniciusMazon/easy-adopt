@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../services/api';
 
@@ -40,18 +40,22 @@ export default function Animals() {
         subtitle={`Você possui ${adoptionRequests.length} pedidos de adoção`}
       />
       <View style={styles.animalAdoptionRequestContainer}>
-        {adoptionRequests.map((adoptionRequest) => {
-          return (
-            <AnimalAdoptionRequest
-              key={String(adoptionRequest.id)}
-              id={adoptionRequest.id}
-              avatar={adoptionRequest.animal.avatar}
-              status={adoptionRequest.status}
-              name={adoptionRequest.animal.name}
-              gender={adoptionRequest.animal.gender}
-            />
-          );
-        })}
+        {adoptionRequests.length === 0 ? (
+          <View style={styles.notFoundWarning}>
+            <Text style={styles.notFoundWarningText}>
+              Adote um dos animais abaixo 🐶
+            </Text>
+          </View>
+        ) : (
+          adoptionRequests.map((adoptionRequest) => {
+            return (
+              <AnimalAdoptionRequest
+                key={String(adoptionRequest.id)}
+                request={adoptionRequest}
+              />
+            );
+          })
+        )}
       </View>
 
       <Section
@@ -64,6 +68,14 @@ export default function Animals() {
         {animals.map((animal) => {
           return <AnimalCardFeed key={String(animal.id)} animal={animal} />;
         })}
+
+        {animals.length === 0 && (
+          <View style={styles.notFoundWarning}>
+            <Text style={styles.notFoundWarningText}>
+              No momento não temos nenhum animal disponível para adoção 🐱
+            </Text>
+          </View>
+        )}
       </View>
     </ScrollView>
   );
@@ -85,5 +97,24 @@ const styles = StyleSheet.create({
     width: '100%',
     marginBottom: 85,
     marginTop: 51,
+    alignItems: 'center',
+  },
+  notFoundWarning: {
+    height: 113,
+    width: '90%',
+    borderWidth: 2,
+    borderColor: '#FFD6E6',
+    borderStyle: 'dashed',
+    borderRadius: 8,
+    marginBottom: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  notFoundWarningText: {
+    color: '#666666',
+    fontSize: 14,
+    fontFamily: 'Montserrat_400Regular',
+    textAlign: 'center',
+    lineHeight: 20,
   },
 });

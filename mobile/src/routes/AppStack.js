@@ -10,6 +10,7 @@ import AdoptionTerm from '../pages/AdoptionForm/AdoptionTerm';
 import AboutYourResidence from '../pages/AdoptionForm/AboutYourResidence';
 import AboutYourHistory from '../pages/AdoptionForm/AboutYourHistory';
 import Success from '../pages/AdoptionForm/Success';
+import CancelAdoptionRequest from '../pages/CancelAdoptionRequest';
 
 function AppStack() {
   return (
@@ -21,6 +22,10 @@ function AppStack() {
         <Screen name="AboutYourResidence" component={AboutYourResidence} />
         <Screen name="AboutYourHistory" component={AboutYourHistory} />
         <Screen name="Success" component={Success} />
+        <Screen
+          name="CancelAdoptionRequest"
+          component={CancelAdoptionRequest}
+        />
       </Navigator>
     </NavigationContainer>
   );

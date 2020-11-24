@@ -144,5 +144,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: '#FA5293',
+    fontFamily: 'Montserrat_600SemiBold',
   },
 });
