@@ -1,12 +1,14 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image, ImageBackground } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
-import { success } from '../../styles/icons';
-import backgroundImg from '../../assets/images/background.png';
+import { success } from '../styles/icons';
+import backgroundImg from '../assets/images/background.png';
 
 export default function Success() {
   const navigation = useNavigation();
+  const route = useRoute();
+  const message = route.params.message;
 
   function navigateToAnimals() {
     navigation.navigate('Animals');
@@ -16,11 +18,9 @@ export default function Success() {
     <View style={styles.container}>
       <ImageBackground source={backgroundImg} style={styles.background}>
         <Image source={success} />
-        <Text style={styles.title}>Deu tudo certo!</Text>
-        <Text style={styles.description}>
-          Seu pedido foi registrado e será analisado, em breve entraremos em
-          contato. Cheque seu e-mail regularmente.
-        </Text>
+
+        <Text style={styles.title}>{message.title}</Text>
+        <Text style={styles.description}>{message.content}</Text>
 
         <Text onPress={navigateToAnimals} style={styles.link}>
           Voltar para a página principal

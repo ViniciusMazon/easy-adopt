@@ -9,7 +9,7 @@ import Adopt from '../pages/Adopt';
 import AdoptionTerm from '../pages/AdoptionForm/AdoptionTerm';
 import AboutYourResidence from '../pages/AdoptionForm/AboutYourResidence';
 import AboutYourHistory from '../pages/AdoptionForm/AboutYourHistory';
-import Success from '../pages/AdoptionForm/Success';
+import Success from '../pages/Success';
 import CancelAdoptionRequest from '../pages/CancelAdoptionRequest';
 
 function AppStack() {
