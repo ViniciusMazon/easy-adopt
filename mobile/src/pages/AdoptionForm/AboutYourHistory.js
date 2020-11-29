@@ -75,8 +75,13 @@ export default function AboutYourHistory() {
       };
 
       await api.post('/adoption-request', adoptionRequest);
-      console.log(adoptionRequest);
-      navigation.navigate('Success');
+      navigation.navigate('Success', {
+        message: {
+          title: 'Deu tudo certo!',
+          content:
+            'Seu pedido foi registrado e será analisado, em breve entraremos em contato. Cheque seu e-mail regularmente.',
+        },
+      });
     } catch (error) {
       if (error instanceof ValidationError) {
         Alert.alert(

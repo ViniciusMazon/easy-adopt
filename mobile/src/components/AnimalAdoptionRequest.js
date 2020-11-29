@@ -20,6 +20,9 @@ export default function AnimalAdoptionRequest({ request }) {
     case 'cancelado':
       statusColor = '#FD4F59';
       break;
+    case 'adotado':
+      statusColor = '#FA5293';
+      break;
     default:
       statusColor = '#FFF';
       break;
@@ -126,6 +129,6 @@ const styles = StyleSheet.create({
   more: {
     width: 20,
     resizeMode: 'contain',
-    marginBottom: 2
+    marginBottom: 2,
   },
 });

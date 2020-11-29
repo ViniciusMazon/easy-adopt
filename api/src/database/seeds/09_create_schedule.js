@@ -8,9 +8,8 @@ exports.seed = function (knex) {
         {
           id: 'sks8348fd',
           date: format(new Date(), 'yyyy/MM/dd'),
-          time: '14:00',
-          tutor_id: 'hrg123',
-          animal_id: '1bc2',
+          period: '15:00 às 17:00',
+          adoption_request_id: 'fdas878',
         },
       ]);
     });

@@ -2,18 +2,12 @@ exports.up = function (knex) {
   return knex.schema.createTable('schedule', (table) => {
     table.string('id').primary();
     table.date('date').notNullable();
-    table.string('time').notNullable();
+    table.string('period').notNullable();
     table
-      .string('tutor_id')
+      .string('adoption_request_id')
       .notNullable()
       .references('id')
-      .inTable('tutors')
-      .onDelete('CASCADE');
-    table
-      .string('animal_id')
-      .notNullable()
-      .references('id')
-      .inTable('animals')
+      .inTable('adoption_requests')
       .onDelete('CASCADE');
   });
 };

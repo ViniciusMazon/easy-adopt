@@ -20,9 +20,8 @@ describe('Schedule', () => {
     it('Should create a new schedule', async () => {
       const response = await request(app).post('/schedule').send({
         date: '2020-11-20',
-        time: '14:00',
-        tutor_id: 'hrg123',
-        animal_id: '1bc2',
+        period: '08:00 às 12:00',
+        adoption_request_id: 'fdas878',
       });
 
       expect(response.statusCode).toEqual(201);
