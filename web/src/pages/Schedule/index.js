@@ -27,7 +27,7 @@ export default function Schedule() {
           <ScheduleContainer>
             <tr>
               <th>Data</th>
-              <th>Horário</th>
+              <th>Período</th>
               <th>Tutor</th>
               <th>Animal</th>
             </tr>
@@ -36,9 +36,9 @@ export default function Schedule() {
                 <ScheduleItem
                   key={item.id}
                   date={item.date}
-                  time={item.time}
-                  tutor_name={item.tutor_name}
-                  animal_name={item.animal_name}
+                  period={item.period}
+                  tutor={item.tutor}
+                  animal={item.animal}
                 />
               );
             })}

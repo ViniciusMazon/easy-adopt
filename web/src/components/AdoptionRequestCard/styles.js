@@ -51,11 +51,11 @@ export const StatusIndicator = styled.div`
     switch (props.status) {
       case 'aprovado':
         return 'var(--status-available)';
-
       case 'reprovado':
         return 'var(--status-unavailable)';
-
       case 'novo':
+        return 'var(--status-new)';
+      case 'adotado':
         return 'var(--status-adopted)';
       default:
         return 'var(--title)';

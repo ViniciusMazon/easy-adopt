@@ -43,9 +43,10 @@ export default createGlobalStyle`
     --red: #FD4F59;
     --dark-red: #DB3F48;
 
-    --status-available: #09ffb5;
-    --status-unavailable: #FF385C;
-    --status-adopted: #9969FF;
+    --status-available: #6EF7A5;
+    --status-unavailable: #FD4F59;
+    --status-new: #F6C06E;
+    --status-adopted: #FA5293;
   }
   @media (min-width: 700px) {
     :root {
