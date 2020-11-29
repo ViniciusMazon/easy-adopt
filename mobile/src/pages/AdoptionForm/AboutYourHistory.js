@@ -75,7 +75,6 @@ export default function AboutYourHistory() {
       };
 
       await api.post('/adoption-request', adoptionRequest);
-      console.log(adoptionRequest);
       navigation.navigate('Success', {
         message: {
           title: 'Deu tudo certo!',

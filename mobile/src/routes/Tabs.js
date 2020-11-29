@@ -72,20 +72,6 @@ function Tabs() {
         }}
       />
       <Screen
-        name="Schedule"
-        component={Schedule}
-        options={{
-          tabBarLabel: '',
-          tabBarIcon: ({ focused }) => {
-            if (focused) {
-              return <Image source={calendar} />;
-            } else {
-              return <Image source={calendarOutline} />;
-            }
-          },
-        }}
-      />
-      <Screen
         name="User"
         component={User}
         options={{

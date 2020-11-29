@@ -1,7 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
-import { RectButton } from 'react-native-gesture-handler';
 
 import api from '../services/api';
 import { size, heart, male, female } from '../styles/icons';
@@ -35,6 +34,10 @@ export default function CancelAdoptionRequest() {
   async function handleCancelAdoptionRequest() {
     await api.delete(`/adoption-request/${request.id}`);
     navigation.navigate('Animals');
+  }
+
+  function navigateToSchedulePage() {
+    navigation.navigate('Schedule', { request });
   }
 
   return (
@@ -84,9 +87,23 @@ export default function CancelAdoptionRequest() {
       </View>
 
       {request.status === 'novo' || request.status === 'aprovado' ? (
-        <RectButton style={styles.button} onPress={handleCancelAdoptionRequest}>
-          <Text style={styles.buttonText}>Cancelar pedido de adoção</Text>
-        </RectButton>
+        <TouchableOpacity
+          style={styles.buttonOutline}
+          onPress={handleCancelAdoptionRequest}
+        >
+          <Text style={styles.buttonOutlineText}>
+            Cancelar pedido de adoção
+          </Text>
+        </TouchableOpacity>
+      ) : null}
+
+      {request.status === 'aprovado' ? (
+        <TouchableOpacity
+          style={styles.button}
+          onPress={navigateToSchedulePage}
+        >
+          <Text style={styles.buttonText}>Agendar</Text>
+        </TouchableOpacity>
       ) : null}
     </View>
   );
@@ -100,7 +117,7 @@ const styles = StyleSheet.create({
   },
   avatar: {
     width: '100%',
-    height: 250,
+    height: 200,
     resizeMode: 'cover',
   },
   name: {
@@ -179,10 +196,26 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
     position: 'absolute',
-    bottom: 26,
+    bottom: 100,
   },
   buttonText: {
     color: '#FFF',
+    fontFamily: 'Montserrat_600SemiBold',
+  },
+  buttonOutline: {
+    width: '90%',
+    height: 60,
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: '#FA5293',
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    position: 'absolute',
+    bottom: 30,
+  },
+  buttonOutlineText: {
+    color: '#FA5293',
     fontFamily: 'Montserrat_600SemiBold',
   },
 });
