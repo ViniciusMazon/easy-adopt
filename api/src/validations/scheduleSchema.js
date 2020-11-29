@@ -4,9 +4,8 @@ async function create(response, schedule) {
   const schema = yup.object().shape({
     id: yup.string().required(),
     date: yup.date().required('Este campo é obrigatório'),
-    time: yup.string().required('Este campo é obrigatório'),
-    tutor_id: yup.string().required('Este campo é obrigatório'),
-    animal_id: yup.string().required('Este campo é obrigatório'),
+    period: yup.string().required('Este campo é obrigatório'),
+    adoption_request_id: yup.string().required('Este campo é obrigatório'),
   });
 
   try {

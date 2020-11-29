@@ -3,38 +3,49 @@ const { format } = require('date-fns');
 const sendMail = require('../../lib/mail');
 
 const scheduleModel = require('../models/Schedule');
-const tutorsModel = require('../models/Tutors');
-const animalsModel = require('../models/Animals');
+const AdoptionRequestsModel = require('../models/AdoptionRequests');
+const AnimalsModel = require('../models/Animals');
 const scheduleView = require('../views/Schedule');
 const validations = require('../../validations/scheduleSchema');
 
 module.exports = {
   async create(request, response) {
     try {
-      const { date, time, tutor_id, animal_id } = request.body;
+      const { date, period, adoption_request_id } = request.body;
 
       const schedule = {
         id: keyGenerator(),
-        date: format(new Date(date), 'yyyy/MM/dd'),
-        time,
-        tutor_id,
-        animal_id,
+        date,
+        period,
+        adoption_request_id,
       };
 
       await validations.create(response, schedule);
       await scheduleModel.create(schedule);
 
-      const tutor = await tutorsModel.show(tutor_id);
-      const animal = await animalsModel.show(animal_id);
+      const {
+        tutor_name,
+        tutor_email,
+        animal_name,
+        animal_id,
+      } = await AdoptionRequestsModel.show(adoption_request_id);
 
-      await sendMail({
-        to: `${tutor.name} <${tutor.email}>`,
+      await AdoptionRequestsModel.update(adoption_request_id, {
+        status: 'adotado',
+      });
+      await AnimalsModel.edit(animal_id, { status: 'adotado' });
+
+      await await sendMail({
+        to: `${tutor_name} <${tutor_email}>`,
         subject: 'Agendamento realizado!',
         template: 'scheduling',
         context: {
-          tutor_name: tutor.name,
-          animal_name: animal.name,
-          schedule_date: `${format(new Date(date), 'dd/MM/yyyy')} às ${time}`,
+          tutor_name: tutor_name,
+          animal_name: animal_name,
+          schedule_date: `${format(
+            new Date(date),
+            'dd/MM/yyyy'
+          )} entre ${period}`,
         },
       });
 

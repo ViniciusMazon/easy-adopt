@@ -11,15 +11,26 @@ module.exports = {
     const end = format(addDays(new Date(start), 7), 'yyyy/MM/dd');
 
     const schedules = await connection('schedule')
-      .innerJoin('tutors', 'schedule.tutor_id', 'tutors.id')
-      .innerJoin('animals', 'schedule.animal_id', 'animals.id')
-      .where('date', '>', start)
-      .andWhere('date', '<=', end)
+      .innerJoin(
+        'adoption_requests',
+        'schedule.adoption_request_id',
+        'adoption_requests.id'
+      )
+      .innerJoin('tutors', 'adoption_requests.tutor_id', 'tutors.id')
+      .innerJoin('animals', 'adoption_requests.animal_id', 'animals.id')
+      .where('schedule.date', '>', start)
+      .andWhere('schedule.date', '<=', end)
       .select(
-        'schedule.*',
+        'schedule.id as schedule_id',
+        'schedule.date as schedule_date',
+        'schedule.period as schedule_period',
+        'schedule.adoption_request_id as adoption_request_id',
+        'tutors.id as tutor_id',
         'tutors.name as tutor_name',
+        'animals.id as animal_id',
         'animals.name as animal_name'
       );
+
     return schedules;
   },
 };
