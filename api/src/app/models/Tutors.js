@@ -5,6 +5,10 @@ module.exports = {
     await connection('tutors').insert(tutor);
     return;
   },
+  async edit(id, tutor) {
+    await connection('tutors').where('id', id).update(tutor);
+    return;
+  },
   async show(id) {
     const [tutor] = await connection('tutors')
       .where('id', id)

@@ -1,5 +1,12 @@
-import React from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 
 import api from '../services/api';
@@ -11,6 +18,7 @@ export default function CancelAdoptionRequest() {
   const route = useRoute();
   const params = route.params;
   const request = params.request;
+  const [isLoading, setIsLoading] = useState(false);
 
   var statusColor = '';
   switch (request.status) {
@@ -32,6 +40,7 @@ export default function CancelAdoptionRequest() {
   }
 
   async function handleCancelAdoptionRequest() {
+    setIsLoading(true);
     await api.delete(`/adoption-request/${request.id}`);
     navigation.navigate('Animals');
   }
@@ -91,9 +100,13 @@ export default function CancelAdoptionRequest() {
           style={styles.buttonOutline}
           onPress={handleCancelAdoptionRequest}
         >
-          <Text style={styles.buttonOutlineText}>
-            Cancelar pedido de adoção
-          </Text>
+          {isLoading ? (
+            <ActivityIndicator size="large" color="#FFF" />
+          ) : (
+            <Text style={styles.buttonOutlineText}>
+              Cancelar pedido de adoção
+            </Text>
+          )}
         </TouchableOpacity>
       ) : null}
 

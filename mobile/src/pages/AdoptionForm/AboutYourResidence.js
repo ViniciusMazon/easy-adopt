@@ -1,7 +1,4 @@
 import React, { useState } from 'react';
-import { useRoute, useNavigation } from '@react-navigation/native';
-import * as Yup from 'yup';
-
 import {
   StyleSheet,
   View,
@@ -9,7 +6,10 @@ import {
   Text,
   TouchableOpacity,
   Alert,
+  KeyboardAvoidingView,
 } from 'react-native';
+import { useRoute, useNavigation } from '@react-navigation/native';
+import * as Yup from 'yup';
 
 import TopBar from '../../components/TopBar';
 import PaginationIndicator from '../../components/PaginationIndicator';
@@ -68,7 +68,7 @@ export default function AboutYourResidence() {
   }
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container} behavior="padding">
       <TopBar />
       <ScrollView>
         <PaginationIndicator pages={3} active={2} />
@@ -112,7 +112,6 @@ export default function AboutYourResidence() {
             { label: 'Não', value: 'Não' },
           ]}
         />
-
         <TouchableOpacity
           style={styles.button}
           onPress={navigateToAboutYourHistory}
@@ -120,7 +119,7 @@ export default function AboutYourResidence() {
           <Text style={styles.buttonText}>Próximo</Text>
         </TouchableOpacity>
       </ScrollView>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 

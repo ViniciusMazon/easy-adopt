@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, StyleSheet, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  Alert,
+  ActivityIndicator,
+} from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { RectButton } from 'react-native-gesture-handler';
 import { getDay, format, addDays } from 'date-fns';
@@ -16,6 +23,7 @@ export default function Schedule() {
   const route = useRoute();
   const params = route.params;
   const request = params.request;
+  const [isLoading, setIsLoading] = useState(false);
   const [validSchedule, setValidSchedule] = useState([]);
   const [dateActive, setDateActive] = useState(-1);
 
@@ -67,6 +75,7 @@ export default function Schedule() {
 
   async function handleSubmit() {
     if (dateActive >= 0) {
+      setIsLoading(true);
       try {
         const schema = Yup.object().shape({
           date: Yup.date().required(),
@@ -98,6 +107,7 @@ export default function Schedule() {
           },
         });
       } catch (error) {
+        setIsLoading(false);
         if (error instanceof ValidationError) {
           Alert.alert(
             'Dados inválidos',
@@ -156,7 +166,11 @@ export default function Schedule() {
       </ScrollView>
 
       <RectButton style={styles.button} onPress={handleSubmit}>
-        <Text style={styles.buttonText}>Agendar</Text>
+        {isLoading ? (
+          <ActivityIndicator size="large" color="#FFF" />
+        ) : (
+          <Text style={styles.buttonText}>Agendar</Text>
+        )}
       </RectButton>
     </View>
   );
@@ -177,6 +191,7 @@ const styles = StyleSheet.create({
     height: 60,
     backgroundColor: '#FA5293',
     borderRadius: 6,
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',

@@ -2,8 +2,7 @@ const keyGenerator = require('../../utils/keyGenerator');
 const accessCodeModel = require('../models/AccessCode');
 const collaboratorsModel = require('../models/Collaborators');
 const { format } = require('date-fns');
-const { show } = require('../models/Collaborators');
-const { update } = require('../../database/connection');
+
 
 module.exports = {
   async create(request, response) {

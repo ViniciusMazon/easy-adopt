@@ -43,6 +43,27 @@ module.exports = {
         .json({ message: 'Ocorreu um erro, tente novamente mais tarde' });
     }
   },
+  async update(request, response) {
+    try {
+      const id = request.params.id;
+      const { gender, name, birth_date, cpf, email, phone } = request.body;
+      const tutor = {
+        gender,
+        name,
+        birth_date,
+        cpf,
+        email,
+        phone,
+      };
+      await tutorsModel.edit(id, tutor);
+      return response.status(200).send();
+    } catch (error) {
+      console.error(error);
+      return response
+        .status(500)
+        .json({ message: 'Ocorreu um erro, tente novamente mais tarde' });
+    }
+  },
   async show(request, response) {
     try {
       const tutor = await tutorsModel.showByEmail(request.params.email);

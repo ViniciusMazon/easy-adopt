@@ -32,6 +32,20 @@ describe('Tutors', () => {
     });
   });
 
+  describe('PUT', () => {
+    it('Should update a tutor', async () => {
+      const response = await request(app).put('/tutors/hrg123').send({
+        gender: 'Feminino',
+        name: 'Fabíola de Camargo Correia',
+        birth_date: '1993/10/29',
+        cpf: '890.491.240-70',
+        email: 'fabiola@gmail.com',
+        phone: '(11)8888-8888',
+      });
+      expect(response.statusCode).toEqual(200);
+    });
+  });
+
   describe('SHOW', () => {
     it('Should search for a tutor by email', async () => {
       const response = await request(app).get('/tutors/fabiola@gmail.com');

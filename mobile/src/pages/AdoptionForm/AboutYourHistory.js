@@ -1,8 +1,4 @@
 import React, { useState } from 'react';
-import { useNavigation, useRoute } from '@react-navigation/native';
-import * as Yup from 'yup';
-import { ValidationError } from 'yup';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   StyleSheet,
   ScrollView,
@@ -10,7 +6,14 @@ import {
   Text,
   TouchableOpacity,
   Alert,
+  KeyboardAvoidingView,
+  ActivityIndicator,
 } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import * as Yup from 'yup';
+import { ValidationError } from 'yup';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import api from '../../services/api';
 
 import TopBar from '../../components/TopBar';
@@ -24,6 +27,7 @@ export default function AboutYourHistory() {
   const route = useRoute();
   const aboutResidence = route.params.aboutResidence;
   const animal = route.params.animal;
+  const [isLoading, setIsLoading] = useState(false);
   const [adopted_before, setAdoptedBefore] = useState('');
   const [other_animals, setOtherAnimals] = useState('');
   const [sick_animals, setSickAnimals] = useState('');
@@ -37,6 +41,7 @@ export default function AboutYourHistory() {
   }
 
   async function navigateToSuccess() {
+    setIsLoading(true);
     try {
       const schema = Yup.object().shape({
         adopted_before: Yup.string().required(),
@@ -83,6 +88,7 @@ export default function AboutYourHistory() {
         },
       });
     } catch (error) {
+      setIsLoading(false);
       if (error instanceof ValidationError) {
         Alert.alert(
           'Dados inválidos',
@@ -115,7 +121,7 @@ export default function AboutYourHistory() {
   }
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container} behavior="padding">
       <TopBar />
       <ScrollView>
         <PaginationIndicator pages={3} active={3} />
@@ -174,10 +180,14 @@ export default function AboutYourHistory() {
         />
 
         <TouchableOpacity style={styles.button} onPress={navigateToSuccess}>
-          <Text style={styles.buttonText}>Enviar</Text>
+          {isLoading ? (
+            <ActivityIndicator size="large" color="#FFF" />
+          ) : (
+            <Text style={styles.buttonText}>Enviar</Text>
+          )}
         </TouchableOpacity>
       </ScrollView>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
