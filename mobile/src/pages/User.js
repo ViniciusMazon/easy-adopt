@@ -1,14 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Image,
+  ActivityIndicator,
+} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { RectButton } from 'react-native-gesture-handler';
 import * as ImagePicker from 'expo-image-picker';
+import { format } from 'date-fns';
+import api from '../services/api';
 
 import { plus } from '../styles/icons';
 import TopBar from '../components/TopBar';
 import InputText from '../components/InputText';
 
 export default function User() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [tutorId, setTutorId] = useState('');
+  const [addressId, setAddressId] = useState('');
   const [avatar, setAvatar] = useState();
   const [image, setImage] = useState();
   const [name, setName] = useState('');
@@ -27,12 +39,14 @@ export default function User() {
     const data = await AsyncStorage.getItem('@easyAdopt_user');
     const tutor = JSON.parse(data);
 
+    setTutorId(tutor.id);
     setAvatar(tutor.avatar);
     setName(tutor.name);
     setEmail(tutor.email);
     setBirthDate(tutor.birth_date);
     setCpf(tutor.cpf);
     setPhone(tutor.phone);
+    setAddressId(tutor.address.id);
     setStreet(tutor.address.street);
     setNumber(tutor.address.number);
     setNeighborhood(tutor.address.neighborhood);
@@ -68,22 +82,31 @@ export default function User() {
   }
 
   async function handleSaveChanges() {
-    const tutor = new FormData();
-    tutor.append('name', name);
-    tutor.append('email', email);
-    tutor.append('birth_date', birth_date);
-    tutor.append('cpf', cpf);
-    tutor.append('phone', phone);
-    tutor.append(
-      'avatar',
-      avatar
-        ? {
-            name: `image.jpg`,
-            type: 'image/jpg',
-            uri: image,
-          }
-        : avatar
-    );
+    setIsLoading(true);
+
+    // tutor.append(
+    //   'avatar',
+    //   avatar
+    //     ? {
+    //         name: `image.jpg`,
+    //         type: 'image/jpg',
+    //         uri: image,
+    //       }
+    //     : avatar
+    // );
+
+    const splittedDate = birth_date.split('/');
+
+    const data = {
+      name,
+      email,
+      birth_date: format(
+        new Date(splittedDate[2], splittedDate[1], splittedDate[0]),
+        'yyyy-MM-dd'
+      ),
+      cpf,
+      phone,
+    };
 
     const address = {
       street,
@@ -93,7 +116,10 @@ export default function User() {
       state,
       cep,
     };
-    console.log(tutor, address);
+
+    await api.put(`address/${addressId}`, address);
+    await api.put(`tutors/${tutorId}`, data);
+    setIsLoading(false);
   }
 
   return (
@@ -170,7 +196,11 @@ export default function User() {
         />
 
         <RectButton style={styles.button} onPress={handleSaveChanges}>
-          <Text style={styles.buttonText}>Salvar alterações</Text>
+          {isLoading ? (
+            <ActivityIndicator size="large" color="#FFF" />
+          ) : (
+            <Text style={styles.buttonText}>Salvar alterações</Text>
+          )}
         </RectButton>
       </ScrollView>
     </View>
