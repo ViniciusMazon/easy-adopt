@@ -7,16 +7,13 @@ import {
   pawOutline,
   donation,
   donationOutline,
-  calendar,
-  calendarOutline,
+  user,
+  userOutline,
 } from '../styles/icons';
 const { Navigator, Screen } = createBottomTabNavigator();
 
-import user from '../assets/user.jpeg';
-
 import Animals from '../pages/Animals';
 import Donation from '../pages/Donation';
-import Schedule from '../pages/Schedule';
 import User from '../pages/User';
 
 function Tabs() {
@@ -76,8 +73,12 @@ function Tabs() {
         component={User}
         options={{
           tabBarLabel: '',
-          tabBarIcon: () => {
-            return <Image source={user} style={styles.user} />;
+          tabBarIcon: ({ focused }) => {
+            if (focused) {
+              return <Image source={user} style={styles.icon} />;
+            } else {
+              return <Image source={userOutline} />;
+            }
           },
         }}
       />
