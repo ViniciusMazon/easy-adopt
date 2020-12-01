@@ -23,9 +23,9 @@ export default function AboutYourResidence() {
   const params = route.params;
   const animal = params.animal;
   const [residence_type, setResidenceType] = useState('');
-  const [adults_home, setAdultsHome] = useState(0);
-  const [children_home, setChildrenHome] = useState(0);
-  const [smokers_home, setSmokersHome] = useState('');
+  const [adultsHome, setAdultsHome] = useState('');
+  const [childrenHome, setChildrenHome] = useState('');
+  const [smokersHome, setSmokersHome] = useState('');
 
   async function navigateToAboutYourHistory() {
     try {
@@ -38,9 +38,9 @@ export default function AboutYourResidence() {
 
       const aboutResidence = {
         residence_type,
-        adults_home: Number(adults_home),
-        children_home: Number(children_home),
-        smokers_home,
+        adults_home: Number(adultsHome),
+        children_home: Number(childrenHome),
+        smokers_home: smokersHome,
       };
 
       await schema.validate(aboutResidence, {
@@ -92,20 +92,20 @@ export default function AboutYourResidence() {
         <InputText
           label={'Número de adultos na residência'}
           setValue={setAdultsHome}
-          selectedValue={adults_home}
-          keyboardType={'numeric'}
+          selectedValue={adultsHome}
+          keyboardType={'number-pad'}
         />
 
         <InputText
           label={'Número de crianças na residência'}
           setValue={setChildrenHome}
-          selectedValue={children_home}
-          keyboardType={'numeric'}
+          selectedValue={childrenHome}
+          keyboardType={'number-pad'}
         />
 
         <SelectInput
           label={'Possui fumantes na residência?'}
-          selectedValue={smokers_home}
+          selectedValue={smokersHome}
           setValue={setSmokersHome}
           itemsList={[
             { label: 'Sim', value: 'Sim' },
