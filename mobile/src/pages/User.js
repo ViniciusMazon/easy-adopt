@@ -19,9 +19,8 @@ import InputText from '../components/InputText';
 
 export default function User() {
   const [isLoading, setIsLoading] = useState(false);
-  const [tutorId, setTutorId] = useState('');
-  const [addressId, setAddressId] = useState('');
-  const [avatar, setAvatar] = useState();
+  const [tutor, setTutor] = useState({});
+  const [address, setAddress] = useState({});
   const [image, setImage] = useState();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -38,21 +37,8 @@ export default function User() {
   async function getTutor() {
     const data = await AsyncStorage.getItem('@easyAdopt_user');
     const tutor = JSON.parse(data);
-
-    setTutorId(tutor.id);
-    setAvatar(tutor.avatar);
-    setName(tutor.name);
-    setEmail(tutor.email);
-    setBirthDate(tutor.birth_date);
-    setCpf(tutor.cpf);
-    setPhone(tutor.phone);
-    setAddressId(tutor.address.id);
-    setStreet(tutor.address.street);
-    setNumber(tutor.address.number);
-    setNeighborhood(tutor.address.neighborhood);
-    setCity(tutor.address.city);
-    setState(tutor.address.state);
-    setCep(tutor.address.cep);
+    setTutor(tutor);
+    setAddress(tutor.address);
   }
 
   useEffect(() => {
@@ -84,49 +70,87 @@ export default function User() {
   async function handleSaveChanges() {
     setIsLoading(true);
 
-    // tutor.append(
-    //   'avatar',
-    //   avatar
-    //     ? {
-    //         name: `image.jpg`,
-    //         type: 'image/jpg',
-    //         uri: image,
-    //       }
-    //     : avatar
-    // );
+    const splittedDate = birth_date
+      ? birth_date.split('/')
+      : tutor.birth_date.split('/');
 
-    const splittedDate = birth_date.split('/');
-
-    const data = {
-      name,
-      email,
+    const tutorData = {
+      name: name ? name : tutor.name,
+      email: email ? email : tutor.email,
       birth_date: format(
         new Date(splittedDate[2], splittedDate[1], splittedDate[0]),
         'yyyy-MM-dd'
       ),
-      cpf,
-      phone,
+      cpf: cpf ? cpf : tutor.cpf,
+      phone: phone ? phone : tutor.phone,
     };
 
-    const address = {
-      street,
-      number,
-      neighborhood,
-      city,
-      state,
-      cep,
+    const addressData = {
+      street: street ? street : address.street,
+      number: number ? number : address.number,
+      neighborhood: neighborhood ? neighborhood : address.neighborhood,
+      city: city ? city : address.city,
+      state: state ? state : address.state,
+      cep: cep ? cep : address.cep,
     };
 
-    await api.put(`address/${addressId}`, address);
-    await api.put(`tutors/${tutorId}`, data);
+    await api.put(`address/${address.id}`, addressData);
+    await api.put(`tutors/${tutor.id}`, tutorData);
     setIsLoading(false);
+  }
+
+  function cpfFormatter(cpf) {
+    if (cpf.length === 3 || cpf.length === 7) {
+      setCpf(cpf + '.');
+      return;
+    } else if (cpf.length === 11) {
+      setCpf(cpf + '-');
+      return;
+    }
+    setCpf(cpf);
+  }
+
+  function phoneFormatter(phone) {
+    if (phone.length === 1) {
+      setPhone('(' + phone);
+      return;
+    } else if (phone.length === 3) {
+      setPhone(phone + ') ');
+      return;
+    } else if (phone.length === 10) {
+      setPhone(phone + '-');
+      return;
+    }
+    setPhone(phone);
+  }
+
+  function birthDateFormatter(date) {
+    if (date.length === 2 || date.length === 5) {
+      setBirthDate(date + '/');
+      return;
+    }
+    setBirthDate(date);
+  }
+
+  function cepFormatter(cep) {
+    if (cep.length === 2) {
+      setCep(cep + '.');
+      return;
+    } else if (cep.length === 6) {
+      setCep(cep + '-');
+      return;
+    }
+    setCep(cep);
   }
 
   return (
     <View style={styles.container}>
       <TopBar userPage />
       <ScrollView>
-        <Image source={{ uri: image ? image : avatar }} style={styles.avatar} />
+        <Image
+          source={{ uri: image ? image : tutor.avatar }}
+          style={styles.avatar}
+        />
         <RectButton style={styles.uploadButton} onPress={handleSelectImages}>
           <Image source={plus} style={styles.uploadButtonIcon} />
         </RectButton>
@@ -134,65 +158,80 @@ export default function User() {
         <Text style={styles.fieldset}>Sobre você</Text>
         <InputText
           label={'Nome completo'}
-          placeholder={name}
+          placeholder={tutor.name}
           selectedValue={name}
           setValue={setName}
         />
         <InputText
           label={'E-mail'}
-          placeholder={email}
+          placeholder={tutor.email}
           selectedValue={email}
           setValue={setEmail}
         />
         <InputText
           label={'Data de nascimento'}
-          placeholder={birth_date}
+          placeholder={tutor.birth_date}
           selectedValue={birth_date}
-          setValue={setBirthDate}
+          setValue={birthDateFormatter}
+          keyboardType={'number-pad'}
+          maxLength={10}
         />
         <InputText
           label={'CPF'}
-          placeholder={cpf}
+          placeholder={tutor.cpf}
           selectedValue={cpf}
-          setValue={setCpf}
+          setValue={cpfFormatter}
+          keyboardType={'number-pad'}
+          maxLength={14}
         />
         <InputText
           label={'Celular'}
-          placeholder={phone}
+          placeholder={tutor.phone}
           selectedValue={phone}
-          setValue={setPhone}
+          setValue={phoneFormatter}
+          keyboardType={'phone-pad'}
+          maxLength={15}
         />
 
         <Text style={styles.fieldset}>Seu endereço</Text>
         <InputText
           label={'Rua'}
-          placeholder={street}
+          placeholder={address.street}
           selectedValue={street}
           setValue={setStreet}
         />
         <InputText
+          label={'Número'}
+          placeholder={address.number}
+          selectedValue={number}
+          setValue={setNumber}
+          keyboardType={'number-pad'}
+        />
+        <InputText
           label={'Bairro'}
-          placeholder={neighborhood}
+          placeholder={address.neighborhood}
           selectedValue={neighborhood}
           setValue={setNeighborhood}
         />
         <InputText
           label={'Cidade'}
-          placeholder={city}
+          placeholder={address.city}
           selectedValue={city}
           setValue={setCity}
         />
         <InputText
           label={'Estado'}
-          placeholder={state}
+          placeholder={address.state}
           selectedValue={state}
           setValue={setState}
         />
         <InputText
           label={'CEP'}
-          placeholder={cep}
+          placeholder={address.cep}
           selectedValue={cep}
-          setValue={setCep}
+          setValue={cepFormatter}
+          keyboardType={'number-pad'}
+          maxLength={10}
         />
 
         <RectButton style={styles.button} onPress={handleSaveChanges}>

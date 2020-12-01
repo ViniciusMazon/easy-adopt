@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, TextInput } from 'react-native';
+import { StyleSheet, View, Text, TextInput, placeholder } from 'react-native';
 
 export default function InputText({
   label,
@@ -14,6 +14,7 @@ export default function InputText({
         style={styles.input}
         onChangeText={(text) => setValue(text)}
         value={selectedValue}
+        placeholder={placeholder}
         {...props}
       />
     </View>
