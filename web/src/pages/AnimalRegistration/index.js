@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Form } from '@unform/web';
+import React, { useState, useEffect } from 'react';
 import * as Yup from 'yup';
 import { useMenuBar } from '../../context/MenuBar';
 import { useHistory } from 'react-router-dom';
@@ -8,12 +7,12 @@ import api from '../../services/api';
 import { Container, Gallery, ButtonSave, SaveIcon } from './styles';
 
 import Header from '../../components/Header';
-import { Input, Select } from '../../components/Form';
+import InputText from '../../components/InputText';
+import SelectInput from '../../components/SelectInput';
 import InputImage from '../../components/InputImage';
 import { useAlert } from '../../context/Alert';
 
 function AnimalRegistration() {
-  const registrationRef = useRef(null);
   const history = useHistory();
   const { setIsCompacted } = useMenuBar();
   const { setAlert } = useAlert();
@@ -24,17 +23,21 @@ function AnimalRegistration() {
   const [preview1, setPreview1] = useState('');
   const [preview2, setPreview2] = useState('');
   const [preview3, setPreview3] = useState('');
+  const [name, setName] = useState('');
+  const [gender, setGender] = useState('');
+  const [specie, setSpecie] = useState('');
+  const [size, setSize] = useState('');
+  const [age, setAge] = useState('');
+  const [status, setStatus] = useState('');
 
   useEffect(() => {
     setIsCompacted(true);
   }, [setIsCompacted]);
 
-  async function handleSubmit(data) {
+  async function handleSubmit(e) {
+    e.preventDefault();
     try {
       const schema = Yup.object().shape({
-        // image1: Yup.mixed().required('A imagem é obrigatória'),
-        // image2: Yup.mixed().required('A imagem é obrigatória'),
-        // image3: Yup.mixed().required('A imagem é obrigatória'),
         name: Yup.string().required('O nome é obrigatório'),
         specie: Yup.string().required('A espécie é obrigatória'),
         gender: Yup.string().required('O gênero é obrigatório'),
@@ -43,21 +46,22 @@ function AnimalRegistration() {
         status: Yup.string().required('O status é obrigatório'),
       });
 
-      await schema.validate(data, {
-        abortEarly: false,
-      });
+      await schema.validate(
+        { name, specie, gender, size, age, status },
+        {
+          abortEarly: false,
+        }
+      );
 
       const formattedStatusName =
-        data.status === 'Disponível para adoção'
-          ? 'disponível'
-          : 'indisponível';
+        status === 'Disponível para adoção' ? 'disponível' : 'indisponível';
 
       const formData = new FormData();
-      formData.append('name', data.name);
-      formData.append('specie', data.specie);
-      formData.append('gender', data.gender);
-      formData.append('size', data.size);
-      formData.append('age', data.age);
+      formData.append('name', name);
+      formData.append('specie', specie);
+      formData.append('gender', gender);
+      formData.append('size', size);
+      formData.append('age', age);
       formData.append('status', formattedStatusName);
       formData.append('images', image1);
       formData.append('images', image2);
@@ -71,16 +75,11 @@ function AnimalRegistration() {
       } else {
         setAlert('Não foi possível concluir a operação');
       }
-      registrationRef.current.setErrors({});
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
-        const errorMessages = {};
-
-        err.inner.forEach((error) => {
-          errorMessages[error.path] = error.message;
-        });
-
-        registrationRef.current.setErrors(errorMessages);
+        setAlert(
+          'Erro de validação: Verifique os dados inseridos no formulário'
+        );
       }
     }
   }
@@ -88,7 +87,7 @@ function AnimalRegistration() {
   return (
     <Container>
       <Header title={'Cadastro de animal'} />
-      <Form ref={registrationRef} onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <fieldset>
           <legend>Fotos</legend>
           <Gallery>
@@ -112,26 +111,30 @@ function AnimalRegistration() {
 
         <fieldset>
           <legend>Sobre o animal</legend>
-          <Input name="name" label="Nome" />
+          <InputText label={'Nome'} value={name} setValue={setName} />
 
           <div className="input-block">
-            <Select
-              name="specie"
+            <SelectInput
               label="Espécie"
+              setValue={setSpecie}
               options={['Cachorro', 'Gato']}
             />
-            <Select name="gender" label="Gênero" options={['Macho', 'Fêmea']} />
+            <SelectInput
+              label="Gênero"
+              setValue={setGender}
+              options={['Macho', 'Fêmea']}
+            />
           </div>
 
           <div className="input-block">
-            <Select
-              name="size"
+            <SelectInput
               label="Porte"
+              setValue={setSize}
               options={['Pequeno', 'Médio', 'Grande']}
             />
-            <Select
-              name="age"
+            <SelectInput
               label="Idade"
+              setValue={setAge}
               options={['Filhote', 'Adulto', 'Sênior']}
             />
           </div>
@@ -140,9 +143,9 @@ function AnimalRegistration() {
         <fieldset>
           <legend>Sobre a adoção</legend>
           <div className="input-block">
-            <Select
-              name="status"
+            <SelectInput
               label="Status"
+              setValue={setStatus}
               options={['Disponível para adoção', 'Indisponível para adoção']}
             />
           </div>
@@ -152,7 +155,7 @@ function AnimalRegistration() {
           <SaveIcon />
           Salvar
         </ButtonSave>
-      </Form>
+      </form>
     </Container>
   );
 }
