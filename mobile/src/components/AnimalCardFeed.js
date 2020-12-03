@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   data: {
     height: 50,
     backgroundColor: 'rgba(34, 34, 34, 0.63)',
-    marginTop: -54,
+    marginTop: -50,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',

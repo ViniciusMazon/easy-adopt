@@ -12,6 +12,8 @@ import AboutYourHistory from '../pages/AdoptionForm/AboutYourHistory';
 import Success from '../pages/Success';
 import Schedule from '../pages/Schedule';
 import CancelAdoptionRequest from '../pages/CancelAdoptionRequest';
+import DonationForm from '../pages/DonationForm';
+import DonationPayment from '../pages/DonationPayment';
 
 function AppStack() {
   return (
@@ -24,6 +26,8 @@ function AppStack() {
         <Screen name="AboutYourHistory" component={AboutYourHistory} />
         <Screen name="Success" component={Success} />
         <Screen name="Schedule" component={Schedule} />
+        <Screen name="DonationForm" component={DonationForm} />
+        <Screen name="DonationPayment" component={DonationPayment} />
         <Screen
           name="CancelAdoptionRequest"
           component={CancelAdoptionRequest}
