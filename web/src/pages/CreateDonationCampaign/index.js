@@ -1,61 +1,58 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Form } from '@unform/web';
 import * as Yup from 'yup';
 import api from '../../services/api';
 
 import Header from '../../components/Header';
-import { Input, TextArea } from '../../components/Form';
+import InputText from '../../components/InputText';
+import TextAreaInput from '../../components/TextAreaInput';
 import { useMenuBar } from '../../context/MenuBar';
 import { useAlert } from '../../context/Alert';
 
 import { Container, ButtonSave, SaveIcon } from './styles';
 
 export default function CreateDonationCampaign() {
-  const campaignRef = useRef(null);
   const history = useHistory();
   const { setIsCompacted } = useMenuBar();
   const { setAlert } = useAlert();
+  const [title, setTitle] = useState('');
+  const [goal, setGoal] = useState('');
+  const [description, setDescription] = useState('');
 
   useEffect(() => {
     setIsCompacted(true);
   }, [setIsCompacted]);
 
-  async function handleSubmit(data) {
+  async function handleSubmit(e) {
+    e.preventDefault();
     try {
       const schema = Yup.object().shape({
         title: Yup.string().required('O titulo é obrigatório'),
         goal: Yup.string().required('A meta é obrigatória'),
         description: Yup.string().required('A descrição é obrigatória'),
       });
-      await schema.validate(data, {
-        abortEarly: false,
-      });
-
       const { id: userID } = JSON.parse(
         sessionStorage.getItem('@easy-adopt/user')
       );
-
       const campaignData = {
-        title: data.title,
-        description: data.description,
-        goal: data.goal,
+        title: title,
+        description: description,
+        goal: goal,
         collaborator_id: userID,
       };
+      await schema.validate(campaignData, {
+        abortEarly: false,
+      });
 
       await api.post('/donation-campaigns', campaignData);
-
-      campaignRef.current.setErrors({});
       setAlert('😻 Campanha criada com sucesso!');
       history.goBack();
       setIsCompacted(false);
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
-        const errorMessages = {};
-        err.inner.forEach((error) => {
-          errorMessages[error.path] = error.message;
-        });
-        campaignRef.current.setErrors(errorMessages);
+        setAlert(
+          'Erro de validação: verifique os dados inseridos no formulário'
+        );
       }
     }
   }
@@ -64,23 +61,23 @@ export default function CreateDonationCampaign() {
     <Container>
       <Header title={'Nova campanha'} />
 
-      <Form ref={campaignRef} onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <fieldset>
           <legend>Informações da campanha</legend>
 
           <div className="input-block">
-            <Input name="title" label="Titulo" />
-            <Input name="goal" label="Meta" />
+            <InputText label={'Titulo'} setValue={setTitle} />
+            <InputText label={'Meta'} setValue={setGoal} />
           </div>
 
-          <TextArea name="description" label="Descrição" />
+          <TextAreaInput label={'Descrição'} setValue={setDescription} />
         </fieldset>
 
         <ButtonSave>
           <SaveIcon />
           Salvar
         </ButtonSave>
-      </Form>
+      </form>
     </Container>
   );
 }

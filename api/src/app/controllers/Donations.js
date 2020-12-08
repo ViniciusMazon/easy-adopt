@@ -42,9 +42,9 @@ module.exports = {
         auto_return: 'all',
         external_reference: '1',
         back_urls: {
-          success: `http://localhost:3000/donation-success/${donation.id}`,
-          pending: 'http://localhost:3000/temp',
-          failure: 'http://localhost:3000/temp',
+          success: `http://192.168.1.64:3000/donation-success/${donation.id}`,
+          pending: 'http://192.168.1.64:3000',
+          failure: 'http://192.168.1.64:3000',
         },
       };
 
@@ -52,8 +52,7 @@ module.exports = {
       await validations.checkout(response, purchaseOrder);
       const preference = await mercadoPago.preferences.create(purchaseOrder);
 
-      console.log(preference.body.init_point);
-      return response.redirect(`${preference.body.init_point}`);
+      return response.status(200).json(preference.body.init_point);
     } catch (error) {
       console.log(error);
       return response

@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
-import { Form } from '@unform/web';
 import * as Yup from 'yup';
 import { format } from 'date-fns';
 import api from '../../services/api';
 
 import Header from '../../components/Header';
-import { Input, TextArea } from '../../components/Form';
+import TextAreaInput from '../../components/TextAreaInput';
+import InputText from '../../components/InputText';
 import { useMenuBar } from '../../context/MenuBar';
 import { useUser } from '../../context/User';
 import { useAlert } from '../../context/Alert';
@@ -15,56 +15,49 @@ import { useAlert } from '../../context/Alert';
 import { Container, ButtonSave, SaveIcon } from './styles';
 
 export default function AddProcedure() {
-  const procedureRef = useRef(null);
   const history = useHistory();
   const params = useParams();
 
   const { setIsCompacted } = useMenuBar();
   const { setAlert } = useAlert();
   const { user } = useUser();
+  const date = format(new Date(), 'dd/MM/yyyy');
+  const [name, setName] = useState('');
+  const [comments, setComments] = useState('');
 
   useEffect(() => {
     setIsCompacted(true);
-    const now = format(new Date(), 'dd/MM/yyyy');
-    procedureRef.current.setData({
-      name: params.animal_name,
-      date: now,
-    });
-  }, [history.animalName, params.animal_name, setIsCompacted]);
+  }, [setIsCompacted]);
 
-  async function handleSubmit(data) {
+  async function handleSubmit(e) {
+    e.preventDefault();
     try {
       const schema = Yup.object().shape({
         name: Yup.string().required('O procedimento é obrigatório'),
         comments: Yup.string().required('O comentário é obrigatório'),
       });
 
-      await schema.validate(data, {
-        abortEarly: false,
-      });
-
       const procedureData = {
         animal_id: params.id,
-        name: data.name,
-        comments: data.comments,
+        name: name,
+        comments: comments,
         collaborator_id: user.id,
       };
 
+      await schema.validate(procedureData, {
+        abortEarly: false,
+      });
+
       await api.post('/procedures', procedureData);
 
-      procedureRef.current.setErrors({});
       setAlert('😻 Procedimento criado com sucesso!');
       history.goBack();
       setIsCompacted(false);
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
-        const errorMessages = {};
-
-        err.inner.forEach((error) => {
-          errorMessages[error.path] = error.message;
-        });
-
-        procedureRef.current.setErrors(errorMessages);
+        setAlert(
+          'Erro de validação: verifique os dados inseridos no formulário'
+        );
       }
     }
   }
@@ -73,24 +66,27 @@ export default function AddProcedure() {
     <Container>
       <Header title={'Cadastrar novo procedimento'} />
 
-      <Form ref={procedureRef} onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <fieldset>
           <legend>Procedimento</legend>
 
           <div className="input-block">
-            <Input name="name" label="Nome do animal" readOnly />
-            <Input name="date" label="Data" readOnly />
+            <InputText
+              label={'Nome do animal'}
+              value={params.animal_name}
+              readOnly
+            />
+            <InputText label={'Data'} value={date} readOnly />
           </div>
-
-          <Input name="name" label="Nome do procedimento" />
-          <TextArea name="comments" label="Comentários" />
+          <InputText label={'Nome do procedimento'} setValue={setName} />
+          <TextAreaInput label={'Comentários'} setValue={setComments} />
         </fieldset>
 
         <ButtonSave>
           <SaveIcon />
           Salvar
         </ButtonSave>
-      </Form>
+      </form>
     </Container>
   );
 }

@@ -6,7 +6,6 @@ import {
   Text,
   TouchableOpacity,
   Alert,
-  KeyboardAvoidingView,
   ActivityIndicator,
 } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -121,7 +120,7 @@ export default function AboutYourHistory() {
   }
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
+    <View style={styles.container}>
       <TopBar />
       <ScrollView>
         <PaginationIndicator pages={3} active={3} />
@@ -187,7 +186,7 @@ export default function AboutYourHistory() {
           )}
         </TouchableOpacity>
       </ScrollView>
-    </KeyboardAvoidingView>
+    </View>
   );
 }
 

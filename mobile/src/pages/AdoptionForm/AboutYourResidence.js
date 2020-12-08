@@ -68,58 +68,60 @@ export default function AboutYourResidence() {
   }
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
+    <View style={styles.container}>
       <TopBar />
       <ScrollView>
-        <PaginationIndicator pages={3} active={2} />
-        <Section
-          title={'Sobre sua residência'}
-          subtitle={`Nos conte um pouco sobre como é o lugar onde você mora.`}
-          newStyles={{ marginBottom: 40 }}
-        />
+        <KeyboardAvoidingView style={{ flex: 1 }} behavior="position">
+          <PaginationIndicator pages={3} active={2} />
+          <Section
+            title={'Sobre sua residência'}
+            subtitle={`Nos conte um pouco sobre como é o lugar onde você mora.`}
+            newStyles={{ marginBottom: 40 }}
+          />
 
-        <SelectInput
-          label={'Tipo da residência'}
-          selectedValue={residence_type}
-          setValue={setResidenceType}
-          itemsList={[
-            { label: 'Casa', value: 'Casa' },
-            { label: 'Apartamento', value: 'Apartamento' },
-            { label: 'Fazenda', value: 'Fazenda' },
-          ]}
-        />
+          <SelectInput
+            label={'Tipo da residência'}
+            selectedValue={residence_type}
+            setValue={setResidenceType}
+            itemsList={[
+              { label: 'Casa', value: 'Casa' },
+              { label: 'Apartamento', value: 'Apartamento' },
+              { label: 'Fazenda', value: 'Fazenda' },
+            ]}
+          />
 
-        <InputText
-          label={'Número de adultos na residência'}
-          setValue={setAdultsHome}
-          selectedValue={adultsHome}
-          keyboardType={'number-pad'}
-        />
+          <InputText
+            label={'Número de adultos na residência'}
+            setValue={setAdultsHome}
+            selectedValue={adultsHome}
+            keyboardType={'number-pad'}
+          />
 
-        <InputText
-          label={'Número de crianças na residência'}
-          setValue={setChildrenHome}
-          selectedValue={childrenHome}
-          keyboardType={'number-pad'}
-        />
+          <InputText
+            label={'Número de crianças na residência'}
+            setValue={setChildrenHome}
+            selectedValue={childrenHome}
+            keyboardType={'number-pad'}
+          />
 
-        <SelectInput
-          label={'Possui fumantes na residência?'}
-          selectedValue={smokersHome}
-          setValue={setSmokersHome}
-          itemsList={[
-            { label: 'Sim', value: 'Sim' },
-            { label: 'Não', value: 'Não' },
-          ]}
-        />
-        <TouchableOpacity
-          style={styles.button}
-          onPress={navigateToAboutYourHistory}
-        >
-          <Text style={styles.buttonText}>Próximo</Text>
-        </TouchableOpacity>
+          <SelectInput
+            label={'Possui fumantes na residência?'}
+            selectedValue={smokersHome}
+            setValue={setSmokersHome}
+            itemsList={[
+              { label: 'Sim', value: 'Sim' },
+              { label: 'Não', value: 'Não' },
+            ]}
+          />
+          <TouchableOpacity
+            style={styles.button}
+            onPress={navigateToAboutYourHistory}
+          >
+            <Text style={styles.buttonText}>Próximo</Text>
+          </TouchableOpacity>
+        </KeyboardAvoidingView>
       </ScrollView>
-    </KeyboardAvoidingView>
+    </View>
   );
 }
 

@@ -32,6 +32,7 @@
     "react-native-safe-area-context": "3.1.4",
     "react-native-screens": "~2.10.1",
     "react-native-web": "~0.13.12",
+    "react-native-webview": "10.7.0",
     "yup": "^0.31.0"
   },
   "devDependencies": {

@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { Form } from '@unform/web';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import api from '../../services/api';
@@ -8,7 +7,8 @@ import api from '../../services/api';
 import Header from '../../components/Header';
 import Procedure from '../../components/Procedure';
 
-import { Input, Select } from '../../components/Form';
+import InputText from '../../components/InputText';
+import SelectInput from '../../components/SelectInput';
 import InputImage from '../../components/InputImage';
 import { useMenuBar } from '../../context/MenuBar';
 import { useAlert } from '../../context/Alert';
@@ -26,7 +26,6 @@ import {
 
 export default function AnimalEdit() {
   const history = useHistory();
-  const editRef = useRef(null);
   const params = useParams();
   const { setIsCompacted } = useMenuBar();
   const { alert, setAlert } = useAlert();
@@ -38,6 +37,21 @@ export default function AnimalEdit() {
   const [preview1, setPreview1] = useState('');
   const [preview2, setPreview2] = useState('');
   const [preview3, setPreview3] = useState('');
+  const [name, setName] = useState('');
+  const [gender, setGender] = useState('');
+  const [specie, setSpecie] = useState('');
+  const [size, setSize] = useState('');
+  const [age, setAge] = useState('');
+  const [status, setStatus] = useState('');
+
+  useEffect(() => {
+    if (alert === '') {
+      return;
+    }
+
+    toast.success(alert);
+    setAlert('');
+  }, [alert, setAlert]);
 
   useEffect(() => {
     setIsCompacted(true);
@@ -48,42 +62,9 @@ export default function AnimalEdit() {
       setPreview1(response.data.image1_url);
       setPreview2(response.data.image2_url);
       setPreview3(response.data.image3_url);
+      setIsLoading(false);
     });
   }, [params.id, setIsCompacted]);
-
-  useEffect(() => {
-    if (editRef.current !== null) {
-      editRef.current.setData({
-        name: animal.name,
-        gender: animal.gender,
-        size: animal.size,
-        specie: animal.specie,
-        age: animal.age,
-        status:
-          animal.status === 'disponível'
-            ? 'Disponível para adoção'
-            : 'Indisponível para adoção',
-      });
-    }
-
-    setIsLoading(false);
-  }, [
-    animal.age,
-    animal.gender,
-    animal.name,
-    animal.size,
-    animal.specie,
-    animal.status,
-  ]);
-
-  useEffect(() => {
-    if (alert === '') {
-      return;
-    }
-
-    toast.success(alert);
-    setAlert('');
-  }, [alert, setAlert]);
 
   function handleDeleteAnimal() {
     api.delete(`/animals/${params.id}`);
@@ -96,7 +77,8 @@ export default function AnimalEdit() {
     history.push(`/edit-animal/${animal.id}/${animal.name}/add-procedure`);
   }
 
-  async function handleSubmit(data) {
+  async function handleSubmit(e) {
+    e.preventDefault();
     try {
       const schema = Yup.object().shape({
         name: Yup.string().required('O nome é obrigatório'),
@@ -107,39 +89,29 @@ export default function AnimalEdit() {
         status: Yup.string().required('O status é obrigatório'),
       });
 
-      await schema.validate(data, {
+      const animalData = {
+        name: name ? name : animal.name,
+        specie: specie ? specie : animal.specie,
+        gender: gender ? gender : animal.gender,
+        age: age ? age : animal.age,
+        size: size ? size : animal.size,
+        status: status ? status : animal.status,
+      };
+
+      await schema.validate(animalData, {
         abortEarly: false,
       });
 
-      const formattedStatusName =
-        data.status === 'Disponível para adoção'
-          ? 'disponível'
-          : 'indisponível';
+      await api.put(`/animals/${params.id}`, animalData);
 
-      const animal = {
-        name: data.name,
-        specie: data.specie,
-        gender: data.gender,
-        size: data.size,
-        age: data.age,
-        status: formattedStatusName,
-      };
-
-      api.put(`/animals/${params.id}`, animal);
-
-      editRef.current.setErrors({});
       setAlert('🐱 Animal editado com sucesso!');
       history.push('/');
       setIsCompacted(false);
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
-        const errorMessages = {};
-
-        err.inner.forEach((error) => {
-          errorMessages[error.path] = error.message;
-        });
-
-        editRef.current.setErrors(errorMessages);
+        setAlert(
+          'Erro de validação: verifique as informações inseridas no formulário'
+        );
       }
     }
   }
@@ -155,7 +127,7 @@ export default function AnimalEdit() {
       {isLoading ? (
         <LoadingAnimalEditForm />
       ) : (
-        <Form ref={editRef} onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <fieldset>
             <legend>Fotos</legend>
             <Gallery>
@@ -186,31 +158,40 @@ export default function AnimalEdit() {
               </button>
             </legend>
 
-            <Input name="name" label="Nome" />
+            <InputText
+              label={'Nome'}
+              value={name}
+              setValue={setName}
+              placeholder={animal.name}
+            />
 
             <div className="input-block">
-              <Select
-                name="specie"
+              <SelectInput
                 label="Espécie"
+                setValue={setSpecie}
                 options={['Cachorro', 'Gato']}
+                placeholder={animal.specie}
               />
-              <Select
-                name="gender"
+              <SelectInput
                 label="Gênero"
+                setValue={setGender}
                 options={['Macho', 'Fêmea']}
+                placeholder={animal.gender}
               />
             </div>
 
             <div className="input-block">
-              <Select
-                name="size"
+              <SelectInput
                 label="Porte"
+                setValue={setSize}
                 options={['Pequeno', 'Médio', 'Grande']}
+                placeholder={animal.size}
               />
-              <Select
-                name="age"
+              <SelectInput
                 label="Idade"
+                setValue={setAge}
                 options={['Filhote', 'Adulto', 'Sênior']}
+                placeholder={animal.age}
               />
             </div>
           </fieldset>
@@ -240,10 +221,11 @@ export default function AnimalEdit() {
           <fieldset>
             <legend>Sobre a adoção</legend>
             <div className="input-block">
-              <Select
-                name="status"
+              <SelectInput
                 label="Status"
+                setValue={setStatus}
                 options={['Disponível para adoção', 'Indisponível para adoção']}
+                placeholder={animal.status}
               />
             </div>
           </fieldset>
@@ -252,7 +234,7 @@ export default function AnimalEdit() {
             <SaveIcon />
             Salvar
           </ButtonSave>
-        </Form>
+        </form>
       )}
     </Container>
   );
