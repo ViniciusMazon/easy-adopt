@@ -34,9 +34,14 @@ export default function AnimalEdit() {
   const [animal, setAnimal] = useState({});
   const [procedures, setProcedures] = useState([]);
 
+  const [imagesIds, setImagesIds] = useState([]);
   const [preview1, setPreview1] = useState('');
   const [preview2, setPreview2] = useState('');
   const [preview3, setPreview3] = useState('');
+  const [newImage1, setNewImage1] = useState();
+  const [newImage2, setNewImage2] = useState();
+  const [newImage3, setNewImage3] = useState();
+
   const [name, setName] = useState('');
   const [gender, setGender] = useState('');
   const [specie, setSpecie] = useState('');
@@ -59,9 +64,14 @@ export default function AnimalEdit() {
     api.get(`/animals/${params.id}`).then((response) => {
       setAnimal(response.data);
       setProcedures(response.data.procedures);
-      setPreview1(response.data.image1_url);
-      setPreview2(response.data.image2_url);
-      setPreview3(response.data.image3_url);
+      setPreview1(response.data.images[0].image1_url);
+      setPreview2(response.data.images[1].image2_url);
+      setPreview3(response.data.images[2].image3_url);
+      setImagesIds([
+        response.data.images[0].image1_id,
+        response.data.images[1].image2_id,
+        response.data.images[2].image3_id,
+      ]);
       setIsLoading(false);
     });
   }, [params.id, setIsCompacted]);
@@ -75,6 +85,13 @@ export default function AnimalEdit() {
 
   function handleAddProcedure() {
     history.push(`/edit-animal/${animal.id}/${animal.name}/add-procedure`);
+  }
+
+  async function updateImage(imageId, newImageNumber) {
+    const formData = new FormData();
+    formData.append('image', newImageNumber);
+    await api.put(`/images/${imageId}`, formData);
+    return;
   }
 
   async function handleSubmit(e) {
@@ -101,6 +118,16 @@ export default function AnimalEdit() {
       await schema.validate(animalData, {
         abortEarly: false,
       });
+
+      if (newImage1) {
+        await updateImage(imagesIds[0], newImage1);
+      }
+      if (newImage2) {
+        await updateImage(imagesIds[1], newImage2);
+      }
+      if (newImage3) {
+        await updateImage(imagesIds[2], newImage3);
+      }
 
       await api.put(`/animals/${params.id}`, animalData);
 
@@ -132,19 +159,22 @@ export default function AnimalEdit() {
             <legend>Fotos</legend>
             <Gallery>
               <InputImage
-                isEditable={false}
+                isEditable={true}
                 preview={preview1}
                 changePreview={setPreview1}
+                changeFile={setNewImage1}
               />
               <InputImage
-                isEditable={false}
+                isEditable={true}
                 preview={preview2}
                 changePreview={setPreview2}
+                changeFile={setNewImage2}
               />
               <InputImage
-                isEditable={false}
+                isEditable={true}
                 preview={preview3}
                 changePreview={setPreview3}
+                changeFile={setNewImage3}
               />
             </Gallery>
           </fieldset>
