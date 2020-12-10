@@ -12,8 +12,9 @@ exports.seed = function (knex) {
           age: 'Adulto',
           status: 'disponível',
           registration_date: new Date('2020/10/23'),
-          image1:
-            'https://defatoonline.com.br/wp-content/uploads/2020/09/WhatsApp-Image-2020-09-04-at-10.26.06-PM-e1599269302582.jpeg',
+          image1_id: 'img1',
+          image2_id: 'img2',
+          image3_id: 'img3',
         },
       ]);
     });

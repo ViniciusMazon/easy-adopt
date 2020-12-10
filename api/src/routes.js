@@ -15,6 +15,7 @@ const schedule = require('./app/controllers/Schedule');
 const help = require('./app/controllers/Help');
 const tutors = require('./app/controllers/Tutors');
 const Addresses = require('./app/controllers/Addresses');
+const Images = require('./app/controllers/Images');
 
 routes.post('/animals', upload.array('images'), animals.create);
 routes.put('/animals/:id', animals.update);
@@ -55,5 +56,8 @@ routes.get('/tutors/:email', tutors.show);
 
 routes.post('/address', Addresses.create);
 routes.put('/address/:id', Addresses.update);
+
+routes.post('/images', upload.single('image'), Images.create);
+routes.put('/images/:id', upload.single('image'), Images.update);
 
 module.exports = routes;
