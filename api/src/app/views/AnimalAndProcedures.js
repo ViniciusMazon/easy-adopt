@@ -11,9 +11,7 @@ module.exports = {
       size,
       age,
       status,
-      image1_url,
-      image2_url,
-      image3_url,
+      images,
     } = animalView.render(animal);
 
     return {
@@ -24,9 +22,7 @@ module.exports = {
       size,
       age,
       status,
-      image1_url,
-      image2_url,
-      image3_url,
+      images,
       procedures: proceduresView.renderMany(procedures),
     };
   },

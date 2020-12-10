@@ -9,10 +9,9 @@ async function create(response, animal) {
     size: yup.string().required('Este campo é obrigatório'),
     age: yup.string().required('Este campo é obrigatório'),
     status: yup.string().required('Este campo é obrigatório'),
-    // registration_date,
-    image1: yup.string().required('Este campo é obrigatório'),
-    image2: yup.string().required('Este campo é obrigatório'),
-    image3: yup.string().required('Este campo é obrigatório'),
+    image1_id: yup.string().required('Este campo é obrigatório'),
+    image2_id: yup.string().required('Este campo é obrigatório'),
+    image3_id: yup.string().required('Este campo é obrigatório'),
   });
 
   try {
