@@ -13,7 +13,10 @@ export default function AnimalCardFeed({ animal }) {
 
   return (
     <View style={styles.animalCard}>
-      <Image source={{ uri: animal.image1_url }} style={styles.avatar} />
+      <Image
+        source={{ uri: animal.images[0].image1_url }}
+        style={styles.avatar}
+      />
       <View style={styles.data}>
         <View style={styles.nameContainer}>
           <Text style={styles.nameText}>{animal.name}</Text>
