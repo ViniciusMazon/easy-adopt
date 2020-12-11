@@ -66,17 +66,18 @@ module.exports = {
       await donationsModel.edit(id);
       await donationCampaigns.edit(id);
 
-      const donation = await donationsModel.show(id);
-      const tutor = await tutorsModel.show(donation.tutor_id);
-
-      await sendMail({
-        to: `${tutor.name} <${tutor.email}>`,
-        subject: 'Recebemos sua doação!',
-        template: 'donationReceived',
-        context: {
-          tutor_name: tutor.name,
-        },
-      });
+      if (process.env.NODE_ENV !== 'test') {
+        const donation = await donationsModel.show(id);
+        const tutor = await tutorsModel.show(donation.tutor_id);
+        await sendMail({
+          to: `${tutor.name} <${tutor.email}>`,
+          subject: 'Recebemos sua doação!',
+          template: 'donationReceived',
+          context: {
+            tutor_name: tutor.name,
+          },
+        });
+      }
 
       return response.status(200).send();
     } catch (error) {

@@ -36,17 +36,14 @@ describe('Animals', () => {
 
   describe('PUT', () => {
     it('Should update a animal', async () => {
-      const response = await request(app)
-        .put('/animals/1bc2')
-        .field('name', 'Mikka')
-        .field('gender', 'Fêmea')
-        .field('specie', 'Cachorro')
-        .field('size', 'Pequeno')
-        .field('age', 'Filhote')
-        .field('status', 'indisponível')
-        .attach('images', 'tests/fixtures/a.jpg')
-        .attach('images', 'tests/fixtures/a.jpg')
-        .attach('images', 'tests/fixtures/a.jpg');
+      const response = await request(app).put('/animals/1bc2').send({
+        name: 'Caty',
+        gender: 'Macho',
+        specie: 'Gato',
+        size: 'Médio',
+        age: 'Adulto',
+        status: 'disponível',
+      });
 
       expect(response.statusCode).toEqual(200);
     });

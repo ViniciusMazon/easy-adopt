@@ -47,18 +47,19 @@ module.exports = {
       await validations.create(response, adoptionRequest);
       await adoptionRequestsModel.create(adoptionRequest);
 
-      const tutor = await tutorsModel.show(tutor_id);
-      const animal = await animalsModel.show(animal_id);
-
-      await sendMail({
-        to: `${tutor.name} <${tutor.email}>`,
-        subject: 'Recebemos seu pedido de adoção!',
-        template: 'adoptionRequest',
-        context: {
-          tutor_name: tutor.name,
-          animal_name: animal.name,
-        },
-      });
+      if (process.env.NODE_ENV !== 'test') {
+        const tutor = await tutorsModel.show(tutor_id);
+        const animal = await animalsModel.show(animal_id);
+        await sendMail({
+          to: `${tutor.name} <${tutor.email}>`,
+          subject: 'Recebemos seu pedido de adoção!',
+          template: 'adoptionRequest',
+          context: {
+            tutor_name: tutor.name,
+            animal_name: animal.name,
+          },
+        });
+      }
 
       return response
         .status(201)

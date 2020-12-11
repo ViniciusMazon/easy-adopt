@@ -35,19 +35,21 @@ module.exports = {
       });
       await AnimalsModel.edit(animal_id, { status: 'adotado' });
 
-      await await sendMail({
-        to: `${tutor_name} <${tutor_email}>`,
-        subject: 'Agendamento realizado!',
-        template: 'scheduling',
-        context: {
-          tutor_name: tutor_name,
-          animal_name: animal_name,
-          schedule_date: `${format(
-            new Date(date),
-            'dd/MM/yyyy'
-          )} entre ${period}`,
-        },
-      });
+      if (process.env.NODE_ENV !== 'test') {
+        await await sendMail({
+          to: `${tutor_name} <${tutor_email}>`,
+          subject: 'Agendamento realizado!',
+          template: 'scheduling',
+          context: {
+            tutor_name: tutor_name,
+            animal_name: animal_name,
+            schedule_date: `${format(
+              new Date(date),
+              'dd/MM/yyyy'
+            )} entre ${period}`,
+          },
+        });
+      }
 
       return response.status(201).send(schedule);
     } catch (error) {
