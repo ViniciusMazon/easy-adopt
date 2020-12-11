@@ -23,6 +23,11 @@ exports.seed = function (knex) {
           name: 'user.jpeg',
           type: 'tutor',
         },
+        {
+          id: 'img5',
+          name: 'blankAvatar.png',
+          type: 'tutor',
+        },
       ]);
     });
 };

@@ -1,7 +1,6 @@
 exports.up = function (knex) {
   return knex.schema.createTable('tutors', (table) => {
     table.string('id').primary();
-    table.string('avatar').notNullable();
     table.string('name').notNullable();
     table.string('gender').notNullable();
     table.date('birth_date').notNullable();
@@ -9,6 +8,11 @@ exports.up = function (knex) {
     table.string('email').notNullable();
     table.string('hash_password').notNullable();
     table.string('phone').notNullable();
+    table
+      .string('avatar_id')
+      .references('id')
+      .inTable('images')
+      .onDelete('CASCADE');
     table
       .string('address_id')
       .references('id')

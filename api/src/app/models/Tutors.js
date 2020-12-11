@@ -18,10 +18,11 @@ module.exports = {
   async showByEmail(email) {
     const [tutor] = await connection('tutors')
       .innerJoin('addresses', 'tutors.address_id', 'addresses.id')
+      .innerJoin('images', 'tutors.avatar_id', 'images.id')
       .where('tutors.email', email)
       .select(
         'tutors.id',
-        'tutors.avatar',
+        'images.name as avatar',
         'tutors.gender',
         'tutors.name',
         'tutors.birth_date',
