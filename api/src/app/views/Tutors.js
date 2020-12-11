@@ -5,6 +5,7 @@ module.exports = {
     return {
       id: tutor.id,
       avatar: `${process.env.CDN_URL}/uploads/${tutor.avatar}`,
+      avatar_id: tutor.avatar_id,
       gender: tutor.gender,
       name: tutor.name,
       birth_date: format(new Date(tutor.birth_date), 'dd/MM/yyyy'),

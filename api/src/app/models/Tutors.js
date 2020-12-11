@@ -23,6 +23,7 @@ module.exports = {
       .select(
         'tutors.id',
         'images.name as avatar',
+        'images.id as avatar_id',
         'tutors.gender',
         'tutors.name',
         'tutors.birth_date',
