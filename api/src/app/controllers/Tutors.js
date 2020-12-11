@@ -3,6 +3,7 @@ const hash = require('../../utils/hash');
 const { format } = require('date-fns');
 
 const tutorsModel = require('../models/Tutors');
+const imagesModel = require('../models/Images');
 const validations = require('../../validations/tutorsSchema');
 const tutorsViews = require('../views/Tutors');
 
@@ -20,9 +21,15 @@ module.exports = {
         address_id,
       } = request.body;
 
+      const avatar_id = await imagesModel.create({
+        id: keyGenerator(),
+        name: 'blankAvatar.png',
+        type: 'tutor',
+      });
+
       const tutor = {
         id: keyGenerator(),
-        avatar: 'blankAvatar.png',
+        avatar_id: avatar_id,
         gender,
         name,
         birth_date: format(new Date(birth_date), 'yyyy/MM/dd'),

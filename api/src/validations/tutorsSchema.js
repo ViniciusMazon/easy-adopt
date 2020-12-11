@@ -10,7 +10,7 @@ async function create(response, tutor) {
     hash_password: yup.string().required('Este campo é obrigatório'),
     phone: yup.string().required('Este campo é obrigatório'),
     gender: yup.string().required('Este campo é obrigatório'),
-    avatar: yup.string().required('Este campo é obrigatório'),
+    avatar_id: yup.string().required('Este campo é obrigatório'),
     address_id: yup.string().required('Este campo é obrigatório'),
   });
 

@@ -3,6 +3,7 @@ const keyGenerator = require('../../utils/keyGenerator');
 const validations = require('../../validations/animalsSchema');
 
 const animalModel = require('../models/Animals');
+const imagesModel = require('../models/Images');
 const proceduresModel = require('../models/Procedures');
 const animalView = require('../views/Animals');
 const animalAndProceduresView = require('../views/AnimalAndProcedures');
@@ -12,7 +13,11 @@ module.exports = {
     try {
       const { name, gender, specie, size, age, status } = request.body;
       const images = request.files.map((image) => {
-        return { path: image.filename };
+        return {
+          id: keyGenerator(),
+          name: image.filename,
+          type: 'animal',
+        };
       });
 
       const animal = {
@@ -24,15 +29,28 @@ module.exports = {
         age,
         status,
         registration_date: format(new Date(), 'yyyy/MM/dd'),
-        image1: images[0].path,
-        image2: images[1].path,
-        image3: images[2].path,
+        image1_id: await imagesModel.create(images[0]),
+        image2_id: await imagesModel.create(images[1]),
+        image3_id: await imagesModel.create(images[2]),
       };
 
       await validations.create(response, animal);
-
       await animalModel.create(animal);
-      return response.status(201).json(animalView.render(animal));
+
+      const animalRender = {
+        id: animal.id,
+        name,
+        gender,
+        specie,
+        size,
+        age,
+        status,
+        registration_date: animal.registration_date,
+        image1_url: images[0].name,
+        image2_url: images[1].name,
+        image3_url: images[2].name,
+      };
+      return response.status(201).json(animalView.render(animalRender));
     } catch (error) {
       console.error(error);
       return response

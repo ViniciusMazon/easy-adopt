@@ -21,7 +21,7 @@ export default function Adopt() {
     <SafeAreaView style={styles.container}>
       <TopBar />
       <Swiper
-        images={[animal.image1_url, animal.image2_url, animal.image3_url]}
+        images={[animal.images[0].image1_url, animal.images[1].image2_url, animal.images[2].image3_url]}
       />
       <Text style={styles.name}>{animal.name}</Text>
 

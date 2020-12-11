@@ -12,7 +12,13 @@ module.exports = {
   async index() {
     const adoptionRequests = await connection('adoption_requests')
       .innerJoin('animals', 'adoption_requests.animal_id', 'animals.id')
+      .innerJoin(
+        'images as animalAvatar',
+        'animals.image1_id',
+        'animalAvatar.id'
+      )
       .innerJoin('tutors', 'adoption_requests.tutor_id', 'tutors.id')
+      .innerJoin('images as tutorAvatar', 'tutors.avatar_id', 'tutorAvatar.id')
       .select(
         'adoption_requests.id',
         'adoption_requests.status',
@@ -21,11 +27,11 @@ module.exports = {
         'animals.gender as animal_gender',
         'animals.age as animal_age',
         'animals.size as animal_size',
-        'animals.image1 as animal_avatar',
+        'animalAvatar.name as animal_avatar',
         'tutors.id as tutor_id',
         'tutors.name as tutor_name',
         'tutors.gender as tutor_gender',
-        'tutors.avatar as tutor_avatar'
+        'tutorAvatar.name as tutor_avatar'
       );
 
     return adoptionRequests;
@@ -33,7 +39,9 @@ module.exports = {
   async show(id) {
     const [adoptionRequest] = await connection('adoption_requests')
       .innerJoin('animals', 'adoption_requests.animal_id', 'animals.id')
+      .innerJoin('images as animalAvatar', 'animals.image1_id', 'animalAvatar.id')
       .innerJoin('tutors', 'adoption_requests.tutor_id', 'tutors.id')
+      .innerJoin('images as tutorAvatar', 'tutors.avatar_id', 'tutorAvatar.id')
       .innerJoin('addresses', 'tutors.address_id', 'addresses.id')
       .where('adoption_requests.id', id)
       .select(
@@ -50,7 +58,7 @@ module.exports = {
         'adoption_requests.why_want_adopt',
 
         'animals.id as animal_id',
-        'animals.image1 as animal_avatar',
+        'animalAvatar.name as animal_avatar',
         'animals.name as animal_name',
         'animals.specie as animal_specie',
         'animals.age as animal_age',
@@ -58,7 +66,7 @@ module.exports = {
         'animals.size as animal_size',
 
         'tutors.id as tutor_id',
-        'tutors.avatar as tutor_avatar',
+        'tutorAvatar.name as tutor_avatar',
         'tutors.name as tutor_name',
         'tutors.gender as tutor_gender',
         'tutors.email as tutor_email',

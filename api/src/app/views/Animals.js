@@ -8,9 +8,20 @@ module.exports = {
       size: animal.size,
       age: animal.age,
       status: animal.status,
-      image1_url: `${process.env.CDN_URL}/uploads/${animal.image1}`,
-      image2_url: `${process.env.CDN_URL}/uploads/${animal.image2}`,
-      image3_url: `${process.env.CDN_URL}/uploads/${animal.image3}`,
+      images: [
+        {
+          image1_id: animal.image1_id,
+          image1_url: `${process.env.CDN_URL}/uploads/${animal.image1_name}`,
+        },
+        {
+          image2_id: animal.image2_id,
+          image2_url: `${process.env.CDN_URL}/uploads/${animal.image2_name}`,
+        },
+        {
+          image3_id: animal.image3_id,
+          image3_url: `${process.env.CDN_URL}/uploads/${animal.image3_name}`,
+        },
+      ],
     };
   },
   renderMany(animals) {

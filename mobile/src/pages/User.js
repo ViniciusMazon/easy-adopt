@@ -70,6 +70,17 @@ export default function User() {
   async function handleSaveChanges() {
     setIsLoading(true);
 
+    const addressData = {
+      street: street ? street : address.street,
+      number: number ? number : address.number,
+      neighborhood: neighborhood ? neighborhood : address.neighborhood,
+      city: city ? city : address.city,
+      state: state ? state : address.state,
+      cep: cep ? cep : address.cep,
+    };
+
+    await api.put(`address/${address.id}`, addressData);
+
     const splittedDate = birth_date
       ? birth_date.split('/')
       : tutor.birth_date.split('/');
@@ -85,17 +96,18 @@ export default function User() {
       phone: phone ? phone : tutor.phone,
     };
 
-    const addressData = {
-      street: street ? street : address.street,
-      number: number ? number : address.number,
-      neighborhood: neighborhood ? neighborhood : address.neighborhood,
-      city: city ? city : address.city,
-      state: state ? state : address.state,
-      cep: cep ? cep : address.cep,
-    };
-
-    await api.put(`address/${address.id}`, addressData);
     await api.put(`tutors/${tutor.id}`, tutorData);
+
+    if (image) {
+      const formData = new FormData();
+      formData.append('image', {
+        name: `${tutor.id}.jpg`,
+        type: 'image/jpg',
+        uri: image,
+      });
+      await api.put(`/images/${tutor.avatar_id}`, formData);
+    }
+
     setIsLoading(false);
   }
 
@@ -147,100 +159,100 @@ export default function User() {
     <View style={styles.container}>
       <TopBar userPage />
       <ScrollView>
-          <Image
-            source={{ uri: image ? image : tutor.avatar }}
-            style={styles.avatar}
-          />
-          <RectButton style={styles.uploadButton} onPress={handleSelectImages}>
-            <Image source={plus} style={styles.uploadButtonIcon} />
-          </RectButton>
+        <Image
+          source={{ uri: image ? image : tutor.avatar }}
+          style={styles.avatar}
+        />
+        <RectButton style={styles.uploadButton} onPress={handleSelectImages}>
+          <Image source={plus} style={styles.uploadButtonIcon} />
+        </RectButton>
 
-          <Text style={styles.fieldset}>Sobre você</Text>
-          <InputText
-            label={'Nome completo'}
-            placeholder={tutor.name}
-            selectedValue={name}
-            setValue={setName}
-          />
-          <InputText
-            label={'E-mail'}
-            placeholder={tutor.email}
-            selectedValue={email}
-            setValue={setEmail}
-          />
-          <InputText
-            label={'Data de nascimento'}
-            placeholder={tutor.birth_date}
-            selectedValue={birth_date}
-            setValue={birthDateFormatter}
-            keyboardType={'number-pad'}
-            maxLength={10}
-          />
-          <InputText
-            label={'CPF'}
-            placeholder={tutor.cpf}
-            selectedValue={cpf}
-            setValue={cpfFormatter}
-            keyboardType={'number-pad'}
-            maxLength={14}
-          />
-          <InputText
-            label={'Celular'}
-            placeholder={tutor.phone}
-            selectedValue={phone}
-            setValue={phoneFormatter}
-            keyboardType={'phone-pad'}
-            maxLength={15}
-          />
+        <Text style={styles.fieldset}>Sobre você</Text>
+        <InputText
+          label={'Nome completo'}
+          placeholder={tutor.name}
+          selectedValue={name}
+          setValue={setName}
+        />
+        <InputText
+          label={'E-mail'}
+          placeholder={tutor.email}
+          selectedValue={email}
+          setValue={setEmail}
+        />
+        <InputText
+          label={'Data de nascimento'}
+          placeholder={tutor.birth_date}
+          selectedValue={birth_date}
+          setValue={birthDateFormatter}
+          keyboardType={'number-pad'}
+          maxLength={10}
+        />
+        <InputText
+          label={'CPF'}
+          placeholder={tutor.cpf}
+          selectedValue={cpf}
+          setValue={cpfFormatter}
+          keyboardType={'number-pad'}
+          maxLength={14}
+        />
+        <InputText
+          label={'Celular'}
+          placeholder={tutor.phone}
+          selectedValue={phone}
+          setValue={phoneFormatter}
+          keyboardType={'phone-pad'}
+          maxLength={15}
+        />
 
-          <Text style={styles.fieldset}>Seu endereço</Text>
-          <InputText
-            label={'Rua'}
-            placeholder={address.street}
-            selectedValue={street}
-            setValue={setStreet}
-          />
-          <InputText
-            label={'Número'}
-            placeholder={address.number}
-            selectedValue={number}
-            setValue={setNumber}
-            keyboardType={'number-pad'}
-          />
-          <InputText
-            label={'Bairro'}
-            placeholder={address.neighborhood}
-            selectedValue={neighborhood}
-            setValue={setNeighborhood}
-          />
-          <InputText
-            label={'Cidade'}
-            placeholder={address.city}
-            selectedValue={city}
-            setValue={setCity}
-          />
-          <InputText
-            label={'Estado'}
-            placeholder={address.state}
-            selectedValue={state}
-            setValue={setState}
-          />
-          <InputText
-            label={'CEP'}
-            placeholder={address.cep}
-            selectedValue={cep}
-            setValue={cepFormatter}
-            keyboardType={'number-pad'}
-            maxLength={10}
-          />
+        <Text style={styles.fieldset}>Seu endereço</Text>
+        <InputText
+          label={'Rua'}
+          placeholder={address.street}
+          selectedValue={street}
+          setValue={setStreet}
+        />
+        <InputText
+          label={'Número'}
+          placeholder={address.number}
+          selectedValue={number}
+          setValue={setNumber}
+          keyboardType={'number-pad'}
+        />
+        <InputText
+          label={'Bairro'}
+          placeholder={address.neighborhood}
+          selectedValue={neighborhood}
+          setValue={setNeighborhood}
+        />
+        <InputText
+          label={'Cidade'}
+          placeholder={address.city}
+          selectedValue={city}
+          setValue={setCity}
+        />
+        <InputText
+          label={'Estado'}
+          placeholder={address.state}
+          selectedValue={state}
+          setValue={setState}
+        />
+        <InputText
+          label={'CEP'}
+          placeholder={address.cep}
+          selectedValue={cep}
+          setValue={cepFormatter}
+          keyboardType={'number-pad'}
+          maxLength={10}
+        />
 
-          <RectButton style={styles.button} onPress={handleSaveChanges}>
-            {isLoading ? (
-              <ActivityIndicator size="large" color="#FFF" />
-            ) : (
-              <Text style={styles.buttonText}>Salvar alterações</Text>
-            )}
-          </RectButton>
+        <RectButton style={styles.button} onPress={handleSaveChanges}>
+          {isLoading ? (
+            <ActivityIndicator size="large" color="#FFF" />
+          ) : (
+            <Text style={styles.buttonText}>Salvar alterações</Text>
+          )}
+        </RectButton>
       </ScrollView>
     </View>
   );

@@ -88,7 +88,7 @@ function Animals() {
               id={item.id}
               name={item.name}
               gender={item.gender}
-              avatarURL={item.image1_url}
+              avatarURL={item.images[0].image1_url}
               status={item.status}
             />
           ))}
@@ -101,7 +101,7 @@ function Animals() {
               id={item.id}
               name={item.name}
               gender={item.gender}
-              avatarURL={item.image1_url}
+              avatarURL={item.images[0].image1_url}
               status={item.status}
             />
           ))}

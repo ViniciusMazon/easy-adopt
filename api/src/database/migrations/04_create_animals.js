@@ -8,9 +8,21 @@ exports.up = function (knex) {
     table.string('age').notNullable();
     table.string('status').notNullable();
     table.date('registration_date').notNullable();
-    table.string('image1').notNullable();
-    table.string('image2');
-    table.string('image3');
+    table
+      .string('image1_id')
+      .references('id')
+      .inTable('images')
+      .onDelete('CASCADE');
+    table
+      .string('image2_id')
+      .references('id')
+      .inTable('images')
+      .onDelete('CASCADE');
+    table
+      .string('image3_id')
+      .references('id')
+      .inTable('images')
+      .onDelete('CASCADE');
   });
 };
 
