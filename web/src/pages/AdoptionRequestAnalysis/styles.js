@@ -85,6 +85,7 @@ export const ButtonGroup = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 
   button + button {
     margin-left: 2.4rem;

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import * as Yup from 'yup';
+import { MoonLoader } from 'react-spinners';
 import { useMenuBar } from '../../context/MenuBar';
 import { useHistory } from 'react-router-dom';
 import api from '../../services/api';
@@ -16,6 +17,7 @@ function AnimalRegistration() {
   const history = useHistory();
   const { setIsCompacted } = useMenuBar();
   const { setAlert } = useAlert();
+  const [isSpinning, setIsSpinning] = useState(false);
 
   const [image1, setImage1] = useState();
   const [image2, setImage2] = useState();
@@ -74,12 +76,14 @@ function AnimalRegistration() {
         setIsCompacted(false);
       } else {
         setAlert('Não foi possível concluir a operação');
+        setIsSpinning(false);
       }
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         setAlert(
           'Erro de validação: Verifique os dados inseridos no formulário'
         );
+        setIsSpinning(false);
       }
     }
   }
@@ -151,10 +155,20 @@ function AnimalRegistration() {
           </div>
         </fieldset>
 
-        <ButtonSave>
-          <SaveIcon />
-          Salvar
-        </ButtonSave>
+        {isSpinning === false ? (
+          <ButtonSave>
+            <SaveIcon />
+            Salvar
+          </ButtonSave>
+        ) : (
+          <MoonLoader
+            className="loading"
+            size={45}
+            color={'#FF6DA6'}
+            css={'align-self: center'}
+            loading={isSpinning}
+          />
+        )}
       </form>
     </Container>
   );

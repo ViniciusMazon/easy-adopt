@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { MoonLoader } from 'react-spinners';
 import { format } from 'date-fns';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
@@ -14,7 +15,9 @@ export default function User() {
   const history = useHistory();
   const userRef = useRef(null);
   const { alert, setAlert } = useAlert();
+
   const [isLoading, setIsLoading] = useState(true);
+  const [isSpinning, setIsSpinning] = useState(false);
   const [user, setUser] = useState({});
   const [accessCode, setAccessCode] = useState('');
   const [name, setName] = useState('');
@@ -39,7 +42,7 @@ export default function User() {
     });
   }, []);
 
-  async function handleSubmit(data) {
+  async function handleSubmit() {
     try {
       const schema = Yup.object().shape({
         name: Yup.string().required('O nome é obrigatório'),
@@ -69,12 +72,12 @@ export default function User() {
       });
       await api.put(`/collaborators/${user.id}`, userData);
       setAlert('😄 Suas informações foram alteradas com sucesso!');
-      history.push('/');
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         setAlert(
           'Erro de validação: verifique as informações inseridas no formulário'
         );
+        setIsSpinning(false);
       }
     }
   }
@@ -190,10 +193,20 @@ export default function User() {
             </div>
           </fieldset>
 
-          <ButtonSave>
-            <SaveIcon />
-            Salvar
-          </ButtonSave>
+          {isSpinning === false ? (
+            <ButtonSave>
+              <SaveIcon />
+              Salvar
+            </ButtonSave>
+          ) : (
+            <MoonLoader
+              className="loading"
+              size={45}
+              color={'#FF6DA6'}
+              css={'align-self: center'}
+              loading={isSpinning}
+            />
+          )}
         </form>
       )}
     </Container>

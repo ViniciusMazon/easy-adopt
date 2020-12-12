@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+import { MoonLoader } from 'react-spinners';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import api from '../../services/api';
@@ -31,6 +32,7 @@ export default function AnimalEdit() {
   const { alert, setAlert } = useAlert();
 
   const [isLoading, setIsLoading] = useState(true);
+  const [isSpinning, setIsSpinning] = useState(false);
   const [animal, setAnimal] = useState({});
   const [procedures, setProcedures] = useState([]);
 
@@ -139,6 +141,7 @@ export default function AnimalEdit() {
         setAlert(
           'Erro de validação: verifique as informações inseridas no formulário'
         );
+        setIsSpinning(false);
       }
     }
   }
@@ -254,16 +257,26 @@ export default function AnimalEdit() {
               <SelectInput
                 label="Status"
                 setValue={setStatus}
-                options={['Disponível para adoção', 'Indisponível para adoção']}
+                options={['disponível', 'indisponível']}
                 placeholder={animal.status}
               />
             </div>
           </fieldset>
 
-          <ButtonSave>
-            <SaveIcon />
-            Salvar
-          </ButtonSave>
+          {isSpinning === false ? (
+            <ButtonSave>
+              <SaveIcon />
+              Salvar
+            </ButtonSave>
+          ) : (
+            <MoonLoader
+              className="loading"
+              size={45}
+              color={'#FF6DA6'}
+              css={'align-self: center'}
+              loading={isSpinning}
+            />
+          )}
         </form>
       )}
     </Container>

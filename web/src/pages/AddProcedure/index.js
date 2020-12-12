@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
+import { MoonLoader } from 'react-spinners';
 import * as Yup from 'yup';
 import { format } from 'date-fns';
 import api from '../../services/api';
@@ -21,6 +22,8 @@ export default function AddProcedure() {
   const { setIsCompacted } = useMenuBar();
   const { setAlert } = useAlert();
   const { user } = useUser();
+
+  const [isSpinning, setIsSpinning] = useState(false);
   const date = format(new Date(), 'dd/MM/yyyy');
   const [name, setName] = useState('');
   const [comments, setComments] = useState('');
@@ -58,6 +61,7 @@ export default function AddProcedure() {
         setAlert(
           'Erro de validação: verifique os dados inseridos no formulário'
         );
+        setIsSpinning(false);
       }
     }
   }
@@ -82,10 +86,20 @@ export default function AddProcedure() {
           <TextAreaInput label={'Comentários'} setValue={setComments} />
         </fieldset>
 
-        <ButtonSave>
-          <SaveIcon />
-          Salvar
-        </ButtonSave>
+        {isSpinning === false ? (
+          <ButtonSave>
+            <SaveIcon />
+            Salvar
+          </ButtonSave>
+        ) : (
+          <MoonLoader
+            className="loading"
+            size={45}
+            color={'#FF6DA6'}
+            css={'align-self: center'}
+            loading={isSpinning}
+          />
+        )}
       </form>
     </Container>
   );
