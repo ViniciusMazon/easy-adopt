@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import { MoonLoader } from 'react-spinners';
 import { format } from 'date-fns';
 import * as Yup from 'yup';
@@ -12,7 +11,6 @@ import { useAlert } from '../../context/Alert';
 import LoadingUser from '../../components/Shimmer/LoadingUser';
 
 export default function User() {
-  const history = useHistory();
   const userRef = useRef(null);
   const { alert, setAlert } = useAlert();
 
