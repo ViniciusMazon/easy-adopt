@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { MoonLoader } from 'react-spinners';
 import * as Yup from 'yup';
 import api from '../../services/api';
 
@@ -15,6 +16,8 @@ export default function CreateDonationCampaign() {
   const history = useHistory();
   const { setIsCompacted } = useMenuBar();
   const { setAlert } = useAlert();
+
+  const [isSpinning, setIsSpinning] = useState(false);
   const [title, setTitle] = useState('');
   const [goal, setGoal] = useState('');
   const [description, setDescription] = useState('');
@@ -53,6 +56,7 @@ export default function CreateDonationCampaign() {
         setAlert(
           'Erro de validação: verifique os dados inseridos no formulário'
         );
+        setIsSpinning(false);
       }
     }
   }
@@ -73,10 +77,20 @@ export default function CreateDonationCampaign() {
           <TextAreaInput label={'Descrição'} setValue={setDescription} />
         </fieldset>
 
-        <ButtonSave>
-          <SaveIcon />
-          Salvar
-        </ButtonSave>
+        {isSpinning === false ? (
+          <ButtonSave>
+            <SaveIcon />
+            Salvar
+          </ButtonSave>
+        ) : (
+          <MoonLoader
+            className="loading"
+            size={45}
+            color={'#FF6DA6'}
+            css={'align-self: center'}
+            loading={isSpinning}
+          />
+        )}
       </form>
     </Container>
   );

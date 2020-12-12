@@ -24,7 +24,7 @@ describe('Donations', () => {
         email: 'fabiola@gmail.com',
         donation_campaign_id: 'ajfh32en123',
       });
-      expect(response.status).toEqual(302);
+      expect(response.status).toEqual(200);
     });
   });
 

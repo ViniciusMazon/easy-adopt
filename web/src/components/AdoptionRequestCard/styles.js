@@ -53,6 +53,8 @@ export const StatusIndicator = styled.div`
         return 'var(--status-available)';
       case 'reprovado':
         return 'var(--status-unavailable)';
+      case 'cancelado':
+        return 'var(--status-unavailable)';
       case 'novo':
         return 'var(--status-new)';
       case 'adotado':

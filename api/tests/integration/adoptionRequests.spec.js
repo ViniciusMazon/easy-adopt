@@ -28,7 +28,7 @@ describe('Animals', () => {
         sick_animals: 'Não',
         aware_cost: 'Sim',
         why_want_adopt:
-          'Me mudei a trabalho e minha filha precisa de um novo amigo',
+          'Me mudei recentemente e minha filha precisa de um novo amigo',
         animal_id: '1bc2',
         tutor_id: 'hrg123',
       });

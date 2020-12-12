@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import { MoonLoader } from 'react-spinners';
 import api from '../../services/api';
 
 import {
@@ -29,6 +30,7 @@ export default function AdoptionRequestAnalysis() {
   const { setAlert } = useAlert();
   const { user } = useUser();
   const [isLoading, setIsLoading] = useState(true);
+  const [isSpinning, setIsSpinning] = useState(false);
 
   const [animal, setAnimal] = useState({});
   const [tutor, setTutor] = useState({});
@@ -36,7 +38,7 @@ export default function AdoptionRequestAnalysis() {
 
   useEffect(() => {
     setIsCompacted(true);
-  });
+  }, [setIsCompacted]);
 
   useEffect(() => {
     setIsLoading(false);
@@ -48,6 +50,8 @@ export default function AdoptionRequestAnalysis() {
   }, [params.id]);
 
   async function handleEvaluate(status) {
+    setIsSpinning(true);
+
     const evaluate = {
       collaborator_id: user.id,
       status,
@@ -205,21 +209,31 @@ export default function AdoptionRequestAnalysis() {
             </Data>
           </fieldset>
 
-          <ButtonGroup>
-            <Button onClick={() => handleEvaluate('reprovado')} type="button">
-              <RejectIcon />
-              Reprovar
-            </Button>
+          <MoonLoader
+            className="loading"
+            size={45}
+            color={'#FF6DA6'}
+            css={'align-self: center'}
+            loading={isSpinning}
+          />
 
-            <Button
-              onClick={() => handleEvaluate('aprovado')}
-              type="button"
-              className="approve-btn"
-            >
-              <ApproveIcon />
-              Aprovar
-            </Button>
-          </ButtonGroup>
+          {request.status === 'novo' && isSpinning === false ? (
+            <ButtonGroup>
+              <Button onClick={() => handleEvaluate('reprovado')} type="button">
+                <RejectIcon />
+                Reprovar
+              </Button>
+
+              <Button
+                onClick={() => handleEvaluate('aprovado')}
+                type="button"
+                className="approve-btn"
+              >
+                <ApproveIcon />
+                Aprovar
+              </Button>
+            </ButtonGroup>
+          ) : null}
         </Main>
       )}
     </Container>

@@ -29,9 +29,6 @@ export const Container = styled.div`
       border-color: var(--green);
     }
 
-    option {
-
-    }
   }
   .select-box:after {
     content: '';
