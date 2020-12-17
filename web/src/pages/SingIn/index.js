@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 
+import { useAuth } from '../../context/auth';
 import { useAlert } from '../../context/Alert';
+
 import InputText from '../../components/InputText';
 import InputPassword from '../../components/InputPassword';
 
@@ -11,6 +13,7 @@ import { Container, Background, RSide, Logo, Form, Button } from './styles';
 
 export default function SingIn() {
   const { alert, setAlert } = useAlert();
+  const { signed, signIn } = useAuth();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -25,24 +28,26 @@ export default function SingIn() {
   }, [alert, setAlert]);
 
   async function handleSingUp() {
-    try {
-      const schema = Yup.object().shape({
-        email: Yup.string().required().min(3).max(25),
-        password: Yup.string().required().min(8).max(25),
-      });
+    setAlert('Teste');
+    toast.error('Erro');
+    // try {
+    //   const schema = Yup.object().shape({
+    //     email: Yup.string().required().min(3).max(25),
+    //     password: Yup.string().required().min(8).max(25),
+    //   });
 
-      await schema.validate(
-        { email, password },
-        {
-          abortEarly: false,
-        }
-      );
-      setAlert('Credenciais válidas');
-    } catch (err) {
-      if (err instanceof Yup.ValidationError) {
-        setAlert('Usuário ou senha inválido');
-      }
-    }
+    //   await schema.validate(
+    //     { email, password },
+    //     {
+    //       abortEarly: false,
+    //     }
+    //   );
+    //   signIn(email, password);
+    // } catch (err) {
+    //   if (err instanceof Yup.ValidationError) {
+    //     setAlert('Usuário ou senha inválido');
+    //   }
+    // }
   }
 
   return (

@@ -21,7 +21,7 @@ export default function AppRoutes() {
     <BrowserRouter>
       <Switch>
         <Route path="/donation-success/:id" component={DonationSuccess} />
-        <div style={{}}>
+        <div style={{ display: 'flex' }}>
           <MenuBar />
           <Route exact path="/" component={Animals} />
           <Route path="/add-animal" component={AnimalRegistration} />
