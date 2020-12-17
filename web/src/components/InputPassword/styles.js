@@ -4,6 +4,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 2rem;
+  position: relative;
 
   > label {
     font: 500 1.6rem 'Montserrat';
@@ -27,5 +28,15 @@ export const Container = styled.div`
     margin-top: 0.5rem;
     width: 100%;
     color: var(--status-unavailable);
+  }
+
+  > img {
+    width: 2.4rem;
+    height: 2.4rem;
+    position: absolute;
+    right: 1.7rem;
+    bottom: 1.7rem;
+    stroke: 'tomato';
+    cursor: pointer;
   }
 `;

@@ -4,13 +4,18 @@ import 'react-toastify/dist/ReactToastify.css';
 import GlobalStyles from './styles/GlobalStyles';
 import Routes from './routes';
 
+import AlertProvider from './context/Alert';
+import UserProvider from './context/User';
+
 function App() {
   return (
-    <>
-      <Routes />
-      <ToastContainer autoClose={3000} />
-      <GlobalStyles />
-    </>
+    <AlertProvider>
+      <UserProvider>
+        <Routes />
+        <ToastContainer autoClose={3000} />
+        <GlobalStyles />
+      </UserProvider>
+    </AlertProvider>
   );
 }
 
