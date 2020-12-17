@@ -13,7 +13,7 @@ import SelectInput from '../../../components/SelectInput';
 
 import { Container, Background, RSide, Form, Button } from './styles';
 
-export default function Tutor() {
+export default function Collaborator({ location }) {
   const history = useHistory();
   const { alert, setAlert } = useAlert();
 
@@ -35,14 +35,14 @@ export default function Tutor() {
   async function handleNavigateToAddress() {
     try {
       const schema = Yup.object().shape({
-        name: Yup.string().required('O nome é obrigatório'),
-        gender: Yup.string().required('A espécie é obrigatória'),
-        birth_date: Yup.string().required('O gênero é obrigatório'),
-        cpf: Yup.string().required('O tamanho é obrigatório'),
-        phone: Yup.string().required('A idade é obrigatória'),
+        name: Yup.string().required().min(3).max(50),
+        gender: Yup.string().required(),
+        birth_date: Yup.string().required().min(10).max(10),
+        cpf: Yup.string().required().min(14).max(14),
+        phone: Yup.string().required().min(14).max(15),
       });
 
-      const tutorData = {
+      const collaboratorData = {
         name,
         gender,
         birth_date: birthDate,
@@ -50,11 +50,13 @@ export default function Tutor() {
         phone,
       };
 
-      await schema.validate(tutorData, {
+      await schema.validate(collaboratorData, {
         abortEarly: false,
       });
 
-      history.push(`/singup-address`, { tutorData });
+      const access_code = location.state.access_code;
+
+      history.push(`/singup-address`, { access_code, collaboratorData });
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         setAlert(
@@ -84,7 +86,12 @@ export default function Tutor() {
       <Background />
       <RSide>
         <Form>
-          <InputText label={'Nome completo'} value={name} setValue={setName} />
+          <InputText
+            label={'Nome completo'}
+            value={name}
+            setValue={setName}
+            maxlength="50"
+          />
           <SelectInput
             label={'Gênero'}
             value={gender}
@@ -95,9 +102,20 @@ export default function Tutor() {
             label={'Data de nascimento'}
             value={birthDate}
             setValue={formatBirthDate}
+            maxlength="10"
           />
-          <InputText label={'CPF'} value={cpf} setValue={formatCpf} />
-          <InputText label={'Celular'} value={phone} setValue={formatPhone} />
+          <InputText
+            label={'CPF'}
+            value={cpf}
+            setValue={formatCpf}
+            maxlength="14"
+          />
+          <InputText
+            label={'Celular'}
+            value={phone}
+            setValue={formatPhone}
+            maxlength="15"
+          />
           <Button onClick={handleNavigateToAddress}>Próximo</Button>
         </Form>
       </RSide>

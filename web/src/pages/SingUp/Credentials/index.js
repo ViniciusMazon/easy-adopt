@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
+import { format } from 'date-fns';
+import api from '../../../services/api';
 
 import { useAlert } from '../../../context/Alert';
 import InputText from '../../../components/InputText';
@@ -30,10 +32,10 @@ export default function Credentials({ location }) {
   async function handleSubmit() {
     try {
       const schema = Yup.object().shape({
-        email: Yup.string().required(),
-        password: Yup.string().required(),
-        emailConfirmation: Yup.string().required(),
-        passwordConfirmation: Yup.string().required(),
+        email: Yup.string().required().min(3).max(25),
+        emailConfirmation: Yup.string().required().min(3).max(25),
+        password: Yup.string().required().min(8).max(25),
+        passwordConfirmation: Yup.string().required().min(8).max(25),
       });
 
       await schema.validate(
@@ -44,21 +46,29 @@ export default function Credentials({ location }) {
       );
 
       const address = location.state.addressData;
-      // Cria um edereço e armazena o ID
+      const addressResponse = await api.post('/address', address);
 
-      const tutor = {
-        gender: location.state.tutorData.gender,
-        name: location.state.tutorData.name,
-        birth_date: location.state.tutorData.birth_date,
-        cpf: location.state.tutorData.cpf,
+      const splittedDate = location.state.collaboratorData.birth_date.split(
+        '/'
+      );
+
+      const collaborator = {
+        gender: location.state.collaboratorData.gender,
+        name: location.state.collaboratorData.name,
+        birth_date: format(
+          new Date(splittedDate[2], splittedDate[1], splittedDate[0]),
+          'yyyy-MM-dd'
+        ),
+        cpf: location.state.collaboratorData.cpf,
         email,
         password,
-        phone: location.state.tutorData.phone,
-        address_id: '',
+        phone: location.state.collaboratorData.phone,
+        access_code: location.state.access_code,
+        address_id: addressResponse.data.address_id,
       };
 
-      console.table(address);
-      console.table(tutor);
+      await api.post('/collaborators', collaborator);
+
       setAlert('Cadastro efetuado com sucesso');
       history.push(`/`);
     } catch (err) {
@@ -75,21 +85,31 @@ export default function Credentials({ location }) {
       <Background />
       <RSide>
         <Form>
-          <InputText label={'E-mail'} value={email} setValue={setEmail} />
+          <InputText
+            label={'E-mail'}
+            value={email}
+            setValue={setEmail}
+            type="email"
+            maxlength="25"
+          />
           <InputText
             label={'Confirme o e-mail'}
             value={emailConfirmation}
             setValue={setEmailConfirmation}
+            type="email"
+            maxlength="25"
           />
           <InputPassword
             label={'Senha'}
             value={password}
             setValue={setPassword}
+            maxlength="25"
           />
           <InputPassword
             label={'Confirme a senha'}
             value={passwordConfirmation}
             setValue={setPasswordConfirmation}
+            maxlength="25"
           />
           <Button onClick={handleSubmit}>Concluir</Button>
         </Form>

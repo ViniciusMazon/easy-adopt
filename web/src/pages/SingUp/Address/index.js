@@ -34,12 +34,12 @@ export default function Address({ location }) {
   async function handleNext() {
     try {
       const schema = Yup.object().shape({
-        street: Yup.string().required('O nome é obrigatório'),
-        number: Yup.string().required('A espécie é obrigatória'),
-        neighborhood: Yup.string().required('O gênero é obrigatório'),
-        city: Yup.string().required('O tamanho é obrigatório'),
-        state: Yup.string().required('A idade é obrigatória'),
-        cep: Yup.string().required('A idade é obrigatória'),
+        street: Yup.string().required().min(3).max(25),
+        number: Yup.string().required().min(1).max(5),
+        neighborhood: Yup.string().required().min(3).max(25),
+        city: Yup.string().required().min(3).max(25),
+        state: Yup.string().required().min(2).max(2),
+        cep: Yup.string().required().min(10).max(10),
       });
 
       const addressData = {
@@ -55,11 +55,13 @@ export default function Address({ location }) {
         abortEarly: false,
       });
 
-      const tutorData = location.state.tutorData;
+      const collaboratorData = location.state.collaboratorData;
+      const access_code = location.state.access_code;
 
       history.push(`/singup-credentials`, {
-        tutorData,
+        collaboratorData,
         addressData,
+        access_code,
       });
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
@@ -80,12 +82,23 @@ export default function Address({ location }) {
       <Background />
       <RSide>
         <Form>
-          <InputText label={'Rua'} value={street} setValue={setStreet} />
-          <InputText label={'Número'} value={number} setValue={setNumber} />
+          <InputText
+            label={'Rua'}
+            value={street}
+            setValue={setStreet}
+            maxlength="25"
+          />
+          <InputText
+            label={'Número'}
+            value={number}
+            setValue={setNumber}
+            maxlength="5"
+          />
           <InputText
             label={'Bairro'}
             value={neighborhood}
             setValue={setNeighborhood}
+            maxlength="25"
           />
           <div className="input-block">
             <InputText label={'Cidade'} value={city} setValue={setCity} />
@@ -124,7 +137,12 @@ export default function Address({ location }) {
               ]}
             />
           </div>
-          <InputText label={'CEP'} value={cep} setValue={formatCep} />
+          <InputText
+            label={'CEP'}
+            value={cep}
+            setValue={formatCep}
+            maxlength="10"
+          />
           <Button onClick={handleNext}>Próximo</Button>
         </Form>
       </RSide>
