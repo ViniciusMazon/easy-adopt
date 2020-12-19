@@ -22,17 +22,19 @@ export const RSide = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
+
+  > form {
+    width: 33.3rem;
+
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 19rem;
+  }
 `;
 
-export const Form = styled.div`
-  width: 33.3rem;
-
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 19rem;
-`;
-
-export const Button = styled.button`
+export const Button = styled.button.attrs((props) => ({
+  type: 'submit',
+}))`
   width: 33.3rem;
   height: 6rem;
   align-self: flex-end;

@@ -2,17 +2,24 @@ import React, { useState, useRef, useEffect } from 'react';
 import { MoonLoader } from 'react-spinners';
 import { format } from 'date-fns';
 import * as Yup from 'yup';
-import { toast } from 'react-toastify';
+import { useHistory } from 'react-router-dom';
+
 import api from '../../services/api';
 
-import { Container, ButtonSave, SaveIcon, LogoutIcon } from './styles';
-import InputText from '../../components/InputText';
 import { useAlert } from '../../context/Alert';
+import { useAuth } from '../../context/auth';
+
 import LoadingUser from '../../components/Shimmer/LoadingUser';
+import InputText from '../../components/InputText';
+
+import { Container, ButtonSave, SaveIcon, LogoutIcon } from './styles';
 
 export default function User() {
   const userRef = useRef(null);
-  const { alert, setAlert } = useAlert();
+  const history = useHistory();
+
+  const { setAlert } = useAlert();
+  const { signOut } = useAuth();
 
   const [isLoading, setIsLoading] = useState(true);
   const [isSpinning, setIsSpinning] = useState(false);
@@ -23,15 +30,6 @@ export default function User() {
   const [phone, setPhone] = useState('');
   const [cpf, setCpf] = useState('');
   const [birthDate, setBirthDate] = useState('');
-
-  useEffect(() => {
-    if (alert === '') {
-      return;
-    }
-
-    toast.success(alert);
-    setAlert('');
-  }, [alert, setAlert]);
 
   useEffect(() => {
     api.get('/collaborators/abc123').then((response) => {
@@ -69,18 +67,25 @@ export default function User() {
         abortEarly: false,
       });
       await api.put(`/collaborators/${user.id}`, userData);
-      setAlert('😄 Suas informações foram alteradas com sucesso!');
+      setAlert({
+        type: 'success',
+        message: '😄 Suas informações foram alteradas com sucesso!',
+      });
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
-        setAlert(
-          'Erro de validação: verifique as informações inseridas no formulário'
-        );
+        setAlert({
+          type: 'error',
+          message: 'Verifique os dados inseridos e tente novamente',
+        });
         setIsSpinning(false);
       }
     }
   }
 
-  function handleLogout() {}
+  function handleLogout() {
+    signOut();
+    history.push('/');
+  }
 
   function cpfFormatter(cpf) {
     if (cpf.length === 3 || cpf.length === 7) {
@@ -182,7 +187,7 @@ export default function User() {
               <InputText
                 label={'Novo código de acesso'}
                 value={accessCode}
-                readonly
+                readOnly
                 className="input-custom"
               />
               <button type="button" onClick={handleGenerateAccessCode}>

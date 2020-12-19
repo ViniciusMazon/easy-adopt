@@ -53,14 +53,18 @@ export default function AddProcedure() {
 
       await api.post('/procedures', procedureData);
 
-      setAlert('😻 Procedimento criado com sucesso!');
+      setAlert({
+        type: 'success',
+        message: '😻 Procedimento criado com sucesso!',
+      });
       history.goBack();
       setIsCompacted(false);
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
-        setAlert(
-          'Erro de validação: verifique os dados inseridos no formulário'
-        );
+        setAlert({
+          type: 'error',
+          message: 'Verifique os dados inseridos e tente novamente',
+        });
         setIsSpinning(false);
       }
     }

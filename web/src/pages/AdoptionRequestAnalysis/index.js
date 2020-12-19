@@ -58,7 +58,10 @@ export default function AdoptionRequestAnalysis() {
     };
 
     await api.put(`/adoption-request/${request.id}`, evaluate);
-    setAlert(`📄 Pedido de adoção ${status}`);
+    setAlert({
+      type: 'info',
+      message: `📄 Pedido de adoção ${status}`,
+    });
     history.push('/adoption');
     setIsCompacted(false);
   }

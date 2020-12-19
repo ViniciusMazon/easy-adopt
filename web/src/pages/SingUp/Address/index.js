@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
@@ -9,11 +9,11 @@ import { useAlert } from '../../../context/Alert';
 import InputText from '../../../components/InputText';
 import SelectInput from '../../../components/SelectInput';
 
-import { Container, Background, RSide, Form, Button } from './styles';
+import { Container, Background, RSide, Button } from './styles';
 
 export default function Address({ location }) {
   const history = useHistory();
-  const { alert, setAlert } = useAlert();
+  const { setAlert } = useAlert();
 
   const [street, setStreet] = useState('');
   const [number, setNumber] = useState('');
@@ -21,15 +21,6 @@ export default function Address({ location }) {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [cep, setCep] = useState('');
-
-  useEffect(() => {
-    if (alert === '') {
-      return;
-    }
-
-    toast.success(alert);
-    setAlert('');
-  }, [alert, setAlert]);
 
   async function handleNext() {
     try {
@@ -65,9 +56,10 @@ export default function Address({ location }) {
       });
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
-        setAlert(
-          'Erro de validação: Verifique os dados inseridos no formulário'
-        );
+        setAlert({
+          type: 'warning',
+          message: 'Verifique os dados digitados e tente novamente',
+        });
       }
     }
   }
@@ -81,24 +73,24 @@ export default function Address({ location }) {
     <Container>
       <Background />
       <RSide>
-        <Form>
+        <form onSubmit={handleNext}>
           <InputText
             label={'Rua'}
             value={street}
             setValue={setStreet}
-            maxlength="25"
+            maxLength="25"
           />
           <InputText
             label={'Número'}
             value={number}
             setValue={setNumber}
-            maxlength="5"
+            maxLength="5"
           />
           <InputText
             label={'Bairro'}
             value={neighborhood}
             setValue={setNeighborhood}
-            maxlength="25"
+            maxLength="25"
           />
           <div className="input-block">
             <InputText label={'Cidade'} value={city} setValue={setCity} />
@@ -141,10 +133,10 @@ export default function Address({ location }) {
             label={'CEP'}
             value={cep}
             setValue={formatCep}
-            maxlength="10"
+            maxLength="10"
           />
-          <Button onClick={handleNext}>Próximo</Button>
-        </Form>
+          <Button type={'submit'}>Próximo</Button>
+        </form>
       </RSide>
     </Container>
   );

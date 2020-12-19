@@ -1,28 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
-import { toast } from 'react-toastify';
 
+import { useAuth } from '../../context/auth';
 import { useAlert } from '../../context/Alert';
+
 import InputText from '../../components/InputText';
 import InputPassword from '../../components/InputPassword';
 
 import { Container, Background, RSide, Logo, Form, Button } from './styles';
 
 export default function SingIn() {
-  const { alert, setAlert } = useAlert();
+  const { setAlert } = useAlert();
+  const { signed, signIn } = useAuth();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  useEffect(() => {
-    if (alert === '') {
-      return;
-    }
-
-    toast.success(alert);
-    setAlert('');
-  }, [alert, setAlert]);
 
   async function handleSingUp() {
     try {
@@ -37,10 +30,15 @@ export default function SingIn() {
           abortEarly: false,
         }
       );
-      setAlert('Credenciais válidas');
+      signIn(email, password);
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
-        setAlert('Usuário ou senha inválido');
+        setAlert({ type: 'warning', message: 'Informe seu usuário e senha' });
+      } else {
+        setAlert({
+          type: 'error',
+          message: 'Ops... ocorreu um erro, tente novamente mais tarde',
+        });
       }
     }
   }
@@ -56,13 +54,13 @@ export default function SingIn() {
             value={email}
             setValue={setEmail}
             type="email"
-            maxlength="25"
+            maxLength="25"
           />
           <InputPassword
             label={'Senha'}
             value={password}
             setValue={setPassword}
-            maxlength="25"
+            maxLength="25"
           />
           <Button onClick={handleSingUp}>Entrar</Button>
           <Link to="singup-access-code">

@@ -22,26 +22,28 @@ export const RSide = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-`;
 
-export const Form = styled.div`
-  width: 33.3rem;
+  > form {
+    width: 33.3rem;
 
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 19rem;
-
-  .input-block {
     display: flex;
+    flex-direction: column;
+    margin-bottom: 19rem;
 
-    div + div:nth-child(2) {
-      width: 12rem;
-      margin-left: 0.9rem;
+    .input-block {
+      display: flex;
+
+      div + div:nth-child(2) {
+        width: 14rem;
+        margin-left: 0.9rem;
+      }
     }
   }
 `;
 
-export const Button = styled.button`
+export const Button = styled.button.attrs((props) => ({
+  type: 'submit',
+}))`
   width: 33.3rem;
   height: 6rem;
   align-self: flex-end;
