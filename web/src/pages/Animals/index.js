@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import api from '../../services/api';
 
-import { useAlert } from '../../context/Alert';
+import api from '../../services/api';
 
 import {
   Container,
@@ -18,20 +16,10 @@ import AnimalCard from '../../components/AnimalCard';
 import LoadingAnimalCard from '../../components/Shimmer/LoadingAnimalCard';
 
 function Animals() {
-  const { alert, setAlert } = useAlert();
   const [animals, setAnimals] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [filteredAnimals, setFilteredAnimals] = useState([]);
   const [searchFor, setSearchFor] = useState('');
-
-  useEffect(() => {
-    if (alert === '') {
-      return;
-    }
-
-    toast.success(alert);
-    setAlert('');
-  }, [alert, setAlert]);
 
   useEffect(() => {
     api.get('/animals').then((reponse) => {

@@ -48,14 +48,15 @@ export default function CreateDonationCampaign() {
       });
 
       await api.post('/donation-campaigns', campaignData);
-      setAlert('😻 Campanha criada com sucesso!');
+      setAlert({ type: 'success', message: '😻 Campanha criada com sucesso!' });
       history.goBack();
       setIsCompacted(false);
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
-        setAlert(
-          'Erro de validação: verifique os dados inseridos no formulário'
-        );
+        setAlert({
+          type: 'error',
+          message: 'Verifique os dados inseridos e tente novamente',
+        });
         setIsSpinning(false);
       }
     }

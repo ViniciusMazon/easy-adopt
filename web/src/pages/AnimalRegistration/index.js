@@ -71,18 +71,22 @@ function AnimalRegistration() {
 
       const response = await api.post('/animals', formData);
       if (response.status === 201) {
-        setAlert('Animal cadastrado com sucesso');
+        setAlert({ type: 'success', message: 'Animal cadastrado com sucesso' });
         history.push('/');
         setIsCompacted(false);
       } else {
-        setAlert('Não foi possível concluir a operação');
+        setAlert({
+          type: 'warning',
+          message: 'Não foi possível concluir a operação',
+        });
         setIsSpinning(false);
       }
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
-        setAlert(
-          'Erro de validação: Verifique os dados inseridos no formulário'
-        );
+        setAlert({
+          type: 'error',
+          message: 'Verifique os dados inseridos e tente novamente',
+        });
         setIsSpinning(false);
       }
     }

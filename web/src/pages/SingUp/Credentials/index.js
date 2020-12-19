@@ -9,25 +9,16 @@ import { useAlert } from '../../../context/Alert';
 import InputText from '../../../components/InputText';
 import InputPassword from '../../../components/InputPassword';
 
-import { Container, Background, RSide, Form, Button } from './styles';
+import { Container, Background, RSide, Button } from './styles';
 
 export default function Credentials({ location }) {
   const history = useHistory();
-  const { alert, setAlert } = useAlert();
+  const { setAlert } = useAlert();
 
   const [email, setEmail] = useState('');
   const [emailConfirmation, setEmailConfirmation] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
-
-  useEffect(() => {
-    if (alert === '') {
-      return;
-    }
-
-    toast.success(alert);
-    setAlert('');
-  }, [alert, setAlert]);
 
   async function handleSubmit() {
     try {
@@ -69,13 +60,14 @@ export default function Credentials({ location }) {
 
       await api.post('/collaborators', collaborator);
 
-      setAlert('Cadastro efetuado com sucesso');
+      setAlert({ type: 'success', message: 'Cadastro efetuado com sucesso!' });
       history.push(`/`);
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
-        setAlert(
-          'Erro de validação: Verifique os dados inseridos no formulário'
-        );
+        setAlert({
+          type: 'warning',
+          message: 'Verifique os dados digitados e tente novamente',
+        });
       }
     }
   }
@@ -84,35 +76,35 @@ export default function Credentials({ location }) {
     <Container>
       <Background />
       <RSide>
-        <Form>
+        <form onSubmit={handleSubmit}>
           <InputText
             label={'E-mail'}
             value={email}
             setValue={setEmail}
             type="email"
-            maxlength="25"
+            maxLength="25"
           />
           <InputText
             label={'Confirme o e-mail'}
             value={emailConfirmation}
             setValue={setEmailConfirmation}
             type="email"
-            maxlength="25"
+            maxLength="25"
           />
           <InputPassword
             label={'Senha'}
             value={password}
             setValue={setPassword}
-            maxlength="25"
+            maxLength="25"
           />
           <InputPassword
             label={'Confirme a senha'}
             value={passwordConfirmation}
             setValue={setPasswordConfirmation}
-            maxlength="25"
+            maxLength="25"
           />
-          <Button onClick={handleSubmit}>Concluir</Button>
-        </Form>
+          <Button type={'submit'}>Concluir</Button>
+        </form>
       </RSide>
     </Container>
   );

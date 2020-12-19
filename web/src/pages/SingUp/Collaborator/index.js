@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
-import { toast } from 'react-toastify';
 
 import { useAlert } from '../../../context/Alert';
 import birthDateFormatter from '../../../utils/birthDateFormatter';
@@ -11,11 +10,11 @@ import cpfFormatter from '../../../utils/cpfFormatter';
 import InputText from '../../../components/InputText';
 import SelectInput from '../../../components/SelectInput';
 
-import { Container, Background, RSide, Form, Button } from './styles';
+import { Container, Background, RSide, Button } from './styles';
 
 export default function Collaborator({ location }) {
   const history = useHistory();
-  const { alert, setAlert } = useAlert();
+  const { setAlert } = useAlert();
 
   const [name, setName] = useState('');
   const [gender, setGender] = useState('');
@@ -23,20 +22,12 @@ export default function Collaborator({ location }) {
   const [cpf, setCpf] = useState('');
   const [phone, setPhone] = useState('');
 
-  useEffect(() => {
-    if (alert === '') {
-      return;
-    }
-
-    toast.success(alert);
-    setAlert('');
-  }, [alert, setAlert]);
-
-  async function handleNavigateToAddress() {
+  async function handleNavigateToAddress(e) {
     try {
+      e.preventDefault();
       const schema = Yup.object().shape({
-        name: Yup.string().required().min(3).max(50),
-        gender: Yup.string().required(),
+        name: Yup.string().min(3).max(50).required('Nome'),
+        gender: Yup.string().required('Gênero'),
         birth_date: Yup.string().required().min(10).max(10),
         cpf: Yup.string().required().min(14).max(14),
         phone: Yup.string().required().min(14).max(15),
@@ -59,8 +50,9 @@ export default function Collaborator({ location }) {
       history.push(`/singup-address`, { access_code, collaboratorData });
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
-        setAlert(
-          'Erro de validação: Verifique os dados inseridos no formulário'
+        console.table(err);
+        err.errors.map((error) =>
+          setAlert({ type: 'warning', message: error })
         );
       }
     }
@@ -85,39 +77,44 @@ export default function Collaborator({ location }) {
     <Container>
       <Background />
       <RSide>
-        <Form>
+        <form onSubmit={handleNavigateToAddress}>
           <InputText
             label={'Nome completo'}
             value={name}
             setValue={setName}
-            maxlength="50"
+            maxLength="50"
+            required
           />
           <SelectInput
             label={'Gênero'}
             value={gender}
             setValue={setGender}
             options={['Masculino', 'Feminino']}
+            required
           />
           <InputText
             label={'Data de nascimento'}
             value={birthDate}
             setValue={formatBirthDate}
-            maxlength="10"
+            maxLength="10"
+            required
           />
           <InputText
             label={'CPF'}
             value={cpf}
             setValue={formatCpf}
-            maxlength="14"
+            maxLength="14"
+            required
           />
           <InputText
             label={'Celular'}
             value={phone}
             setValue={formatPhone}
-            maxlength="15"
+            maxLength="15"
+            required
           />
-          <Button onClick={handleNavigateToAddress}>Próximo</Button>
-        </Form>
+          <Button type={'submit'}>Próximo</Button>
+        </form>
       </RSide>
     </Container>
   );

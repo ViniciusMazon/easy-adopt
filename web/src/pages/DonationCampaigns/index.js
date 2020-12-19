@@ -1,26 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
+
 import api from '../../services/api';
 
-import { Container, Header, PlusIcon, CampaignsCards } from './styles';
 import CampaignCard from '../../components/CampaignCard';
-import { useAlert } from '../../context/Alert';
 import LoadingCampaignCard from '../../components/Shimmer/LoadingCampaignCard';
+
+import { Container, Header, PlusIcon, CampaignsCards } from './styles';
 
 export default function DonationCampaigns() {
   const [isLoading, setIsLoading] = useState(true);
-  const { alert, setAlert } = useAlert();
   const [campaigns, setCampaigns] = useState([]);
-
-  useEffect(() => {
-    if (alert === '') {
-      return;
-    }
-
-    toast.success(alert);
-    setAlert('');
-  }, [alert, setAlert]);
 
   useEffect(() => {
     api.get('/donation-campaigns').then((response) => {

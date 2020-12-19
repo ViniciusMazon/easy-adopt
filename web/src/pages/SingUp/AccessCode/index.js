@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import * as Yup from 'yup';
-import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
 import api from '../../../services/api';
 
@@ -19,18 +18,9 @@ import {
 
 export default function AccessCode() {
   const history = useHistory();
-  const { alert, setAlert } = useAlert();
+  const { setAlert } = useAlert();
 
   const [accessCode, setAccessCode] = useState('');
-
-  useEffect(() => {
-    if (alert === '') {
-      return;
-    }
-
-    toast.success(alert);
-    setAlert('');
-  }, [alert, setAlert]);
 
   function handlerGoBack() {
     history.goBack();
@@ -47,16 +37,22 @@ export default function AccessCode() {
       const response = await api.get(`/access-code/${accessCode}`);
 
       if (response.data.isValid) {
-        setAlert('Código de acesso válido');
+        setAlert({ type: 'success', message: 'Código de acesso válido' });
         history.push(`/singup-collaborator`, { access_code: accessCode });
       } else {
-        setAlert('Código de acesso inválido');
+        setAlert({ type: 'warning', message: 'Código de acesso inválido' });
       }
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
-        setAlert(
-          'Erro de validação, verifique os dados digitados e tente novamente'
-        );
+        setAlert({
+          type: 'warning',
+          message: 'Entre com um código de acesso válido',
+        });
+      } else {
+        setAlert({
+          type: 'error',
+          message: 'Ops... ocorreu um erro, tente novamente mais tarde',
+        });
       }
     }
   }

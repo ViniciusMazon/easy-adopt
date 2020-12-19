@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { MoonLoader } from 'react-spinners';
 import * as Yup from 'yup';
-import { toast } from 'react-toastify';
+
 import api from '../../services/api';
 
 import Header from '../../components/Header';
@@ -29,7 +29,7 @@ export default function AnimalEdit() {
   const history = useHistory();
   const params = useParams();
   const { setIsCompacted } = useMenuBar();
-  const { alert, setAlert } = useAlert();
+  const { setAlert } = useAlert();
 
   const [isLoading, setIsLoading] = useState(true);
   const [isSpinning, setIsSpinning] = useState(false);
@@ -52,15 +52,6 @@ export default function AnimalEdit() {
   const [status, setStatus] = useState('');
 
   useEffect(() => {
-    if (alert === '') {
-      return;
-    }
-
-    toast.success(alert);
-    setAlert('');
-  }, [alert, setAlert]);
-
-  useEffect(() => {
     setIsCompacted(true);
 
     api.get(`/animals/${params.id}`).then((response) => {
@@ -81,7 +72,7 @@ export default function AnimalEdit() {
   function handleDeleteAnimal() {
     api.delete(`/animals/${params.id}`);
 
-    setAlert('🐶 Animal excluído com sucesso!');
+    setAlert({ type: 'success', message: '🐶 Animal excluído com sucesso!' });
     history.push('/');
   }
 
@@ -133,14 +124,15 @@ export default function AnimalEdit() {
 
       await api.put(`/animals/${params.id}`, animalData);
 
-      setAlert('🐱 Animal editado com sucesso!');
+      setAlert({ type: 'success', message: '🐱 Animal editado com sucesso!' });
       history.push('/');
       setIsCompacted(false);
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
-        setAlert(
-          'Erro de validação: verifique as informações inseridas no formulário'
-        );
+        setAlert({
+          type: 'error',
+          message: 'Verifique os dados digitados e tente novamente',
+        });
         setIsSpinning(false);
       }
     }
