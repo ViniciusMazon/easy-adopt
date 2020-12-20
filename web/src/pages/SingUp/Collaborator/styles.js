@@ -59,3 +59,14 @@ export const Button = styled.button.attrs((props) => ({
     background: var(--dark-green);
   }
 `;
+
+export const ImageCredit = styled.span`
+  position: absolute;
+  bottom: 2rem;
+  left: 23%;
+  color: #fff;
+  font: 1.6rem bold 'Montserrat';
+  > a {
+    color: #fff;
+  }
+`;

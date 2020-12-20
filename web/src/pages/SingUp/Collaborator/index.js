@@ -10,7 +10,7 @@ import cpfFormatter from '../../../utils/cpfFormatter';
 import InputText from '../../../components/InputText';
 import SelectInput from '../../../components/SelectInput';
 
-import { Container, Background, RSide, Button } from './styles';
+import { Container, Background, RSide, Button, ImageCredit } from './styles';
 
 export default function Collaborator({ location }) {
   const history = useHistory();
@@ -116,6 +116,17 @@ export default function Collaborator({ location }) {
           <Button type={'submit'}>Próximo</Button>
         </form>
       </RSide>
+
+      <ImageCredit>
+        Photo by{' '}
+        <a href="https://unsplash.com/@chewy?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">
+          Chewy
+        </a>{' '}
+        on{' '}
+        <a href="https://unsplash.com/?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">
+          Unsplash
+        </a>
+      </ImageCredit>
     </Container>
   );
 }
