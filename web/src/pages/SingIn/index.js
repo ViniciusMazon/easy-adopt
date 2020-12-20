@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
+import { MoonLoader } from 'react-spinners';
 
 import { useAuth } from '../../context/auth';
 import { useAlert } from '../../context/Alert';
@@ -13,7 +14,6 @@ import {
   Background,
   RSide,
   Logo,
-  Form,
   Button,
   ImageCredit,
 } from './styles';
@@ -22,10 +22,13 @@ export default function SingIn() {
   const { setAlert } = useAlert();
   const { signIn } = useAuth();
 
+  const [isSpinning, setIsSpinning] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  async function handleSingUp() {
+  async function handleSingUp(e) {
+    e.preventDefault();
+    setIsSpinning(true);
     try {
       const schema = Yup.object().shape({
         email: Yup.string().required().min(3).max(25),
@@ -38,6 +41,7 @@ export default function SingIn() {
           abortEarly: false,
         }
       );
+      setTimeout(() => {}, 3000);
       signIn(email, password);
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
@@ -49,6 +53,8 @@ export default function SingIn() {
         });
       }
     }
+
+    setIsSpinning(false);
   }
 
   return (
@@ -57,7 +63,7 @@ export default function SingIn() {
       <RSide>
         <Logo />
 
-        <Form>
+        <form onSubmit={handleSingUp}>
           <InputText
             label={'E-mail'}
             value={email}
@@ -71,11 +77,22 @@ export default function SingIn() {
             setValue={setPassword}
             maxLength="25"
           />
-          <Button onClick={handleSingUp}>Entrar</Button>
+          <Button type={'submit'} disabled={isSpinning}>
+            {isSpinning === false ? (
+              'Entrar'
+            ) : (
+              <MoonLoader
+                size={25}
+                color={'#FFF'}
+                css={'z-index: 9999'}
+                loading={isSpinning}
+              />
+            )}
+          </Button>
           <Link to="singup-access-code">
             Não possui uma conta? <strong>Cadastra-se</strong>
           </Link>
-        </Form>
+        </form>
       </RSide>
       <ImageCredit>
         Photo by{' '}

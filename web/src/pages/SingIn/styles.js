@@ -23,6 +23,26 @@ export const RSide = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  > form {
+    width: 33.3rem;
+
+    display: flex;
+    flex-direction: column;
+
+    > a {
+      color: var(--text);
+      font: 1.6rem 'Montserrat';
+      text-decoration: none;
+      cursor: pointer;
+      align-self: center;
+
+      > strong {
+        color: var(--link);
+        font-weight: 700;
+      }
+    }
+  }
 `;
 
 export const Logo = styled.div`
@@ -34,27 +54,9 @@ export const Logo = styled.div`
   margin-bottom: 12.8rem;
 `;
 
-export const Form = styled.div`
-  width: 33.3rem;
-
-  display: flex;
-  flex-direction: column;
-
-  > a {
-    color: var(--text);
-    font: 1.6rem 'Montserrat';
-    text-decoration: none;
-    cursor: pointer;
-    align-self: center;
-
-    > strong {
-      color: var(--link);
-      font-weight: 700;
-    }
-  }
-`;
-
-export const Button = styled.button`
+export const Button = styled.button.attrs((props) => ({
+  type: 'submit',
+}))`
   width: 33.3rem;
   height: 6rem;
   align-self: flex-end;

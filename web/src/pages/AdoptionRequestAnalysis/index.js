@@ -19,16 +19,16 @@ import {
 import Header from '../../components/Header';
 import { useMenuBar } from '../../context/MenuBar';
 import { useAlert } from '../../context/Alert';
-import { useUser } from '../../context/User';
 
 import LoadingAdoptionRequestAnalysisMain from '../../components/Shimmer/LoadingAdoptionRequestAnalysisMain';
 
 export default function AdoptionRequestAnalysis() {
   const params = useParams();
   const history = useHistory();
+
   const { setIsCompacted } = useMenuBar();
   const { setAlert } = useAlert();
-  const { user } = useUser();
+
   const [isLoading, setIsLoading] = useState(true);
   const [isSpinning, setIsSpinning] = useState(false);
 
@@ -52,8 +52,10 @@ export default function AdoptionRequestAnalysis() {
   async function handleEvaluate(status) {
     setIsSpinning(true);
 
+    const storageUser = JSON.parse(localStorage.getItem('@easyAdopt:user'));
+
     const evaluate = {
-      collaborator_id: user.id,
+      collaborator_id: storageUser.id,
       status,
     };
 
