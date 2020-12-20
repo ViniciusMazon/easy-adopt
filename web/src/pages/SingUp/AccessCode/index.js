@@ -14,6 +14,7 @@ import {
   BackIcon,
   Form,
   Button,
+  ImageCredit,
 } from './styles';
 
 export default function AccessCode() {
@@ -74,6 +75,17 @@ export default function AccessCode() {
           <Button onClick={handleValidateAccessCode}>Validar</Button>
         </Form>
       </RSide>
+
+      <ImageCredit>
+        Photo by{' '}
+        <a href="https://unsplash.com/@chewy?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">
+          Chewy
+        </a>{' '}
+        on{' '}
+        <a href="https://unsplash.com/?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">
+          Unsplash
+        </a>
+      </ImageCredit>
     </Container>
   );
 }

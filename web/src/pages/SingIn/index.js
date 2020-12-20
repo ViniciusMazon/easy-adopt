@@ -8,11 +8,19 @@ import { useAlert } from '../../context/Alert';
 import InputText from '../../components/InputText';
 import InputPassword from '../../components/InputPassword';
 
-import { Container, Background, RSide, Logo, Form, Button } from './styles';
+import {
+  Container,
+  Background,
+  RSide,
+  Logo,
+  Form,
+  Button,
+  ImageCredit,
+} from './styles';
 
 export default function SingIn() {
   const { setAlert } = useAlert();
-  const { signed, signIn } = useAuth();
+  const { signIn } = useAuth();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -48,6 +56,7 @@ export default function SingIn() {
       <Background />
       <RSide>
         <Logo />
+
         <Form>
           <InputText
             label={'E-mail'}
@@ -68,6 +77,16 @@ export default function SingIn() {
           </Link>
         </Form>
       </RSide>
+      <ImageCredit>
+        Photo by{' '}
+        <a href="https://unsplash.com/@chewy?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">
+          Chewy
+        </a>{' '}
+        on{' '}
+        <a href="https://unsplash.com/?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">
+          Unsplash
+        </a>
+      </ImageCredit>
     </Container>
   );
 }
