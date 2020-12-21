@@ -6,20 +6,17 @@ import Routes from './routes';
 
 import { AuthProvider } from './context/auth';
 import AlertProvider from './context/Alert';
-import UserProvider from './context/User';
 import MenuBarProvider from './context/MenuBar';
 
 function App() {
   return (
     <AlertProvider>
       <AuthProvider>
-        <UserProvider>
-          <MenuBarProvider>
-            <Routes />
-            <ToastContainer autoClose={3000} />
-            <GlobalStyles />
-          </MenuBarProvider>
-        </UserProvider>
+        <MenuBarProvider>
+          <Routes />
+          <ToastContainer autoClose={3000} />
+          <GlobalStyles />
+        </MenuBarProvider>
       </AuthProvider>
     </AlertProvider>
   );

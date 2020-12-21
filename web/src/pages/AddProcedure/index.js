@@ -10,7 +10,6 @@ import Header from '../../components/Header';
 import TextAreaInput from '../../components/TextAreaInput';
 import InputText from '../../components/InputText';
 import { useMenuBar } from '../../context/MenuBar';
-import { useUser } from '../../context/User';
 import { useAlert } from '../../context/Alert';
 
 import { Container, ButtonSave, SaveIcon } from './styles';
@@ -21,7 +20,6 @@ export default function AddProcedure() {
 
   const { setIsCompacted } = useMenuBar();
   const { setAlert } = useAlert();
-  const { user } = useUser();
 
   const [isSpinning, setIsSpinning] = useState(false);
   const date = format(new Date(), 'dd/MM/yyyy');
@@ -35,6 +33,8 @@ export default function AddProcedure() {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
+      const storageUser = JSON.parse(localStorage.getItem('@easyAdopt:user'));
+
       const schema = Yup.object().shape({
         name: Yup.string().required('O procedimento é obrigatório'),
         comments: Yup.string().required('O comentário é obrigatório'),
@@ -44,7 +44,7 @@ export default function AddProcedure() {
         animal_id: params.id,
         name: name,
         comments: comments,
-        collaborator_id: user.id,
+        collaborator_id: storageUser.id,
       };
 
       await schema.validate(procedureData, {

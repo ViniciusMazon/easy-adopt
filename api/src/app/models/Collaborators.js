@@ -27,4 +27,11 @@ module.exports = {
 
     return collaborator;
   },
+  async showByEmail(email) {
+    const [collaborator] = await connection('collaborators')
+      .where('email', email)
+      .select('*');
+
+    return collaborator;
+  },
 };

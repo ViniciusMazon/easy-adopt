@@ -2,7 +2,6 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { useMenuBar } from '../../context/MenuBar';
-import { useUser } from '../../context/User';
 
 import {
   Container,
@@ -29,7 +28,7 @@ import logoSimplified from '../../assets/simplifiedLogo.svg';
 
 function MenuBar() {
   const history = useHistory();
-  const { user } = useUser();
+  const storageUser = JSON.parse(localStorage.getItem('@easyAdopt:user'));
 
   const {
     activeSection,
@@ -105,7 +104,7 @@ function MenuBar() {
         onClick={() => handleNavigation(6, '/user')}
       >
         {activeSection === 6 ? <UserIconActive /> : <UserIcon />}
-        <p>{user.name}</p>
+        <p>{storageUser ? storageUser.name : ''}</p>
       </BotSide>
     </Container>
   );

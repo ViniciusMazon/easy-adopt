@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MoonLoader } from 'react-spinners';
 import { format } from 'date-fns';
 import * as Yup from 'yup';
@@ -15,7 +15,6 @@ import InputText from '../../components/InputText';
 import { Container, ButtonSave, SaveIcon, LogoutIcon } from './styles';
 
 export default function User() {
-  const userRef = useRef(null);
   const history = useHistory();
 
   const { setAlert } = useAlert();
@@ -32,7 +31,8 @@ export default function User() {
   const [birthDate, setBirthDate] = useState('');
 
   useEffect(() => {
-    api.get('/collaborators/abc123').then((response) => {
+    const storageUser = JSON.parse(localStorage.getItem('@easyAdopt:user'));
+    api.get(`/collaborators/${storageUser.id}`).then((response) => {
       setUser(response.data);
       setIsLoading(false);
     });
@@ -132,7 +132,7 @@ export default function User() {
       {isLoading ? (
         <LoadingUser />
       ) : (
-        <form ref={userRef} onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <fieldset>
             <legend>
               Configurações de usuário

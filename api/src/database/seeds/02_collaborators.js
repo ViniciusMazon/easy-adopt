@@ -10,7 +10,8 @@ exports.seed = function (knex) {
           birth_date: new Date('1986/04/13'),
           cpf: '488.446.340-40',
           email: 'catarina@easyAdopt.com',
-          hash_password: '46070D4BF934FB0D4B',
+          hash_password:
+            '$2b$10$yZa1Py6fqKeSsvmG/baiKeoho2l1hSq8CsojFHaIseuwe/JrHgB0C',
           phone: '(11)8888-6258',
           address_id: '1hj3ge',
         },
@@ -21,7 +22,8 @@ exports.seed = function (knex) {
           birth_date: new Date('1986/10/23'),
           cpf: '815.594.760-28',
           email: 'catarina@easyAdopt.com',
-          hash_password: '46070D4BF934FB0D4B',
+          hash_password:
+            '$2b$10$yZa1Py6fqKeSsvmG/baiKeoho2l1hSq8CsojFHaIseuwe/JrHgB0C',
           phone: '(11)9999-9999',
           address_id: '1hg3gge',
         },
