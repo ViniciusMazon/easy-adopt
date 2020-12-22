@@ -84,6 +84,7 @@ export default function AboutYourHistory() {
           title: 'Deu tudo certo!',
           content:
             'Seu pedido foi registrado e será analisado, em breve entraremos em contato. Cheque seu e-mail regularmente.',
+          redirect: 'Animals',
         },
       });
     } catch (error) {

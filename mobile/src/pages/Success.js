@@ -10,8 +10,8 @@ export default function Success() {
   const route = useRoute();
   const message = route.params.message;
 
-  function navigateToAnimals() {
-    navigation.navigate('Animals');
+  function navigateTo() {
+    navigation.navigate(message.redirect);
   }
 
   return (
@@ -22,7 +22,7 @@ export default function Success() {
         <Text style={styles.title}>{message.title}</Text>
         <Text style={styles.description}>{message.content}</Text>
 
-        <Text onPress={navigateToAnimals} style={styles.link}>
+        <Text onPress={navigateTo} style={styles.link}>
           Voltar para a página principal
         </Text>
       </ImageBackground>
