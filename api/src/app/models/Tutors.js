@@ -26,6 +26,7 @@ module.exports = {
         'images.id as avatar_id',
         'tutors.gender',
         'tutors.name',
+        'tutors.hash_password',
         'tutors.birth_date',
         'tutors.cpf',
         'tutors.email',

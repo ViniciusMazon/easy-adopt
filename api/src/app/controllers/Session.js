@@ -8,7 +8,14 @@ const TutorModel = require('../models/Tutors');
 module.exports = {
   async store(request, response) {
     const { email, password } = request.body;
-    const userData = await CollaboratorModel.showByEmail(email);
+    const { role } = request.query;
+
+    var userData = {};
+    if (role === 'collaborator') {
+      userData = await CollaboratorModel.showByEmail(email);
+    } else {
+      userData = await TutorModel.showByEmail(email);
+    }
 
     if (!userData) {
       return response.status(400).json({ message: 'Usuário não existe' });
