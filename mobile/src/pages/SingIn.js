@@ -12,10 +12,13 @@ import { RectButton } from 'react-native-gesture-handler';
 import { Checkbox } from 'react-native-paper';
 import { Ionicons } from '@expo/vector-icons';
 
+import { useAuth } from '../contexts/auth';
+
 import background from '../assets/images/photoBackground.png';
 
 export default function SingIn() {
   const navigation = useNavigation();
+  const { signed, signIn } = useAuth();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -28,6 +31,10 @@ export default function SingIn() {
 
   function handleNavigateToForgotPassword() {
     navigation.navigate('ForgotPassword');
+  }
+
+  async function handleSignIn() {
+    signIn(email, password);
   }
 
   function handleChangePasswordVisibility() {
@@ -107,7 +114,7 @@ export default function SingIn() {
         </Text>
       </View>
 
-      <TouchableOpacity style={styles.button} onPress={() => {}}>
+      <TouchableOpacity style={styles.button} onPress={handleSignIn}>
         <Text style={styles.buttonText}>Entrar</Text>
       </TouchableOpacity>
     </ImageBackground>
