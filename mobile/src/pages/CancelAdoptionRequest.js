@@ -42,7 +42,14 @@ export default function CancelAdoptionRequest() {
   async function handleCancelAdoptionRequest() {
     setIsLoading(true);
     await api.delete(`/adoption-request/${request.id}`);
-    navigation.navigate('Animals');
+    navigation.navigate('Success', {
+      message: {
+        title: 'Cancelamento concluído!',
+        content:
+          'O cancelamento foi concluído e o animal está novamente disponível para adoção.',
+        redirect: 'Animals',
+      },
+    });
   }
 
   function navigateToSchedulePage() {

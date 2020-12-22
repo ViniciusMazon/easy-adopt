@@ -19,7 +19,16 @@ export default function ForgotPassword() {
 
   const [email, setEmail] = useState('');
 
-  function handleSubmit() {}
+  function handleSubmit() {
+    navigation.navigate('Success', {
+      message: {
+        title: 'Quase lá...',
+        content:
+          'Te enviamos um e-mail com um link para você redefinir sua senha.',
+        redirect: 'SignIn',
+      },
+    });
+  }
 
   return (
     <View style={styles.container}>
@@ -39,7 +48,7 @@ export default function ForgotPassword() {
             placeholder={'email@mail.com'}
           />
 
-          <TouchableOpacity style={styles.button} onPress={() => {}}>
+          <TouchableOpacity style={styles.button} onPress={handleSubmit}>
             <Text style={styles.buttonText}>Recuperar</Text>
           </TouchableOpacity>
         </KeyboardAvoidingView>

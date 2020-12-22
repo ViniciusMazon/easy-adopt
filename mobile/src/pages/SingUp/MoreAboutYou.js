@@ -4,10 +4,11 @@ import {
   ScrollView,
   View,
   Text,
+  Alert,
   TouchableOpacity,
   KeyboardAvoidingView,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import * as Yup from 'yup';
 
 import TopBar from '../../components/TopBar';
@@ -17,13 +18,84 @@ import InputText from '../../components/InputText';
 
 export default function MoreAboutYou() {
   const navigation = useNavigation();
+  const route = useRoute();
+  const { name, gender } = route.params.user;
 
   const [birthDate, setBirthDate] = useState('');
   const [cpf, setCpf] = useState('');
   const [phone, setPhone] = useState('');
 
-  function navigateToAddress() {
-    navigation.navigate('Address');
+  async function navigateToAddress() {
+    try {
+      const schema = Yup.object().shape({
+        birthDate: Yup.string().required().min(10).max(10),
+        cpf: Yup.string().required().min(14).max(14),
+        phone: Yup.string().required().min(14).max(15),
+      });
+
+      await schema.validate(
+        { birthDate, cpf, phone },
+        {
+          abortEarly: false,
+        }
+      );
+
+      const userTutor = {
+        name,
+        gender,
+        birthDate,
+        cpf,
+        phone,
+      };
+
+      navigation.navigate('Address', { userTutor });
+    } catch (err) {
+      Alert.alert(
+        'Dados inválidos',
+        'Verifique se preencheu todos os dados corretamente',
+        [
+          {
+            text: 'Ok',
+            onPress: () => {},
+            style: 'cancel',
+          },
+        ],
+        { cancelable: false }
+      );
+    }
+  }
+
+  function cpfFormatter(cpf) {
+    if (cpf.length === 3 || cpf.length === 7) {
+      setCpf(cpf + '.');
+      return;
+    } else if (cpf.length === 11) {
+      setCpf(cpf + '-');
+      return;
+    }
+    setCpf(cpf);
+  }
+
+  function phoneFormatter(phone) {
+    if (phone.length === 1) {
+      setPhone('(' + phone);
+      return;
+    } else if (phone.length === 3) {
+      setPhone(phone + ') ');
+      return;
+    } else if (phone.length === 10) {
+      setPhone(phone + '-');
+      return;
+    }
+    setPhone(phone);
+  }
+
+  function birthDateFormatter(date) {
+    if (date.length === 2 || date.length === 5) {
+      setBirthDate(date + '/');
+      return;
+    }
+    setBirthDate(date);
   }
 
   return (
@@ -41,16 +113,26 @@ export default function MoreAboutYou() {
 
           <InputText
             label={'Data de nascimento'}
-            setValue={setBirthDate}
+            setValue={birthDateFormatter}
             selectedValue={birthDate}
+            keyboardType="number-pad"
+            maxLength={10}
           />
 
-          <InputText label={'CPF'} setValue={setCpf} selectedValue={cpf} />
+          <InputText
+            label={'CPF'}
+            setValue={cpfFormatter}
+            selectedValue={cpf}
+            keyboardType="number-pad"
+            maxLength={14}
+          />
 
           <InputText
             label={'Celular'}
-            setValue={setPhone}
+            setValue={phoneFormatter}
             selectedValue={phone}
+            keyboardType="number-pad"
+            maxLength={15}
           />
 
           <TouchableOpacity style={styles.button} onPress={navigateToAddress}>

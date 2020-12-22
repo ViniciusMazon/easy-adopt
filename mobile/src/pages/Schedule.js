@@ -104,6 +104,7 @@ export default function Schedule() {
           message: {
             title: 'Agendamento concluído!',
             content: 'Seu agendamento foi concluído com sucesso.',
+            redirect: 'Animals',
           },
         });
       } catch (error) {

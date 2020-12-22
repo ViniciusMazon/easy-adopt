@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import SignIn from '../pages/SingIn';
 import SingUpRoutes from './singUp.routes';
 import ForgotPassword from '../pages/ForgotPassword';
+import Success from '../pages/Success';
 
 const AuthStack = createStackNavigator();
 
@@ -25,6 +26,7 @@ function AuthRoutes() {
         component={ForgotPassword}
         options={{ headerShown: false }}
       />
+      <AuthStack.Screen name="Success" component={Success} />
     </AuthStack.Navigator>
   );
 }

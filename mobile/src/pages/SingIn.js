@@ -58,6 +58,7 @@ export default function SingIn() {
           onChangeText={(text) => setEmail(text)}
           value={email}
           placeholder="email@mail.com"
+          keyboardType="email-address"
         />
       </View>
 

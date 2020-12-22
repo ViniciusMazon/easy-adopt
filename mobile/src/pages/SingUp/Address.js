@@ -4,10 +4,11 @@ import {
   ScrollView,
   View,
   Text,
+  Alert,
   TouchableOpacity,
   KeyboardAvoidingView,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import * as Yup from 'yup';
 
 import TopBar from '../../components/TopBar';
@@ -18,6 +19,8 @@ import InputText from '../../components/InputText';
 
 export default function Address() {
   const navigation = useNavigation();
+  const route = useRoute();
+  const userTutor = route.params.userTutor;
 
   const [street, setStreet] = useState('');
   const [number, setNumber] = useState('');
@@ -26,15 +29,66 @@ export default function Address() {
   const [state, setState] = useState('');
   const [cep, setCep] = useState('');
 
-  function navigateToCredentials() {
-    navigation.navigate('Credentials');
+  async function navigateToCredentials() {
+    try {
+      const schema = Yup.object().shape({
+        street: Yup.string().required().min(3).max(25),
+        number: Yup.string().required().min(1).max(5),
+        neighborhood: Yup.string().required().min(3).max(25),
+        city: Yup.string().required().min(3).max(25),
+        state: Yup.string().required().min(2).max(2),
+        cep: Yup.string().required().min(10).max(10),
+      });
+
+      const userAddress = {
+        street,
+        number,
+        neighborhood,
+        city,
+        state,
+        cep,
+      };
+
+      await schema.validate(
+        userAddress,
+        {
+          abortEarly: false,
+        }
+      );
+
+      navigation.navigate('Credentials', { userAddress, userTutor });
+    } catch (err) {
+      Alert.alert(
+        'Dados inválidos',
+        'Verifique se preencheu todos os dados corretamente',
+        [
+          {
+            text: 'Ok',
+            onPress: () => {},
+            style: 'cancel',
+          },
+        ],
+        { cancelable: false }
+      );
+    }
+  }
+
+  function cepFormatter(cep) {
+    if (cep.length === 2) {
+      setCep(cep + '.');
+      return;
+    } else if (cep.length === 6) {
+      setCep(cep + '-');
+      return;
+    }
+    setCep(cep);
   }
 
   return (
     <View style={styles.container}>
       <TopBar />
       <ScrollView>
-        <KeyboardAvoidingView style={{ flex: 1 }} behavior="position">
+        <KeyboardAvoidingView behavior="padding">
           <PaginationIndicator pages={4} active={3} />
 
           <Section
@@ -47,21 +101,25 @@ export default function Address() {
             label={'Rua'}
             setValue={setStreet}
             selectedValue={street}
+            maxLength={25}
           />
 
           <InputText
             label={'Número'}
             setValue={setNumber}
             selectedValue={number}
+            keyboardType="number-pad"
+            maxLength={5}
           />
 
           <InputText
             label={'Bairro'}
             setValue={setNeighborhood}
             selectedValue={neighborhood}
+            maxLength={25}
           />
 
-          <InputText label={'Cidade'} setValue={setCity} selectedValue={city} />
+          <InputText label={'Cidade'} setValue={setCity} selectedValue={city} maxLength={25}/>
 
           <SelectInput
             label={'UF'}
@@ -98,9 +156,18 @@ export default function Address() {
             ]}
           />
 
-          <InputText label={'CEP'} setValue={setCep} selectedValue={cep} />
+          <InputText
+            label={'CEP'}
+            setValue={cepFormatter}
+            selectedValue={cep}
+            keyboardType="number-pad"
+            maxLength={10}
+          />
 
-          <TouchableOpacity style={styles.button} onPress={navigateToCredentials}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={navigateToCredentials}
+          >
             <Text style={styles.buttonText}>Próximo</Text>
           </TouchableOpacity>
         </KeyboardAvoidingView>

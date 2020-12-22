@@ -4,6 +4,7 @@ import {
   ScrollView,
   View,
   Text,
+  Alert,
   TouchableOpacity,
   KeyboardAvoidingView,
 } from 'react-native';
@@ -22,8 +23,36 @@ export default function YourName() {
   const [name, setName] = useState('');
   const [gender, setGender] = useState('');
 
-  function navigateToMoreAboutYou() {
-    navigation.navigate('MoreAboutYou');
+  async function navigateToMoreAboutYou() {
+    try {
+      const schema = Yup.object().shape({
+        name: Yup.string().min(3).max(50).required(),
+        gender: Yup.string().required(),
+      });
+
+      const user = {
+        name,
+        gender,
+      };
+
+      await schema.validate(user, {
+        abortEarly: false,
+      });
+      navigation.navigate('MoreAboutYou', { user });
+    } catch (err) {
+      Alert.alert(
+        'Dados inválidos',
+        'Verifique se preencheu todos os dados corretamente',
+        [
+          {
+            text: 'Ok',
+            onPress: () => {},
+            style: 'cancel',
+          },
+        ],
+        { cancelable: false }
+      );
+    }
   }
 
   return (
@@ -45,6 +74,7 @@ export default function YourName() {
             label={'Nome completo'}
             setValue={setName}
             selectedValue={name}
+            maxLength={50}
           />
 
           <SelectInput
