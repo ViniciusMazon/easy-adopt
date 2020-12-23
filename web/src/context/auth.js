@@ -12,8 +12,8 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     async function loadStorageData() {
-      const storageUser = localStorage.getItem('@easyAdopt:user');
-      const storageToken = localStorage.getItem('@easyAdopt:token');
+      const storageUser = sessionStorage.getItem('@easyAdopt:user');
+      const storageToken = sessionStorage.getItem('@easyAdopt:token');
 
       if (storageUser && storageToken) {
         setUser(JSON.parse(storageUser));
@@ -27,17 +27,17 @@ export function AuthProvider({ children }) {
 
   async function signIn(email, password) {
     try {
-      const response = await api.post('/sing-in', { email, password });
+      const response = await api.post('/sing-in?role=collaborator', { email, password });
 
       setUser(response.data.user);
 
       api.defaults.headers['Authorization'] = `${response.data.token}`;
 
-      localStorage.setItem(
+      sessionStorage.setItem(
         '@easyAdopt:user',
         JSON.stringify(response.data.user)
       );
-      localStorage.setItem('@easyAdopt:token', response.data.token);
+      sessionStorage.setItem('@easyAdopt:token', response.data.token);
     } catch (err) {
       if (err.message === 'Request failed with status code 400') {
         setAlert({ type: 'warning', message: 'Usuário não encontrado' });
@@ -52,7 +52,7 @@ export function AuthProvider({ children }) {
   }
 
   function signOut() {
-    localStorage.clear();
+    sessionStorage.clear();
     setUser(null);
   }
 

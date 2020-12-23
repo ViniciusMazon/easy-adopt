@@ -31,7 +31,7 @@ export default function User() {
   const [birthDate, setBirthDate] = useState('');
 
   useEffect(() => {
-    const storageUser = JSON.parse(localStorage.getItem('@easyAdopt:user'));
+    const storageUser = JSON.parse(sessionStorage.getItem('@easyAdopt:user'));
     api.get(`/collaborators/${storageUser.id}`).then((response) => {
       setUser(response.data);
       setIsLoading(false);
