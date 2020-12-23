@@ -12,6 +12,7 @@ exports.seed = function (knex) {
           email: 'fabiola@gmail.com',
           hash_password: '46070D4BF934FB0D4B',
           phone: '(11)8888-8888',
+          role: 'tutor',
           avatar_id: 'img5',
           address_id: 'j3k45jh',
         },

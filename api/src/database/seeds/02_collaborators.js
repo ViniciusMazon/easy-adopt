@@ -13,6 +13,7 @@ exports.seed = function (knex) {
           hash_password:
             '$2b$10$yZa1Py6fqKeSsvmG/baiKeoho2l1hSq8CsojFHaIseuwe/JrHgB0C',
           phone: '(11)8888-6258',
+          role: 'collaborator',
           address_id: '1hj3ge',
         },
         {
@@ -25,6 +26,7 @@ exports.seed = function (knex) {
           hash_password:
             '$2b$10$yZa1Py6fqKeSsvmG/baiKeoho2l1hSq8CsojFHaIseuwe/JrHgB0C',
           phone: '(11)9999-9999',
+          role: 'collaborator',
           address_id: '1hg3gge',
         },
       ]);

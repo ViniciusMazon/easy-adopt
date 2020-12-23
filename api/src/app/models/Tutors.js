@@ -31,6 +31,8 @@ module.exports = {
         'tutors.cpf',
         'tutors.email',
         'tutors.phone',
+        'tutors.password_reset_token',
+        'tutors.password_reset_expires',
         'tutors.address_id',
         'addresses.street',
         'addresses.number',

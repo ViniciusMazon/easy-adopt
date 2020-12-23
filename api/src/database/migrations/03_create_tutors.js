@@ -7,7 +7,10 @@ exports.up = function (knex) {
     table.string('cpf').notNullable();
     table.string('email').notNullable();
     table.string('hash_password').notNullable();
+    table.string('password_reset_token').nullable();
+    table.date('password_reset_expires').nullable();
     table.string('phone').notNullable();
+    table.string('role').notNullable();
     table
       .string('avatar_id')
       .references('id')
