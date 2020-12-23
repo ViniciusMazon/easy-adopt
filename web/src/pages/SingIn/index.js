@@ -71,12 +71,16 @@ export default function SingIn() {
             type="email"
             maxLength="25"
           />
+
           <InputPassword
             label={'Senha'}
             value={password}
             setValue={setPassword}
             maxLength="25"
           />
+
+          <Link to="reset-password">Esqueci minha senha</Link>
+
           <Button type={'submit'} disabled={isSpinning}>
             {isSpinning === false ? (
               'Entrar'
@@ -89,7 +93,8 @@ export default function SingIn() {
               />
             )}
           </Button>
-          <Link to="singup-access-code">
+
+          <Link to="singup-access-code" className="singUp">
             Não possui uma conta? <strong>Cadastra-se</strong>
           </Link>
         </form>

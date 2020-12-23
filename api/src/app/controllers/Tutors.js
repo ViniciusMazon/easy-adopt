@@ -37,6 +37,7 @@ module.exports = {
         email,
         hash_password: await hash.encrypt(password),
         phone,
+        role: 'tutor',
         address_id,
       };
 

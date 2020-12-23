@@ -4,11 +4,13 @@ import {
   ScrollView,
   View,
   Text,
+  Alert,
   TouchableOpacity,
   KeyboardAvoidingView,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import * as Yup from 'yup';
+
+import api from '../services/api';
 
 import TopBar from '../components/TopBar';
 import Section from '../components/Section';
@@ -19,15 +21,47 @@ export default function ForgotPassword() {
 
   const [email, setEmail] = useState('');
 
-  function handleSubmit() {
-    navigation.navigate('Success', {
-      message: {
-        title: 'Quase lá...',
-        content:
-          'Te enviamos um e-mail com um link para você redefinir sua senha.',
-        redirect: 'SignIn',
-      },
-    });
+  async function handleSubmit() {
+    if (!email) {
+      Alert.alert(
+        'E-mail inválido',
+        'Informe um e-mail válido',
+        [
+          {
+            text: 'Ok',
+            onPress: () => {},
+            style: 'cancel',
+          },
+        ],
+        { cancelable: false }
+      );
+    }
+
+    try {
+      await await api.get(`/password-reset/tutor/${email}`);
+
+      navigation.navigate('Success', {
+        message: {
+          title: 'Quase lá...',
+          content:
+            'Te enviamos um e-mail com um link para você redefinir sua senha.',
+          redirect: 'SignIn',
+        },
+      });
+    } catch (err) {
+      Alert.alert(
+        'Ops...',
+        'Não conseguimos redefinir sua senha no momento, tente novamente mais tarde.',
+        [
+          {
+            text: 'Ok',
+            onPress: () => {},
+            style: 'cancel',
+          },
+        ],
+        { cancelable: false }
+      );
+    }
   }
 
   return (
@@ -46,6 +80,7 @@ export default function ForgotPassword() {
             setValue={setEmail}
             selectedValue={email}
             placeholder={'email@mail.com'}
+            keyboardType="email-address"
           />
 
           <TouchableOpacity style={styles.button} onPress={handleSubmit}>

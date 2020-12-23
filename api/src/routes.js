@@ -19,6 +19,7 @@ const help = require('./app/controllers/Help');
 const tutors = require('./app/controllers/Tutors');
 const Addresses = require('./app/controllers/Addresses');
 const Images = require('./app/controllers/Images');
+const ResetPassword = require('./app/controllers/ResetPassword');
 
 // Public routes
 routes.post('/collaborators', collaborators.create);
@@ -28,6 +29,11 @@ routes.post('/tutors', tutors.create);
 routes.post('/address', Addresses.create);
 
 routes.post('/sing-in', session.store);
+
+routes.get('/access-code/:access_code', accessCode.show);
+
+routes.get('/password-reset/:role/:email', ResetPassword.show);
+routes.post('/password-reset', ResetPassword.store);
 
 // Private routes
 routes.use(authMiddleware);
@@ -41,7 +47,6 @@ routes.get('/tutors/:email', tutors.show);
 routes.put('/address/:id', Addresses.update);
 
 routes.post('/access-code', accessCode.create);
-routes.get('/access-code/:access_code', accessCode.show);
 
 routes.post('/animals', upload.array('images'), animals.create);
 routes.put('/animals/:id', animals.update);

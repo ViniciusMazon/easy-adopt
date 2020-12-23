@@ -28,7 +28,7 @@ import logoSimplified from '../../assets/simplifiedLogo.svg';
 
 function MenuBar() {
   const history = useHistory();
-  const storageUser = JSON.parse(localStorage.getItem('@easyAdopt:user'));
+  const storageUser = JSON.parse(sessionStorage.getItem('@easyAdopt:user'));
 
   const {
     activeSection,

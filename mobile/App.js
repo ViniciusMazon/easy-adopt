@@ -1,9 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import api from './src/services/api';
+
 import { AppLoading } from 'expo';
+
+import { AuthProvider } from './src/contexts/auth';
+
 import {
   useFonts,
   Montserrat_400Regular,
@@ -34,8 +36,10 @@ export default function App() {
   } else {
     return (
       <NavigationContainer>
-        <Routes />
-        <StatusBar style="dark" backgroundColor={'#FFF0F6'} />
+        <AuthProvider>
+          <Routes />
+          <StatusBar style="dark" backgroundColor={'#FFF0F6'} />
+        </AuthProvider>
       </NavigationContainer>
     );
   }

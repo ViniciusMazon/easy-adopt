@@ -9,13 +9,15 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { RectButton } from 'react-native-gesture-handler';
-import { Checkbox } from 'react-native-paper';
 import { Ionicons } from '@expo/vector-icons';
+
+import { useAuth } from '../contexts/auth';
 
 import background from '../assets/images/photoBackground.png';
 
 export default function SingIn() {
   const navigation = useNavigation();
+  const { signed, signIn } = useAuth();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -28,6 +30,10 @@ export default function SingIn() {
 
   function handleNavigateToForgotPassword() {
     navigation.navigate('ForgotPassword');
+  }
+
+  async function handleSignIn() {
+    signIn(email, password);
   }
 
   function handleChangePasswordVisibility() {
@@ -84,30 +90,11 @@ export default function SingIn() {
         </RectButton>
       </View>
 
-      <View style={styles.optionsGroup}>
-        <View style={styles.checkboxGroup}>
-          <Checkbox
-            color={'#FA5293'}
-            status={checked ? 'checked' : 'unchecked'}
-            onPress={() => {
-              setChecked(!checked);
-            }}
-          />
-          <Text
-            style={styles.checkboxLabel}
-            onPress={() => {
-              setChecked(!checked);
-            }}
-          >
-            Lembrar-se
-          </Text>
-        </View>
-        <Text style={styles.forgot} onPress={handleNavigateToForgotPassword}>
-          Esqueci minha senha
-        </Text>
-      </View>
+      <Text style={styles.forgot} onPress={handleNavigateToForgotPassword}>
+        Esqueci minha senha
+      </Text>
 
-      <TouchableOpacity style={styles.button} onPress={() => {}}>
+      <TouchableOpacity style={styles.button} onPress={handleSignIn}>
         <Text style={styles.buttonText}>Entrar</Text>
       </TouchableOpacity>
     </ImageBackground>
@@ -184,26 +171,12 @@ const styles = StyleSheet.create({
     marginTop: -41,
     marginRight: 15,
   },
-  optionsGroup: {
-    width: '90%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 20,
-  },
-  checkboxGroup: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  checkboxLabel: {
-    fontFamily: 'Montserrat_400Regular',
-    fontSize: 14,
-    color: '#fff',
-  },
   forgot: {
     fontFamily: 'Montserrat_600SemiBold',
     fontSize: 14,
     color: '#fff',
+    alignSelf: 'flex-end',
+    marginTop: 20,
   },
   button: {
     width: '90%',

@@ -33,7 +33,7 @@ export default function AddProcedure() {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      const storageUser = JSON.parse(localStorage.getItem('@easyAdopt:user'));
+      const storageUser = JSON.parse(sessionStorage.getItem('@easyAdopt:user'));
 
       const schema = Yup.object().shape({
         name: Yup.string().required('O procedimento é obrigatório'),

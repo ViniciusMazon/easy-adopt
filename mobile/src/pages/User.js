@@ -35,10 +35,11 @@ export default function User() {
   const [cep, setCep] = useState('');
 
   async function getTutor() {
-    const data = await AsyncStorage.getItem('@easyAdopt_user');
+    const data = await AsyncStorage.getItem('@RNAuth:user');
     const tutor = JSON.parse(data);
-    setTutor(tutor);
-    setAddress(tutor.address);
+    const response = await api.get(`/tutors/${tutor.email}`);
+    setTutor(response.data);
+    setAddress(response.data.address);
   }
 
   useEffect(() => {

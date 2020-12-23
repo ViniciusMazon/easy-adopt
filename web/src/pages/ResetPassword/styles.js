@@ -1,7 +1,7 @@
 import styled from 'styled-components';
+import { ArrowBack } from '../../styles/Icons';
 
 import backgroundImage from '../../assets/background.png';
-import logoImage from '../../assets/logo.svg';
 
 export const Container = styled.div`
   width: 100%;
@@ -22,45 +22,41 @@ export const RSide = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
+`;
+export const BackButton = styled.button`
+  display: flex;
+  align-items: center;
+  padding: 0.8rem 1.2rem;
 
-  > form {
-    width: 33.3rem;
+  font-size: 1.4rem;
+  color: var(--link);
 
-    display: flex;
-    flex-direction: column;
-
-    > a {
-      color: var(--text);
-      font: 1.6rem 'Montserrat';
-      text-decoration: none;
-      cursor: pointer;
-      align-self: flex-end;
-
-      > strong {
-        color: var(--link);
-        font-weight: 700;
-      }
-    }
-  }
-
-  .singUp {
-    align-self: center;
-  }
+  cursor: pointer;
+  outline: 0;
+  position: absolute;
+  top: 0;
+  left: 55.5%;
+  margin-top: 2rem;
 `;
 
-export const Logo = styled.div`
-  width: 24.6rem;
-  height: 18rem;
-  background: url(${logoImage}) no-repeat center;
-  background-size: cover;
-
-  margin-bottom: 12.8rem;
+export const BackIcon = styled(ArrowBack)`
+  width: 2.8rem;
+  height: 2.4rem;
+  fill: var(--link);
+  flex-shrink: 0;
+  margin-right: 0.8rem;
 `;
 
-export const Button = styled.button.attrs((props) => ({
-  type: 'submit',
-}))`
+export const Form = styled.div`
+  width: 33.3rem;
+
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 19rem;
+`;
+
+export const Button = styled.button`
   width: 33.3rem;
   height: 6rem;
   align-self: flex-end;
@@ -74,7 +70,7 @@ export const Button = styled.button.attrs((props) => ({
 
   font: 500 1.6rem 'Montserrat';
   color: var(--white);
-  margin-top: 4rem;
+  margin-top: 2rem;
   margin-bottom: 2.4rem;
 
   outline: 0;

@@ -4,11 +4,18 @@ import { BorderlessButton } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { back, logOut } from '../styles/icons';
 
+import { useAuth } from '../contexts/auth';
+
 export default function TopBar({ userPage = false }) {
   const { goBack } = useNavigation();
+  const { signOut } = useAuth();
 
   function handleGoBack() {
     goBack();
+  }
+
+  function handleSignOut() {
+    signOut();
   }
 
   return (
@@ -18,7 +25,7 @@ export default function TopBar({ userPage = false }) {
       </BorderlessButton>
 
       {userPage && (
-        <BorderlessButton onPress={() => {}} style={styles.button}>
+        <BorderlessButton onPress={handleSignOut} style={styles.button}>
           <Image source={logOut} resizeMode="contain" style={styles.icon} />
           <Text style={styles.exitText}>Sair</Text>
         </BorderlessButton>
