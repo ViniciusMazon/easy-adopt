@@ -10,8 +10,8 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     async function loadStorageData() {
-      const storageUser = await AsyncStorage.getItem('@RNAuth:user');
-      const storageToken = await AsyncStorage.getItem('@RNAuth:token');
+      const storageUser = await AsyncStorage.getItem('@EasyAdopt:user');
+      const storageToken = await AsyncStorage.getItem('@EasyAdopt:token');
 
       if (storageUser && storageToken) {
         setUser(JSON.parse(storageUser));
@@ -31,10 +31,10 @@ export const AuthProvider = ({ children }) => {
     api.defaults.headers['Authorization'] = `${response.data.token}`;
 
     await AsyncStorage.setItem(
-      '@RNAuth:user',
+      '@EasyAdopt:user',
       JSON.stringify(response.data.user)
     );
-    await AsyncStorage.setItem('@RNAuth:token', response.data.token);
+    await AsyncStorage.setItem('@EasyAdopt:token', response.data.token);
   }
 
   function signOut() {
