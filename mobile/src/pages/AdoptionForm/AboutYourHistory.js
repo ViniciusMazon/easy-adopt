@@ -34,7 +34,7 @@ export default function AboutYourHistory() {
   const [why_want_adopt, setWhyWantAdopt] = useState('');
 
   async function getTutorId() {
-    const data = await AsyncStorage.getItem('@easyAdopt_user');
+    const data = await AsyncStorage.getItem('@EasyAdopt:user');
     const tutor = JSON.parse(data);
     return tutor.id;
   }
