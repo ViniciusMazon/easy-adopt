@@ -90,15 +90,17 @@ module.exports = {
 
       const link = `http://localhost:3000/redefine-password/${role}/${user.email}/${token}`;
 
-      await sendMail({
-        to: `${user.name} <${user.email}>`,
-        subject: 'Eita, esqueceu sua senha?',
-        template: 'resetPassword',
-        context: {
-          name: user.name,
-          link,
-        },
-      });
+      if (process.env.NODE_ENV !== 'test') {
+        await sendMail({
+          to: `${user.name} <${user.email}>`,
+          subject: 'Eita, esqueceu sua senha?',
+          template: 'resetPassword',
+          context: {
+            name: user.name,
+            link,
+          },
+        });
+      }
 
       return response.send();
     } catch (err) {

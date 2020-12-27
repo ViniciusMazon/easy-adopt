@@ -10,6 +10,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { RectButton } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { useAuth } from '../contexts/auth';
 
@@ -33,6 +34,9 @@ export default function SingIn() {
   }
 
   async function handleSignIn() {
+    if (!email || !password) {
+      return;
+    }
     signIn(email, password);
   }
 

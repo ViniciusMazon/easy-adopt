@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
 import api from '../services/api';
 
 import Section from '../components/Section';
@@ -11,27 +12,51 @@ export default function Animals() {
   const [adoptionRequests, setAdoptionRequests] = useState([]);
   const [animals, setAnimals] = useState([]);
 
-  async function getTutorId() {
-    const data = await AsyncStorage.getItem('@easyAdopt_user');
-    const tutor = JSON.parse(data);
-    return tutor.id;
-  }
+  // async function getTutorId() {
+  //   const data = await AsyncStorage.getItem('@EasyAdopt:user');
+  //   const tutor = JSON.parse(data);
+  //   return tutor.id;
+  // }
 
-  async function getAdoptionRequests() {
-    const tutorID = await getTutorId();
-    const response = await api.get(`/adoption-request?tutor_id=${tutorID}`);
-    setAdoptionRequests(response.data);
-  }
+  // async function getAdoptionRequests() {
+  //   const tutorID = await getTutorId();
+  //   const response = await api.get(`/adoption-request?tutor_id=${tutorID}`);
+  //   setAdoptionRequests(response.data);
+  // }
 
-  async function getAnimals() {
-    const response = await api.get('/animals?status=disponível');
-    setAnimals(response.data);
-  }
+  // async function getAnimals() {
+  //   const response = await api.get('/animals?status=disponível');
+  //   setAnimals(response.data);
+  // }
 
-  useEffect(() => {
-    getAdoptionRequests();
-    getAnimals();
-  }, []);
+  // useEffect(() => {
+  //   getAdoptionRequests();
+  //   getAnimals();
+  // }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      const getTutorId = async () => {
+        const data = await AsyncStorage.getItem('@EasyAdopt:user');
+        const tutor = JSON.parse(data);
+        return tutor.id;
+      };
+
+      const getAdoptionRequests = async () => {
+        const tutorID = await getTutorId();
+        const response = await api.get(`/adoption-request?tutor_id=${tutorID}`);
+        setAdoptionRequests(response.data);
+      };
+
+      const getAnimals = async () => {
+        const response = await api.get('/animals?status=disponível');
+        setAnimals(response.data);
+      };
+
+      getAdoptionRequests();
+      getAnimals();
+    }, [])
+  );
 
   return (
     <ScrollView style={styles.container}>

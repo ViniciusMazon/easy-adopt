@@ -2,7 +2,7 @@ const request = require('supertest');
 const db = require('../../src/database/connection');
 const app = require('../../src/app');
 
-describe('Session', () => {
+describe('Procedures', () => {
   beforeEach(async () => {
     await db.migrate.latest();
     await db.seed.run();
@@ -16,12 +16,12 @@ describe('Session', () => {
     await db.destroy();
   });
 
-  describe('POST', () => {
-    it('Should generate a token', async () => {
-      const response = await request(app).post('/sing-in?role=collaborator').send({
-        email: 'catarina@easyAdopt.com',
-        password: '123456789',
-      });
+  describe('SHOW', () => {
+    it('Should generate a token to reset the password', async () => {
+      const response = await request(app).get(
+        '/password-reset/collaborator/catarina@easyAdopt.com'
+      );
+
       expect(response.statusCode).toEqual(200);
     });
   });
