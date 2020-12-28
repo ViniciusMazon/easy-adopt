@@ -21,6 +21,10 @@ import ScheduleItem from '../components/ScheduleItem';
 export default function Schedule() {
   const navigation = useNavigation();
   const route = useRoute();
+
+  const morningTime = '09:00 às 11:00';
+  const afternoonTime = '14:00 às 17:00';
+
   const params = route.params;
   const request = params.request;
   const [isLoading, setIsLoading] = useState(false);
@@ -30,7 +34,7 @@ export default function Schedule() {
   useEffect(() => {
     let dateList = [];
 
-    for (var i = 0; i < 7; i++) {
+    for (var i = 1; i < 8; i++) {
       let tempDate = addDays(new Date(), i);
       const numberWeekday = Number(getDay(tempDate));
 
@@ -60,16 +64,17 @@ export default function Schedule() {
         dateList.push({
           weekday: tmpWeekday,
           date: format(tempDate, 'dd/MM/yyyy'),
-          period: '09:00 às 11:00',
+          period: morningTime,
         });
 
         dateList.push({
           weekday: tmpWeekday,
           date: format(tempDate, 'dd/MM/yyyy'),
-          period: '14:00 às 17:00',
+          period: afternoonTime,
         });
       }
     }
+
     setValidSchedule(dateList);
   }, []);
 
@@ -87,7 +92,9 @@ export default function Schedule() {
 
         const scheduleData = {
           date: format(
-            new Date(splittedDate[2], splittedDate[1], splittedDate[0]),
+            new Date(
+              `${splittedDate[2]}/${splittedDate[1]}/${splittedDate[0]}`
+            ),
             'yyyy-MM-dd'
           ),
           period: validSchedule[dateActive].period,
@@ -107,6 +114,7 @@ export default function Schedule() {
             redirect: 'Animals',
           },
         });
+        setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
         if (error instanceof ValidationError) {

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
+import { Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../services/api';
 
@@ -24,17 +25,35 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   async function signIn(email, password) {
-    const response = await api.post('/sing-in?role=tutor', { email, password });
+    try {
+      const response = await api.post('/sing-in?role=tutor', {
+        email,
+        password,
+      });
 
-    setUser(response.data.user);
+      setUser(response.data.user);
 
-    api.defaults.headers['Authorization'] = `${response.data.token}`;
+      api.defaults.headers['Authorization'] = `${response.data.token}`;
 
-    await AsyncStorage.setItem(
-      '@EasyAdopt:user',
-      JSON.stringify(response.data.user)
-    );
-    await AsyncStorage.setItem('@EasyAdopt:token', response.data.token);
+      await AsyncStorage.setItem(
+        '@EasyAdopt:user',
+        JSON.stringify(response.data.user)
+      );
+      await AsyncStorage.setItem('@EasyAdopt:token', response.data.token);
+    } catch (err) {
+      return Alert.alert(
+        'Usuário ou senha inválido',
+        'Verifique as informações preenchidas e tente novamente',
+        [
+          {
+            text: 'Ok',
+            onPress: () => {},
+            style: 'cancel',
+          },
+        ],
+        { cancelable: false }
+      );
+    }
   }
 
   function signOut() {

@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import React, { useState, useEffect, useCallback } from 'react';
+import { View, StyleSheet, ScrollView } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import api from '../services/api';
 
 import Section from '../components/Section';
@@ -8,11 +9,13 @@ import DonationCard from '../components/DonationCard';
 export default function Donation() {
   const [donationCampaigns, setDonationCampaigns] = useState([]);
 
-  useEffect(() => {
-    api.get('/donation-campaigns').then((response) => {
-      setDonationCampaigns(response.data);
-    });
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      api.get('/donation-campaigns').then((response) => {
+        setDonationCampaigns(response.data);
+      });
+    }, [])
+  );
 
   return (
     <View style={styles.container}>

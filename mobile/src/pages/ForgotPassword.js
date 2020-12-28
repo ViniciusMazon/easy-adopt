@@ -7,6 +7,7 @@ import {
   Alert,
   TouchableOpacity,
   KeyboardAvoidingView,
+  ActivityIndicator,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
@@ -19,6 +20,7 @@ import InputText from '../components/InputText';
 export default function ForgotPassword() {
   const navigation = useNavigation();
 
+  const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState('');
 
   async function handleSubmit() {
@@ -38,6 +40,7 @@ export default function ForgotPassword() {
     }
 
     try {
+      setIsLoading(true);
       await await api.get(`/password-reset/tutor/${email}`);
 
       navigation.navigate('Success', {
@@ -48,7 +51,9 @@ export default function ForgotPassword() {
           redirect: 'SignIn',
         },
       });
+      setIsLoading(false);
     } catch (err) {
+      setIsLoading(false);
       Alert.alert(
         'Ops...',
         'Não conseguimos redefinir sua senha no momento, tente novamente mais tarde.',
@@ -84,7 +89,11 @@ export default function ForgotPassword() {
           />
 
           <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-            <Text style={styles.buttonText}>Recuperar</Text>
+            {isLoading ? (
+              <ActivityIndicator size="large" color="#FFF" />
+            ) : (
+              <Text style={styles.buttonText}>Recuperar</Text>
+            )}
           </TouchableOpacity>
         </KeyboardAvoidingView>
       </ScrollView>

@@ -6,7 +6,6 @@ import {
   Text,
   Alert,
   TouchableOpacity,
-  KeyboardAvoidingView,
 } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import * as Yup from 'yup';
@@ -49,12 +48,9 @@ export default function Address() {
         cep,
       };
 
-      await schema.validate(
-        userAddress,
-        {
-          abortEarly: false,
-        }
-      );
+      await schema.validate(userAddress, {
+        abortEarly: false,
+      });
 
       navigation.navigate('Credentials', { userAddress, userTutor });
     } catch (err) {
@@ -88,89 +84,89 @@ export default function Address() {
     <View style={styles.container}>
       <TopBar />
       <ScrollView>
-        <KeyboardAvoidingView behavior="padding">
-          <PaginationIndicator pages={4} active={3} />
+        <PaginationIndicator pages={4} active={3} />
 
-          <Section
-            title={'Onde você mora?'}
-            subtitle={''}
-            newStyles={{ marginBottom: 40 }}
-          />
+        <Section
+          title={'Onde você mora?'}
+          subtitle={''}
+          newStyles={{ marginBottom: 40 }}
+        />
 
-          <InputText
-            label={'Rua'}
-            setValue={setStreet}
-            selectedValue={street}
-            maxLength={25}
-          />
+        <InputText
+          label={'Rua'}
+          setValue={setStreet}
+          selectedValue={street}
+          maxLength={25}
+        />
 
-          <InputText
-            label={'Número'}
-            setValue={setNumber}
-            selectedValue={number}
-            keyboardType="number-pad"
-            maxLength={5}
-          />
+        <InputText
+          label={'Número'}
+          setValue={setNumber}
+          selectedValue={number}
+          keyboardType="number-pad"
+          maxLength={5}
+        />
 
-          <InputText
-            label={'Bairro'}
-            setValue={setNeighborhood}
-            selectedValue={neighborhood}
-            maxLength={25}
-          />
+        <InputText
+          label={'Bairro'}
+          setValue={setNeighborhood}
+          selectedValue={neighborhood}
+          maxLength={25}
+        />
 
-          <InputText label={'Cidade'} setValue={setCity} selectedValue={city} maxLength={25}/>
+        <InputText
+          label={'Cidade'}
+          setValue={setCity}
+          selectedValue={city}
+          maxLength={25}
+        />
 
-          <SelectInput
-            label={'UF'}
-            selectedValue={state}
-            setValue={setState}
-            itemsList={[
-              { label: 'AC', value: 'AC' },
-              { label: 'AL', value: 'AL' },
-              { label: 'AP', value: 'AP' },
-              { label: 'AM', value: 'AM' },
-              { label: 'BA', value: 'BA' },
-              { label: 'CE', value: 'CE' },
-              { label: 'DF', value: 'DF' },
-              { label: 'ES', value: 'ES' },
-              { label: 'GO', value: 'GO' },
-              { label: 'MA', value: 'MA' },
-              { label: 'MT', value: 'MT' },
-              { label: 'MS', value: 'MS' },
-              { label: 'MG', value: 'MG' },
-              { label: 'PA', value: 'PA' },
-              { label: 'PB', value: 'PB' },
-              { label: 'PR', value: 'PR' },
-              { label: 'PE', value: 'PE' },
-              { label: 'PI', value: 'PI' },
-              { label: 'RJ', value: 'RJ' },
-              { label: 'RN', value: 'RN' },
-              { label: 'RS', value: 'RS' },
-              { label: 'RO', value: 'RO' },
-              { label: 'RR', value: 'RR' },
-              { label: 'SC', value: 'SC' },
-              { label: 'SP', value: 'SP' },
-              { label: 'SE', value: 'SE' },
-              { label: 'TO', value: 'TO' },
-            ]}
-          />
+        <SelectInput
+          label={'UF'}
+          selectedValue={state}
+          setValue={setState}
+          itemsList={[
+            { label: 'AC', value: 'AC' },
+            { label: 'AL', value: 'AL' },
+            { label: 'AP', value: 'AP' },
+            { label: 'AM', value: 'AM' },
+            { label: 'BA', value: 'BA' },
+            { label: 'CE', value: 'CE' },
+            { label: 'DF', value: 'DF' },
+            { label: 'ES', value: 'ES' },
+            { label: 'GO', value: 'GO' },
+            { label: 'MA', value: 'MA' },
+            { label: 'MT', value: 'MT' },
+            { label: 'MS', value: 'MS' },
+            { label: 'MG', value: 'MG' },
+            { label: 'PA', value: 'PA' },
+            { label: 'PB', value: 'PB' },
+            { label: 'PR', value: 'PR' },
+            { label: 'PE', value: 'PE' },
+            { label: 'PI', value: 'PI' },
+            { label: 'RJ', value: 'RJ' },
+            { label: 'RN', value: 'RN' },
+            { label: 'RS', value: 'RS' },
+            { label: 'RO', value: 'RO' },
+            { label: 'RR', value: 'RR' },
+            { label: 'SC', value: 'SC' },
+            { label: 'SP', value: 'SP' },
+            { label: 'SE', value: 'SE' },
+            { label: 'TO', value: 'TO' },
+          ]}
+        />
 
-          <InputText
-            label={'CEP'}
-            setValue={cepFormatter}
-            selectedValue={cep}
-            keyboardType="number-pad"
-            maxLength={10}
-          />
+        <InputText
+          label={'CEP'}
+          setValue={cepFormatter}
+          selectedValue={cep}
+          keyboardType="number-pad"
+          maxLength={10}
+        />
 
-          <TouchableOpacity
-            style={styles.button}
-            onPress={navigateToCredentials}
-          >
-            <Text style={styles.buttonText}>Próximo</Text>
-          </TouchableOpacity>
-        </KeyboardAvoidingView>
+        <TouchableOpacity style={styles.button} onPress={navigateToCredentials}>
+          <Text style={styles.buttonText}>Próximo</Text>
+        </TouchableOpacity>
       </ScrollView>
     </View>
   );
@@ -193,6 +189,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
     marginTop: 20,
+    marginBottom: 60,
   },
   buttonText: {
     color: '#FA5293',

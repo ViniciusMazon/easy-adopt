@@ -6,11 +6,11 @@ import {
   TouchableOpacity,
   TextInput,
   ImageBackground,
+  ActivityIndicator,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { RectButton } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { useAuth } from '../contexts/auth';
 
@@ -18,12 +18,12 @@ import background from '../assets/images/photoBackground.png';
 
 export default function SingIn() {
   const navigation = useNavigation();
-  const { signed, signIn } = useAuth();
+  const { signIn } = useAuth();
 
+  const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const [checked, setChecked] = useState(false);
 
   function handleNavigateToSingUp() {
     navigation.navigate('SingUp');
@@ -37,7 +37,9 @@ export default function SingIn() {
     if (!email || !password) {
       return;
     }
-    signIn(email, password);
+    setIsLoading(true);
+    await signIn(email, password);
+    setIsLoading(false);
   }
 
   function handleChangePasswordVisibility() {
@@ -99,8 +101,14 @@ export default function SingIn() {
       </Text>
 
       <TouchableOpacity style={styles.button} onPress={handleSignIn}>
-        <Text style={styles.buttonText}>Entrar</Text>
+        {isLoading ? (
+          <ActivityIndicator size="large" color="#FFF" />
+        ) : (
+          <Text style={styles.buttonText}>Entrar</Text>
+        )}
       </TouchableOpacity>
+
+      <Text style={styles.imageCredit}>Photo by Chewy on Unsplash</Text>
     </ImageBackground>
   );
 }
@@ -195,5 +203,11 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#FFF',
     fontFamily: 'Montserrat_600SemiBold',
+  },
+  imageCredit: {
+    fontFamily: 'Montserrat_400Regular',
+    fontSize: 12,
+    color: '#FFF',
+    marginTop: 30,
   },
 });

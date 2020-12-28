@@ -22,7 +22,7 @@ export default function DonationForm() {
   const [amount, setAmount] = useState('');
 
   async function getTutorId() {
-    const data = await AsyncStorage.getItem('@easyAdopt_user');
+    const data = await AsyncStorage.getItem('@EasyAdopt:user');
     const tutor = JSON.parse(data);
     setTutor(tutor);
   }
@@ -33,7 +33,7 @@ export default function DonationForm() {
 
   async function handleSubmit() {
     const donationData = {
-      amount,
+      amount: amount.toString().replace(',', '.'),
       email: tutor.email,
       tutor_id: tutor.id,
       donation_campaign_id: params.campaign.id,
