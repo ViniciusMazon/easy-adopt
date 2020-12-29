@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node ./src/server.js",
     "dev": "nodemon ./src/server.js",
-    "test": "cross-env NODE_ENV=test jest --no-cache",
+    "test": "cross-env NODE_ENV=test jest --no-cache --runInBand",
     "knex:migrate": "knex --knexfile ./knexfile.js migrate:latest",
     "knex:seed": "knex --knexfile ./knexfile.js seed:run"
   },
