@@ -1,5 +1,8 @@
 import React from 'react';
+
 import api from '../../services/api';
+
+import { useAlert } from '../../context/Alert';
 
 import { Container, CloseButton, CloseIcon } from './styles';
 
@@ -9,9 +12,14 @@ export default function CampaignCard({
   goal,
   current,
   description,
+  fetchApi,
 }) {
+  const { setAlert } = useAlert();
+
   async function handleCloseCampaign() {
     await api.delete(`/donation-campaigns/${id}`);
+    setAlert({ type: 'success', message: 'Campanha removida com sucesso' });
+    fetchApi();
   }
 
   return (

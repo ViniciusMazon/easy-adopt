@@ -38,8 +38,9 @@ export default function User() {
     });
   }, []);
 
-  async function handleSubmit() {
+  async function handleSubmit(e) {
     try {
+      e.preventDefault();
       const schema = Yup.object().shape({
         name: Yup.string().required('O nome é obrigatório'),
         birth_date: Yup.string().required('A data é obrigatória'),

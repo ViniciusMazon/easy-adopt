@@ -12,11 +12,15 @@ export default function DonationCampaigns() {
   const [isLoading, setIsLoading] = useState(true);
   const [campaigns, setCampaigns] = useState([]);
 
-  useEffect(() => {
-    api.get('/donation-campaigns').then((response) => {
-      setCampaigns(response.data);
-    });
+  async function fetchApiToGetDonationCampaigns() {
+    setIsLoading(true);
+    const response = await api.get('/donation-campaigns');
+    setCampaigns(response.data);
     setIsLoading(false);
+  }
+
+  useEffect(() => {
+    fetchApiToGetDonationCampaigns();
   }, []);
 
   return (
@@ -40,6 +44,7 @@ export default function DonationCampaigns() {
                 goal={campaign.goal}
                 current={campaign.current}
                 description={campaign.description}
+                fetchApi={fetchApiToGetDonationCampaigns}
               />
             );
           })}

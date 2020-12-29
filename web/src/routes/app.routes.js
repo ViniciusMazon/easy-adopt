@@ -14,13 +14,11 @@ import CreateDonationCampaign from '../pages/CreateDonationCampaign';
 import Schedule from '../pages/Schedule';
 import Help from '../pages/Help';
 import User from '../pages/User';
-import DonationSuccess from '../pages/DonationSuccess';
 
 export default function AppRoutes() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/donation-success/:id" component={DonationSuccess} />
         <div style={{ display: 'flex' }}>
           <MenuBar />
           <Route exact path="/" component={Animals} />

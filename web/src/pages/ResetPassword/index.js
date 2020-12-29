@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { MoonLoader } from 'react-spinners';
 
 import api from '../../services/api';
 
@@ -21,6 +22,7 @@ export default function ResetPassword() {
   const history = useHistory();
   const { setAlert } = useAlert();
 
+  const [isSpinning, setIsSpinning] = useState(false);
   const [email, setEmail] = useState('');
 
   function handlerGoBack() {
@@ -37,13 +39,16 @@ export default function ResetPassword() {
     }
 
     try {
+      setIsSpinning(true);
       await await api.get(`/password-reset/collaborator/${email}`);
       setAlert({
         type: 'success',
         message: 'Te enviamos um e-mail para redefinir sua senha',
       });
+      setIsSpinning(false);
       history.push('/');
     } catch (err) {
+      setIsSpinning(false);
       setAlert({
         type: 'error',
         message:
@@ -62,7 +67,19 @@ export default function ResetPassword() {
         </BackButton>
         <Form>
           <InputText label={'E-mail'} value={email} setValue={setEmail} />
-          <Button onClick={handleSubmit}>Enviar</Button>
+
+          <Button disabled={isSpinning} onClick={handleSubmit}>
+            {isSpinning === false ? (
+              'Enviar'
+            ) : (
+              <MoonLoader
+                size={25}
+                color={'#FFF'}
+                css={'z-index: 9999'}
+                loading={isSpinning}
+              />
+            )}
+          </Button>
         </Form>
       </RSide>
 

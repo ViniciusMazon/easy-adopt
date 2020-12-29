@@ -38,21 +38,18 @@ export default function AdoptionRequestAnalysis() {
 
   useEffect(() => {
     setIsCompacted(true);
-  }, [setIsCompacted]);
-
-  useEffect(() => {
-    setIsLoading(false);
     api.get(`/adoption-request/${params.id}`).then((response) => {
       setRequest(response.data.request);
       setAnimal(response.data.animal);
       setTutor(response.data.tutor);
     });
-  }, [params.id]);
+    setIsLoading(false);
+  }, [params.id, setIsCompacted]);
 
   async function handleEvaluate(status) {
     setIsSpinning(true);
 
-    const storageUser = JSON.parse(localStorage.getItem('@easyAdopt:user'));
+    const storageUser = JSON.parse(sessionStorage.getItem('@easyAdopt:user'));
 
     const evaluate = {
       collaborator_id: storageUser.id,
