@@ -7,7 +7,7 @@ import {
   Alert,
   TouchableOpacity,
   TextInput,
-  KeyboardAvoidingView,
+  ActivityIndicator,
 } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
@@ -28,6 +28,7 @@ export default function Credentials() {
   const { name, gender, birthDate, cpf, phone } = route.params.userTutor;
   const userAddress = route.params.userAddress;
 
+  const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -38,6 +39,7 @@ export default function Credentials() {
 
   async function handleSubmit() {
     try {
+      setIsLoading(true);
       const schema = Yup.object().shape({
         email: Yup.string().required().min(3).max(25),
         password: Yup.string().required().min(8).max(25),
@@ -78,7 +80,9 @@ export default function Credentials() {
           redirect: 'SignIn',
         },
       });
+      setIsLoading(false);
     } catch (err) {
+      setIsLoading(false);
       Alert.alert(
         'Dados inválidos',
         'Verifique se preencheu todos os dados corretamente',
@@ -98,50 +102,52 @@ export default function Credentials() {
     <View style={styles.container}>
       <TopBar />
       <ScrollView>
-        <KeyboardAvoidingView style={{ flex: 1 }} behavior="position">
-          <PaginationIndicator pages={4} active={4} />
+        <PaginationIndicator pages={4} active={4} />
 
-          <Section
-            title={'Escolha uma senha forte'}
-            subtitle={''}
-            newStyles={{ marginBottom: 40 }}
-          />
+        <Section
+          title={'Escolha uma senha forte'}
+          subtitle={''}
+          newStyles={{ marginBottom: 40 }}
+        />
 
-          <InputText
-            label={'E-mail'}
-            setValue={setEmail}
-            selectedValue={email}
-            placeholder={'email@mail.com'}
+        <InputText
+          label={'E-mail'}
+          setValue={setEmail}
+          selectedValue={email}
+          placeholder={'email@mail.com'}
+          maxLength={25}
+        />
+
+        <View style={styles.inputGroup}>
+          <Text style={styles.label}>Senha</Text>
+          <TextInput
+            secureTextEntry={!isPasswordVisible}
+            style={styles.input}
+            placeholder="Senha"
+            placeholderTextColor="#C1BCCC"
+            value={password}
+            onChangeText={(text) => setPassword(text)}
             maxLength={25}
           />
-
-          <View style={styles.inputGroup}>
-            <Text style={styles.label}>Senha</Text>
-            <TextInput
-              secureTextEntry={!isPasswordVisible}
-              style={styles.input}
-              placeholder="Senha"
-              placeholderTextColor="#C1BCCC"
-              value={password}
-              onChangeText={(text) => setPassword(text)}
-              maxLength={25}
+          <RectButton
+            style={styles.passwordIcon}
+            onPress={handleChangePasswordVisibility}
+          >
+            <Ionicons
+              name={isPasswordVisible ? 'ios-eye-off' : 'ios-eye'}
+              size={25}
+              color={'#9C98A6'}
             />
-            <RectButton
-              style={styles.passwordIcon}
-              onPress={handleChangePasswordVisibility}
-            >
-              <Ionicons
-                name={isPasswordVisible ? 'ios-eye-off' : 'ios-eye'}
-                size={25}
-                color={'#9C98A6'}
-              />
-            </RectButton>
-          </View>
+          </RectButton>
+        </View>
 
-          <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+        <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+          {isLoading ? (
+            <ActivityIndicator size="large" color="#FFF" />
+          ) : (
             <Text style={styles.buttonText}>Concluir</Text>
-          </TouchableOpacity>
-        </KeyboardAvoidingView>
+          )}
+        </TouchableOpacity>
       </ScrollView>
     </View>
   );
@@ -189,7 +195,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
     borderRadius: 8,
-    marginTop: 20,
+    marginTop: 40,
+    marginBottom: 60,
   },
   buttonText: {
     color: '#FFF',

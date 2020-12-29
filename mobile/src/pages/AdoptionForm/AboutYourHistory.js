@@ -26,6 +26,7 @@ export default function AboutYourHistory() {
   const route = useRoute();
   const aboutResidence = route.params.aboutResidence;
   const animal = route.params.animal;
+
   const [isLoading, setIsLoading] = useState(false);
   const [adopted_before, setAdoptedBefore] = useState('');
   const [other_animals, setOtherAnimals] = useState('');

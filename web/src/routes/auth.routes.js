@@ -8,6 +8,7 @@ import Address from '../pages/SingUp/Address';
 import Credentials from '../pages/SingUp/Credentials';
 import ResetPassword from '../pages/ResetPassword';
 import RedefinePassword from '../pages/RedefinePassword';
+import DonationSuccess from '../pages/DonationSuccess';
 
 export default function AppRoutes() {
   return (
@@ -23,6 +24,7 @@ export default function AppRoutes() {
           path="/redefine-password/:role/:email/:token"
           component={RedefinePassword}
         />
+         <Route path="/donation-success/:id" component={DonationSuccess} />
       </Switch>
     </BrowserRouter>
   );

@@ -6,7 +6,6 @@ import {
   Text,
   Alert,
   TouchableOpacity,
-  KeyboardAvoidingView,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import * as Yup from 'yup';
@@ -59,41 +58,39 @@ export default function YourName() {
     <View style={styles.container}>
       <TopBar />
       <ScrollView>
-        <KeyboardAvoidingView style={{ flex: 1 }} behavior="position">
-          <PaginationIndicator pages={4} active={1} />
+        <PaginationIndicator pages={4} active={1} />
 
-          <Text style={styles.title}>Criar conta gratuita</Text>
+        <Text style={styles.title}>Criar conta gratuita</Text>
 
-          <Section
-            title={'Sobre você'}
-            subtitle={'Nos conte um pouco sobre você'}
-            newStyles={{ marginBottom: 40 }}
-          />
+        <Section
+          title={'Sobre você'}
+          subtitle={'Nos conte um pouco sobre você'}
+          newStyles={{ marginBottom: 40 }}
+        />
 
-          <InputText
-            label={'Nome completo'}
-            setValue={setName}
-            selectedValue={name}
-            maxLength={50}
-          />
+        <InputText
+          label={'Nome completo'}
+          setValue={setName}
+          selectedValue={name}
+          maxLength={50}
+        />
 
-          <SelectInput
-            label={'Gênero'}
-            selectedValue={gender}
-            setValue={setGender}
-            itemsList={[
-              { label: 'Masculino', value: 'masculino' },
-              { label: 'Feminino', value: 'feminino' },
-            ]}
-          />
+        <SelectInput
+          label={'Gênero'}
+          selectedValue={gender}
+          setValue={setGender}
+          itemsList={[
+            { label: 'Masculino', value: 'masculino' },
+            { label: 'Feminino', value: 'feminino' },
+          ]}
+        />
 
-          <TouchableOpacity
-            style={styles.button}
-            onPress={navigateToMoreAboutYou}
-          >
-            <Text style={styles.buttonText}>Próximo</Text>
-          </TouchableOpacity>
-        </KeyboardAvoidingView>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={navigateToMoreAboutYou}
+        >
+          <Text style={styles.buttonText}>Próximo</Text>
+        </TouchableOpacity>
       </ScrollView>
     </View>
   );
@@ -123,6 +120,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
     marginTop: 20,
+    marginBottom: 40,
   },
   buttonText: {
     color: '#FA5293',

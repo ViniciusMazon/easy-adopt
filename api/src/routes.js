@@ -35,6 +35,8 @@ routes.get('/access-code/:access_code', accessCode.show);
 routes.get('/password-reset/:role/:email', ResetPassword.show);
 routes.post('/password-reset', ResetPassword.store);
 
+routes.put('/donation/:id', donations.update);
+
 // Private routes
 routes.use(authMiddleware);
 
@@ -67,7 +69,6 @@ routes.get('/donation-campaigns', donationCampaigns.index);
 routes.delete('/donation-campaigns/:id', donationCampaigns.delete);
 
 routes.post('/donation', donations.create);
-routes.put('/donation/:id', donations.update);
 
 routes.post('/schedule', schedule.create);
 routes.get('/schedule', schedule.index);

@@ -20,8 +20,9 @@ export default function Credentials({ location }) {
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
 
-  async function handleSubmit() {
+  async function handleSubmit(e) {
     try {
+      e.preventDefault();
       const schema = Yup.object().shape({
         email: Yup.string().required().min(3).max(25),
         emailConfirmation: Yup.string().required().min(3).max(25),
@@ -64,6 +65,7 @@ export default function Credentials({ location }) {
       history.push(`/`);
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
+        console.log(err);
         setAlert({
           type: 'warning',
           message: 'Verifique os dados digitados e tente novamente',

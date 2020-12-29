@@ -21,8 +21,9 @@ export default function Address({ location }) {
   const [state, setState] = useState('');
   const [cep, setCep] = useState('');
 
-  async function handleNext() {
+  async function handleNext(e) {
     try {
+      e.preventDefault();
       const schema = Yup.object().shape({
         street: Yup.string().required().min(3).max(25),
         number: Yup.string().required().min(1).max(5),

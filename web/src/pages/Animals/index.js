@@ -22,17 +22,11 @@ function Animals() {
   const [searchFor, setSearchFor] = useState('');
 
   useEffect(() => {
-    api.get('/animals').then((reponse) => {
-      setAnimals(reponse.data);
+    api.get('/animals').then((response) => {
+      setAnimals(response.data);
       setIsLoading(false);
     });
   }, []);
-
-  useEffect(() => {
-    api.get('/collaborators/abc123').then((response) => {
-      sessionStorage.setItem('@easy-adopt/user', JSON.stringify(response.data));
-    });
-  });
 
   function handleSearchAnimalByName(e) {
     e.preventDefault();

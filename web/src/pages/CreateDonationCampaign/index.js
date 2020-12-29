@@ -35,12 +35,12 @@ export default function CreateDonationCampaign() {
         description: Yup.string().required('A descrição é obrigatória'),
       });
       const { id: userID } = JSON.parse(
-        sessionStorage.getItem('@easy-adopt/user')
+        sessionStorage.getItem('@easyAdopt:user')
       );
       const campaignData = {
         title: title,
         description: description,
-        goal: goal,
+        goal: goal.toString().replace(',', '.'),
         collaborator_id: userID,
       };
       await schema.validate(campaignData, {
@@ -52,6 +52,7 @@ export default function CreateDonationCampaign() {
       history.goBack();
       setIsCompacted(false);
     } catch (err) {
+      console.log(err);
       if (err instanceof Yup.ValidationError) {
         setAlert({
           type: 'error',

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
@@ -11,28 +11,6 @@ import AnimalCardFeed from '../components/AnimalCardFeed';
 export default function Animals() {
   const [adoptionRequests, setAdoptionRequests] = useState([]);
   const [animals, setAnimals] = useState([]);
-
-  // async function getTutorId() {
-  //   const data = await AsyncStorage.getItem('@EasyAdopt:user');
-  //   const tutor = JSON.parse(data);
-  //   return tutor.id;
-  // }
-
-  // async function getAdoptionRequests() {
-  //   const tutorID = await getTutorId();
-  //   const response = await api.get(`/adoption-request?tutor_id=${tutorID}`);
-  //   setAdoptionRequests(response.data);
-  // }
-
-  // async function getAnimals() {
-  //   const response = await api.get('/animals?status=disponível');
-  //   setAnimals(response.data);
-  // }
-
-  // useEffect(() => {
-  //   getAdoptionRequests();
-  //   getAnimals();
-  // }, []);
 
   useFocusEffect(
     useCallback(() => {
