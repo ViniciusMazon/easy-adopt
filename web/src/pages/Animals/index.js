@@ -22,10 +22,13 @@ function Animals() {
   const [searchFor, setSearchFor] = useState('');
 
   useEffect(() => {
-    api.get('/animals').then((response) => {
+    const fetchApiGetAnimals = async () => {
+      const response = await api.get('/animals');
       setAnimals(response.data);
       setIsLoading(false);
-    });
+    };
+
+    fetchApiGetAnimals();
   }, []);
 
   function handleSearchAnimalByName(e) {

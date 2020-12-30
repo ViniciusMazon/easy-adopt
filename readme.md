@@ -1,6 +1,7 @@
 <h1 align="center">
-    <img alt="easyAdopt" title="easyAdopt" src="docs\logo.svg" />
+    <img alt="easyAdopt" title="easyAdopt" src="docs\logo.svg" / width="20%">
 </h1>
+
 
 <p align="center">
   <a href="#-sobre-o-projeto">Sobre o projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
@@ -9,30 +10,62 @@
   <a href="#-como-contribuir">Como contribuir</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-licença">Licença</a>
 </p>
+<div align="center">
+    <a href="https://github.com/ViniciusMazon/easy-adopt/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/ViniciusMazon/easy-adopt"></a>
+    <a href="https://github.com/ViniciusMazon/easy-adopt/blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/ViniciusMazon/easy-adopt"></a>
+</div>
 
 
 <p align="center">
-  <img alt="easyAdopt" src="docs/mobile.png" width="65%">
+  <img alt="easyAdopt" src="docs/mobile.png" width="50%">
 </p>
 
 # 💡 Sobre o projeto
+Criado como Trabalho de Conclusão do Curso de Engenharia de Software, UNICESUMAR.
 
-**--- Em desenvolvimento ---**
+O easyAdopt é um sistema destinado a ONGs de animais. Atua auxiliando o gerenciamento e a divulgação dos animais, bem como, dos pedidos de adoção e campanhas de doações.
 
-Criado como Trabalho de Conclusão do Curso de Engenharia de Software.
-
-O Easy Adopt é um sistema de adoção e gerenciamento de animais para ONGs. Atuando em duas frentes, uma por meio do aplicativo destinado aos usuários que desejam adotar um animal, possibilitando a divulgação dos animais disponíveis e que pedidos de adoção, agendamentos de visitas e doações sejam otimizados. A outra frente é por meio da SPA destinada a ONG que passará a administrar seus animais por meio de registros online, que eliminará a necessidade de manter registros físicos e permitirá que a geração de relatórios para decisão estratégica como compra de rações e de insumos para o tratamento dos animais seja feito mais facilmente. 
+O sistema é composto por uma SPA destinada às ONGs e por um App mobile destinado aos usuários que tenham o ensejo de adotar um animal.
 
 
+
+<div style="width: 100%; display: flex; justify-content: center">
+  <div
+    style="max-width: 200px; border: 1px solid #666; margin-right: 30px"
+    align="center"
+  >
+    <img
+      src="https://media-exp1.licdn.com/dms/image/C5603AQHbnTqwbfIHYQ/profile-displayphoto-shrink_200_200/0/1571133392691?e=1614816000&v=beta&t=xztXFy_IJoc_2CwKgM0ozeLKW3zmce_3HH8oHcuhEps"
+      width="100%;"
+    />
+    <span style="height: 25%; display: flex; align-items: center; justify-content: center; padding: 2px 6px;">
+      <p>Aluno: Vinicius P. Mazon</p>
+    </span>
+    <span style="width: 100%; display: flex; flex-direction: column">
+    	<a href="https://www.linkedin.com/in/vmazon/">LinkedIn</a>
+	</span>
+ </div>
+   <div style="width: 200px; border: 1px solid #666" align="center">
+    <img
+      src="https://media-exp1.licdn.com/dms/image/C5603AQFmVot0gy0kdA/profile-displayphoto-shrink_200_200/0/1516803325641?e=1614816000&v=beta&t=wsn0G3V0kBuT8I6eKqRCe7o0J7HvDqBmYoc4ZFK0eEs"
+      width="100%;"
+    />
+    <span style="height: 25%; display: flex; align-items: center; justify-content: center; padding: 2px 6px;">
+      <p>Orientador: Prof. Me. Erinaldo Sanches Nascimento</p>
+    </span>
+    <span style="width: 100%; display: flex; flex-direction: column">
+      <a href="https://www.linkedin.com/in/erinaldo-sanches-nascimento-925a4938/">LinkedIn</a>
+    </span>
+  </div>
+</div>
 
 # 🔬 Tecnologias
 
-* NodeJs
-* ReactJs
-* React Native
-* Expo
-
-
+* [NodeJs](https://nodejs.org/en/)
+* [ReactJs](https://reactjs.org)
+* [React Native](https://reactnative.dev)
+* [Expo](https://expo.io)
+* [Docker](https://www.docker.com)
 
 # ⚙️ Como utilizar
 
@@ -42,19 +75,70 @@ Clone o repositório:
 git clone https://github.com/ViniciusMazon/easy-adopt.git
 ```
 
+Instale as dependência rodando, individualmente em cada diretório (api, web e mobile), o comando:
 
+```
+yarn
+```
+
+Dentro do diretório ./api, suba o container rodando:
+
+```bash
+docker-compose up -d
+```
+
+Crie as migrations rodando, dentro do diretório ./api, o script:
+
+```bash
+yarn knex:migrate
+```
+
+Para criar as seeds, utilize o script:
+
+```
+yarn knex:seed
+```
+
+No diretório ./mobile/services, edite o arquivo api.js e adicione o IP da sua máquina seguindo o exemplo abaixo:
+
+```javascript
+const api = axios.create({
+  baseURL: 'http://SEUIP:3333',
+});
+```
+
+Rode o projeto utilizando os scripts: 
+
+./api
+
+```
+yarn dev
+```
+
+./web e ./mobile
+
+```
+yarn start
+```
+
+Para desenvolver utilizando seu celular, instale o aplicativo do Expo em [Expo Google Play](https://play.google.com/store/apps/details?id=host.exp.exponent&hl=pt_BR) e digitalize o QR Code exibido.
+
+Rode os testes na API utilizando o script:
+
+```
+yarn test
+```
 
 # 🖖🏻 Como contribuir
 
 - Faça um fork desse repositório;
 - Clone esse repositório em sua máquina: `https://github.com/ViniciusMazon/easy-adopt.git`
 - Cria uma branch com a sua feature: `git checkout -b minha-feature`;
-- Faça commit das suas alterações: `git commit -m 'feat: Minha nova feature'`;
+- Faça o commit dos testes: `git commit -m 'test(api): Nome do teste'`;
+- Faça commit das suas alterações: `git commit -m 'feat(web, mobile ou api): Minha nova feature'`;
 - Faça push para a sua branch: `git push origin minha-feature`.
 
 Depois que o merge da sua pull request for feito, você pode deletar a sua branch.
-
-
 
 # 📃 Licença
 

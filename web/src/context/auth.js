@@ -27,17 +27,20 @@ export function AuthProvider({ children }) {
 
   async function signIn(email, password) {
     try {
-      const response = await api.post('/sing-in?role=collaborator', { email, password });
+      const response = await api.post('/sing-in?role=collaborator', {
+        email,
+        password,
+      });
+      api.defaults.headers['Authorization'] = `${response.data.token}`;
 
       setUser(response.data.user);
 
-      api.defaults.headers['Authorization'] = `${response.data.token}`;
+      sessionStorage.setItem('@easyAdopt:token', response.data.token);
 
       sessionStorage.setItem(
         '@easyAdopt:user',
         JSON.stringify(response.data.user)
       );
-      sessionStorage.setItem('@easyAdopt:token', response.data.token);
     } catch (err) {
       if (err.message === 'Request failed with status code 400') {
         setAlert({ type: 'warning', message: 'Usuário não encontrado' });
