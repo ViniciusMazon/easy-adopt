@@ -2,7 +2,6 @@
     <img alt="easyAdopt" title="easyAdopt" src="docs\logo.svg" / width="20%">
 </h1>
 
-
 <p align="center">
   <a href="#-sobre-o-projeto">Sobre o projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
@@ -26,6 +25,13 @@ Criado como Trabalho de Conclusão do Curso de Engenharia de Software, UNICESUMA
 O easyAdopt é um sistema destinado a ONGs de animais. Atua auxiliando o gerenciamento e a divulgação dos animais, bem como, dos pedidos de adoção e campanhas de doações.
 
 O sistema é composto por uma SPA destinada às ONGs e por um App mobile destinado aos usuários que tenham o ensejo de adotar um animal.
+
+
+## ▶️ Vídeo demo das principais features
+* [Cadastro de animal e procedimento - 47 segundos](https://www.youtube.com/watch?v=bYEaO50kRjQ&feature=youtu.be)
+* [Adoção - 2 minutos](https://www.youtube.com/watch?v=IwmIfQc0QXI&feature=youtu.be)
+* [Criação de campanha e doação - 1 minuto](https://www.youtube.com/watch?v=CMdIdes7jBU&feature=youtu.be)
+
 
 <table  align="center">
   <tr style="display: flex; align-items: center; justify-content: center; flex-direction: row;">
