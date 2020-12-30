@@ -20,8 +20,6 @@
   <img alt="easyAdopt" src="docs/mobile.png" width="50%">
 </p>
 
-
-
 # 💡 Sobre o projeto
 Criado como Trabalho de Conclusão do Curso de Engenharia de Software, UNICESUMAR.
 
@@ -56,13 +54,10 @@ O sistema é composto por uma SPA destinada às ONGs e por um App mobile destina
       <p>Orientador: Prof. Me. Erinaldo Sanches Nascimento</p>
     </span>
     <span style="width: 100%; display: flex; flex-direction: column">
-  <a
-    href="https://www.linkedin.com/in/erinaldo-sanches-nascimento-925a4938/"
-    >LinkedIn</a>
-</span>
+      <a href="https://www.linkedin.com/in/erinaldo-sanches-nascimento-925a4938/">LinkedIn</a>
+    </span>
+  </div>
 </div>
-</div>
-
 
 # 🔬 Tecnologias
 
@@ -71,8 +66,6 @@ O sistema é composto por uma SPA destinada às ONGs e por um App mobile destina
 * [React Native](https://reactnative.dev)
 * [Expo](https://expo.io)
 * [Docker](https://www.docker.com)
-
-
 
 # ⚙️ Como utilizar
 
@@ -136,8 +129,6 @@ Rode os testes na API utilizando o script:
 yarn test
 ```
 
-
-
 # 🖖🏻 Como contribuir
 
 - Faça um fork desse repositório;
@@ -149,15 +140,12 @@ yarn test
 
 Depois que o merge da sua pull request for feito, você pode deletar a sua branch.
 
-
-
 # 📃 Licença
 
 Esse projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
 
-
-
-
 ---
 
 Feito com 🖤 por Vinicius Mazon.
+
+
