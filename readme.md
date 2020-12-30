@@ -31,7 +31,7 @@ O sistema é composto por uma SPA destinada às ONGs e por um App mobile destina
 
 <div style="width: 100%; display: flex; justify-content: center;">
   <div
-    style="max-width: 200px; border: 1px solid #666; margin-right: 30px"
+    style="max-width: 200px; border: 1px solid #666; margin-bottom: 30px"
     align="center"
   >
     <img
