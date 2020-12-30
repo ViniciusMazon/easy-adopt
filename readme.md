@@ -29,31 +29,31 @@ O sistema é composto por uma SPA destinada às ONGs e por um App mobile destina
 
 
 
-<div style="width: 100%; display: flex; justify-content: center">
+<div style="width: 100%; display: flex; justify-content: center;">
   <div
     style="max-width: 200px; border: 1px solid #666; margin-right: 30px"
     align="center"
   >
     <img
       src="https://media-exp1.licdn.com/dms/image/C5603AQHbnTqwbfIHYQ/profile-displayphoto-shrink_200_200/0/1571133392691?e=1614816000&v=beta&t=xztXFy_IJoc_2CwKgM0ozeLKW3zmce_3HH8oHcuhEps"
-      width="100%;"
+      width="200px;"
     />
     <span style="height: 25%; display: flex; align-items: center; justify-content: center; padding: 2px 6px;">
       <p>Aluno: Vinicius P. Mazon</p>
     </span>
-    <span style="width: 100%; display: flex; flex-direction: column">
+    <span style="width: 200px;">
     	<a href="https://www.linkedin.com/in/vmazon/">LinkedIn</a>
-	</span>
- </div>
+    </span>
+   </div>
    <div style="width: 200px; border: 1px solid #666" align="center">
     <img
       src="https://media-exp1.licdn.com/dms/image/C5603AQFmVot0gy0kdA/profile-displayphoto-shrink_200_200/0/1516803325641?e=1614816000&v=beta&t=wsn0G3V0kBuT8I6eKqRCe7o0J7HvDqBmYoc4ZFK0eEs"
-      width="100%;"
+      width="200px;"
     />
     <span style="height: 25%; display: flex; align-items: center; justify-content: center; padding: 2px 6px;">
       <p>Orientador: Prof. Me. Erinaldo Sanches Nascimento</p>
     </span>
-    <span style="width: 100%; display: flex; flex-direction: column">
+    <span style="width: 200px;">
       <a href="https://www.linkedin.com/in/erinaldo-sanches-nascimento-925a4938/">LinkedIn</a>
     </span>
   </div>
