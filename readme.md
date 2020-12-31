@@ -14,10 +14,13 @@
     <a href="https://github.com/ViniciusMazon/easy-adopt/blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/ViniciusMazon/easy-adopt"></a>
 </div>
 
-
+</br>
+</br>
 <p align="center">
   <img alt="easyAdopt" src="docs/mobile.png" width="50%">
 </p>
+</br>
+</br>
 
 # 💡 Sobre o projeto
 Criado como Trabalho de Conclusão do Curso de Engenharia de Software, UNICESUMAR.
@@ -37,7 +40,7 @@ O sistema é composto por uma SPA destinada às ONGs e por um App mobile destina
   
 
   <p align="center">
-    <img alt="easyAdopt" src="docs/desktop.png" width="90%">
+    <img alt="easyAdopt" src="docs/desktop.png" width="70%">
   </p>
 
 
