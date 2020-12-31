@@ -29,8 +29,17 @@ O sistema é composto por uma SPA destinada às ONGs e por um App mobile destina
 
 ## ▶️ Vídeo demo das principais features
 * [Cadastro de animal e procedimento - 47 segundos](https://www.youtube.com/watch?v=bYEaO50kRjQ&feature=youtu.be)
+
 * [Adoção - 2 minutos](https://www.youtube.com/watch?v=IwmIfQc0QXI&feature=youtu.be)
+
 * [Criação de campanha e doação - 1 minuto](https://www.youtube.com/watch?v=CMdIdes7jBU&feature=youtu.be)
+
+  
+
+  <p align="center">
+    <img alt="easyAdopt" src="docs/desktop.png" width="90%">
+  </p>
+
 
 
 <table  align="center">
@@ -145,5 +154,6 @@ Esse projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes
 ---
 
 Feito com 🖤 por Vinicius Mazon.
+
 
 
