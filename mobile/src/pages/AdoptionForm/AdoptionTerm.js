@@ -39,13 +39,12 @@ export default function AdoptionTerm() {
 
       <ScrollView style={styles.termContainer}>
         <Text style={styles.termText}>
-          Ao adotar o animal acima descrito declaro-me apto para assumir a
-          guarda e a responsabilidade sobre o mesmo, eximindo o doador de toda e
-          qualquer responsabilidade por quaisquer atos praticados pelo e com o
-          animal a partir desta data, exceto quanto à castração se assim foi
-          pactuado. Declaro ainda, estar ciente de todos os cuidados que este
-          animal exige no que se refere à sua guarda e manutenção, além de
-          conhecer todos os riscos inerentes à espécie com o convívio com
+          Ao adotar este animal declaro-me apto para assumir a guarda e a
+          responsabilidade sobre o mesmo, eximindo o doador de toda e qualquer
+          responsabilidade por quaisquer atos praticados pelo e com o animal a
+          partir desta data. Declaro ainda, estar ciente de todos os cuidados
+          que este animal exige no que se refere à sua guarda e manutenção, além
+          de conhecer todos os riscos inerentes à espécie com o convívio com
           humanos, estando apto a guardá-lo e vigiá-lo, comprometendo-me a
           proporcionar-lhe boas condições de alojamento, alimentação, higiene,
           conforto térmico, assim como espaço físico que possibilite ao animal
@@ -64,9 +63,10 @@ export default function AdoptionTerm() {
           prejuízo das penalidades legais, administrativas, cíveis e criminais.
           Comprometo-me a cumprir toda a legislação vigente, municipal, estadual
           e federal, relativa à posse de animais. Declaro-me, assim, ciente das
-          normas acima, as quais aceito, assumindo plenamente os deveres que
-          dele constam, bem como outros relacionados à posse responsável e que
-          não estejam incluídos neste Termo.
+          normas acima, as quais aceito, concordando com o presente Termo de
+          Adoção Responsável, assumindo plenamente os deveres que dele constam,
+          bem como outros relacionados à posse responsável e que não estejam
+          incluídos neste Termo.
         </Text>
       </ScrollView>
 

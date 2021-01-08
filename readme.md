@@ -76,6 +76,11 @@ O sistema é composto por uma SPA destinada às ONGs e por um App mobile destina
 * [React Native](https://reactnative.dev)
 * [Expo](https://expo.io)
 * [Docker](https://www.docker.com)
+* [Postgres](https://www.postgresql.org)
+* [SQLite](https://www.sqlite.org/index.html)
+* [Knex](http://knexjs.org)
+* [Jest](https://jestjs.io)
+* [Mercado Pago](www.mercadopago.com.br/developers)
 
 # ⚙️ Como utilizar
 
