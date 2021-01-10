@@ -42,16 +42,15 @@ module.exports = {
         auto_return: 'all',
         external_reference: '1',
         back_urls: {
-          success: `http://192.168.1.64:3000/donation-success/${donation.id}`,
-          pending: 'http://192.168.1.64:3000',
-          failure: 'http://192.168.1.64:3000',
+          success: `${process.env.FONTEND_URL}/donation-success/${donation.id}`,
+          pending: `${process.env.FONTEND_URL}`,
+          failure: `${process.env.FONTEND_URL}`,
         },
       };
 
       mercadoPago.configure(mercadoPagoConfig);
       await validations.checkout(response, purchaseOrder);
       const preference = await mercadoPago.preferences.create(purchaseOrder);
-
       return response.status(200).json(preference.body.init_point);
     } catch (error) {
       console.log(error);
