@@ -16,8 +16,9 @@
 
 
 <p align="center">
-  <img alt="easyAdopt" src="docs/mobile.png" width="50%">
+  <img alt="easyAdopt" src="docs/pub.png" width="100%">
 </p>
+
 
 # 💡 Sobre o projeto
 Criado como Trabalho de Conclusão do Curso de Engenharia de Software, UNICESUMAR.
