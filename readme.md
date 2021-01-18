@@ -1,18 +1,18 @@
 <h1 align="center">
     <img alt="easyAdopt" title="easyAdopt" src="docs\logo.svg" / width="20%">
 </h1>
-
 <p align="center">
   <a href="#-sobre-o-projeto">Sobre o projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-como-utilizar">Como utilizar</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-como-utilizar">Desenvolvimento</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-como-contribuir">Como contribuir</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-licença">Licença</a>
 </p>
 <div align="center">
-    <a href="https://github.com/ViniciusMazon/easy-adopt/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/ViniciusMazon/easy-adopt"></a>
     <a href="https://github.com/ViniciusMazon/easy-adopt/blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/ViniciusMazon/easy-adopt"></a>
 </div>
+
+
 
 
 <p align="center">
@@ -37,10 +37,11 @@ O sistema é composto por uma SPA destinada às ONGs e por um App mobile destina
 
   
 
+  </br>
+  
   <p align="center">
     <img alt="easyAdopt" src="docs/desktop.png" width="90%">
   </p>
-
 
 <table  align="center">
   <tr style="display: flex; align-items: center; justify-content: center; flex-direction: row;">
@@ -48,6 +49,7 @@ O sistema é composto por uma SPA destinada às ONGs e por um App mobile destina
       <img src="https://media-exp1.licdn.com/dms/image/C5603AQHbnTqwbfIHYQ/profile-displayphoto-shrink_200_200/0/1571133392691?e=1614816000&v=beta&t=xztXFy_IJoc_2CwKgM0ozeLKW3zmce_3HH8oHcuhEps" width="100px;"/>
       <div style="display: flex; align-items: center; justify-content: center; flex-direction: column; margin: 0 10px;">
         <p>Aluno: Vinicius P. Mazon</p>
+        </br>
         <p>
             <a href="https://www.linkedin.com/in/vmazon/">LinkedIn</a>
         </p></div>
@@ -55,7 +57,7 @@ O sistema é composto por uma SPA destinada às ONGs e por um App mobile destina
     <td style="display: flex; align-items: center; justify-content: center; flex-direction: row;  margin-right: 30px;  border: 1px solid black;">
       <img  src="https://media-exp1.licdn.com/dms/image/C5603AQFmVot0gy0kdA/profile-displayphoto-shrink_200_200/0/1516803325641?e=1614816000&v=beta&t=wsn0G3V0kBuT8I6eKqRCe7o0J7HvDqBmYoc4ZFK0eEs" width="100px;"/>
       <div style="display: flex; align-items: center; justify-content: center; flex-direction: column; margin: 0 10px;">
-        <p>Orientador: Prof. Me. Erinaldo Sanches Nascimento</p>
+          <p>Orientador: Prof. Me. Erinaldo </br>Sanches Nascimento</p>
         <p>
             <a
             href="https://www.linkedin.com/in/erinaldo-sanches-nascimento-925a4938/"
@@ -64,6 +66,7 @@ O sistema é composto por uma SPA destinada às ONGs e por um App mobile destina
     </td>
   </tr>
 </table>
+
 
 
 # 🔬 Tecnologias
@@ -79,7 +82,7 @@ O sistema é composto por uma SPA destinada às ONGs e por um App mobile destina
 * [Jest](https://jestjs.io)
 * [Mercado Pago](www.mercadopago.com.br/developers)
 
-# ⚙️ Como utilizar
+# ⚙️ Desenvolvimento
 
 Clone o repositório:
 
@@ -140,6 +143,8 @@ Rode os testes na API utilizando o script:
 ```
 yarn test
 ```
+
+
 
 # 🖖🏻 Como contribuir
 
