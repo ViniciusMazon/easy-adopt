@@ -12,12 +12,14 @@
     <a href="https://github.com/ViniciusMazon/easy-adopt/blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/ViniciusMazon/easy-adopt"></a>
 </div>
 
-
-
+</br>
+</br>
 
 <p align="center">
   <img alt="easyAdopt" src="docs/pub.png" width="100%">
 </p>
+</br>
+</br>
 
 
 # 💡 Sobre o projeto
@@ -40,7 +42,7 @@ O sistema é composto por uma SPA destinada às ONGs e por um App mobile destina
   </br>
   
   <p align="center">
-    <img alt="easyAdopt" src="docs/desktop.png" width="90%">
+    <img alt="easyAdopt" src="docs/desktop.png" width="70%">
   </p>
 
 <table  align="center">
@@ -164,3 +166,6 @@ Esse projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes
 ---
 
 Feito com 🖤 por Vinicius Mazon.
+
+
+
