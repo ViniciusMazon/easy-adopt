@@ -5,12 +5,14 @@
   <a href="#-sobre-o-projeto">Sobre o projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-como-utilizar">Desenvolvimento</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+      <a href="#-personalização">Personalização</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-como-contribuir">Como contribuir</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-licença">Licença</a>
 </p>
 <div align="center">
     <a href="https://github.com/ViniciusMazon/easy-adopt/blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/ViniciusMazon/easy-adopt"></a>
 </div>
+
 
 
 
@@ -143,6 +145,27 @@ Rode os testes na API utilizando o script:
 ```
 yarn test
 ```
+
+
+
+# 🖌 Personalização
+
+**Web**
+
+* Para alterar a logo e o background, altere os aquivos logo.svg, simplifiedLogo.svg, background.png, pawBackground.svg, no diretório ./web/src/assets/
+
+**API**
+
+* Para alterar a splash screen e o app icon, altere os arquivos favicon.png, icon.png, splash.png, adaptive-icon.png, no diretório ./mobile/assets/
+* Para alterar o conteúdo dos e-mails:
+  * from: ./api/src/config/mails.js
+  * texto: ./api/src/views/emails
+  * footer: ./api/src/views/emails/partials
+
+**Mobile**
+
+* Para alterar o background da tela SingIn, altere o arquivo photoBackground.png, no diretório ./mobile/src/assets/images
+* Para alterar os horiários disponíveis para agendamento, altere as constantes morningTime e afternoonTime, no arquivo ./mobile/src/pages/Schedule.js
 
 
 
