@@ -1,13 +1,14 @@
+require('dotenv').config({ path: '.env' });
 const path = require('path');
 
 module.exports = {
-  development: {
+  production: {
     client: 'pg',
     connection: {
-      host: '127.0.0.1',
-      user: 'admin',
-      password: 'password',
-      database: 'easyAdopt',
+      host: process.env.POSTGRES_HOST,
+      user: process.env.POSTGRES_USER,
+      password: process.env.POSTGRES_PASSWORD,
+      database: process.env.POSTGRES_DATABASE,
     },
     migrations: {
       directory: path.resolve(__dirname, 'src', 'database', 'migrations'),
@@ -17,7 +18,22 @@ module.exports = {
     },
     useNullAsDefault: true,
   },
-
+  development: {
+    client: 'pg',
+    connection: {
+      host: process.env.POSTGRES_HOST,
+      user: process.env.POSTGRES_USER,
+      password: process.env.POSTGRES_PASSWORD,
+      database: process.env.POSTGRES_DATABASE,
+    },
+    migrations: {
+      directory: path.resolve(__dirname, 'src', 'database', 'migrations'),
+    },
+    seeds: {
+      directory: path.resolve(__dirname, 'src', 'database', 'seeds'),
+    },
+    useNullAsDefault: true,
+  },
   test: {
     client: 'sqlite3',
     connection: {
@@ -32,4 +48,3 @@ module.exports = {
     useNullAsDefault: true,
   },
 };
-
