@@ -1,6 +1,5 @@
-<h1 align="center">
-    <img alt="easyAdopt" title="easyAdopt" src="docs\logo.svg" / width="20%">
-</h1>
+<img alt="easyAdopt" title="easyAdopt" src="docs\logo.svg" align="center" width="20%">
+
 <p align="center">
   <a href="#-sobre-o-projeto">Sobre o projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
