@@ -3,7 +3,7 @@
 </h1>
 <p align="center">
   <a href="#-sobre-o-projeto">Sobre o projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-construído-utilizando">Construído utilizando</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-como-utilizar">Desenvolvimento</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
       <a href="#-personalização">Personalização</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-como-contribuir">Como contribuir</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
@@ -15,6 +15,7 @@
 
 </br>
 </br>
+
 
 
 <p align="center">
@@ -73,7 +74,7 @@ O sistema é composto por uma SPA destinada às ONGs e por um App mobile destina
 
 
 
-# 🔬 Tecnologias
+# 🔬 Construído utilizando
 
 * [NodeJs](https://nodejs.org/en/)
 * [ReactJs](https://reactjs.org)
